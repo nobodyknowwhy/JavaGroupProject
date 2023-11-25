@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./feedback.css">
+    <link rel="icon" type="image/jpeg" href="./rhinelab/rahinelab_logo.png" sizes="32x32">
+    <title>Feedback</title>
+</head>
+
+<body>
+    <h1>Feedback</h1>
+    <form action="./feedback.php" method="post">
+        <label for="user">User:</label><label for="pName" class="pName" name="pName" id="pName"></label>
+        <label for="feedback">Do you have any suggestions for improving the website?</label>
+        <textarea id="feedback" name="feedback" placeholder="We welcome all your conversations" required></textarea>
+        <input type="submit" value="Submit">
+
+    </form>
+</body>
+<script>
+    var personalName = document.getElementById('pName');
+    personalName.innerHTML = localStorage.getItem('Name');
+</script>
+
+</html>

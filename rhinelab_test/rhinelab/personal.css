@@ -1,0 +1,101 @@
+body{
+  font-family: 'Times New Roman', Times, serif;
+  background-image: url(./rhinelab/rahine_background/pl4.png);
+  background-size: cover;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  background-color: #e2ead4;
+  color: #585353;
+  border-radius: 10px 10px 0 0;
+  padding: 20px;
+}
+
+
+
+.username {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.personalName{
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom:10px;
+}
+
+.permission {
+  font-size: 16px;
+}
+
+.content {
+  padding: 20px;
+}
+
+.info {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.label {
+  flex-basis: 150px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.value {
+  flex-grow: 1;
+}
+
+input[type="text"], textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+select {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #f2f2f2;
+  border-radius: 0 0 10px 10px;
+  padding: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  margin-right: 10px;
+  background-color: #e0e5ea;
+  color: #5f5a5a;
+  border: none;
+}
+
+button:hover {
+  background-color: #b4bcc5;
+}

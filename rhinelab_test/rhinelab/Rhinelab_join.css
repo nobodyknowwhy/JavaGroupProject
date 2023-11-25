@@ -1,0 +1,73 @@
+body {
+    background-color: grey;
+    background-image: url(./rhinelab/rahine_background/pl5.png);
+    background-size: cover;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 160vh;
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+    padding: 10px;
+    
+  }
+  
+  .form-container {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #e2ead4;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
+    padding: 35px;
+    width: 400px;
+  }
+  
+  .form-container button {
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0 25px;
+    width:70px;
+    height:30px;
+    cursor: pointer;
+  }
+  
+  .form-group {
+    margin-bottom: 25px;
+  }
+  
+  .form-control {
+    font-family: 'Times New Roman', Times, serif;
+    display: block;
+    width: 100%;
+    padding: .125rem .0rem;
+    font-size: px;
+    line-height: 1.2;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  }
+  
+  .form-control:focus {
+  
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25);
+  }
+  
+  .temp_p{
+    margin: 0 0;
+  }
+
+  .gender{
+    font-size: 8px;
+    margin: 0 0;
+  }
+
+  .id-card-s{
+    font-size: 8px;
+    margin: 0 0;
+  }

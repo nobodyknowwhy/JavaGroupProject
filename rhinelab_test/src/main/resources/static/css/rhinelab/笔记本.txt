@@ -1,0 +1,193 @@
+day1
+在js中，可以使用var来生命变量，比如var a=20;a="张三";，等等
+其中var变量是全局变量，且可以重复定义，如var a=0;var a='x';等等
+let声明的变量是局内变量，只能在块中使用，且不能重复定义，const声明的变量不能篡改，为常量
+
+
+day2
+使用alert(typeof a)可以获取运算符的数据类型
+比较运算符：==（比较的时候会进行类型转换，转换后再比较是否相等，如10==‘10’会判断为true），===（比较的时候不会进行类型转换）
+可以使用parseInt对类型转化成number类型，如果不是数字则转化成NaN，parseInt会从左到右开始转化，如果发现有一个字符（非第一个，是第一个则直接转化成NaN）不是数字，则后面的字符都不会进行转化。比如12A45的字符串转化成12
+javascript函数定义：
+    function functionName(参数1，参数2){
+        执行的代码
+    }
+    var functionName = function(参数1，参数2){
+        执行的代码
+    }
+javascript数组定义：
+    var 变量名 = new Array(元素列表);
+    var 变量名 = [元素列表];
+访问不变与java相同
+javascript定义的数组长度和类型可变
+比如数组并没有十个元素，通过定义arr[10]=变量，可以拉长数组，其他未被赋值的元素会成为undefined。
+类型可变说明一个列表可以存储多个类型的数据
+Array当中的属性和方法：length获取数组元素的数量，forEach()会遍历数组当中所有有值的函数。
+    arr.forEach(function(e){
+        console.log(e);
+    })
+for循环遍历其中的所有元素，而forEach则是遍历有值的元素
+ES6内的箭头函数可以优化这一点
+    arr.forEach((e)=>{
+        console.log(e);
+    })
+push为添加元素的方法
+    arr.push(7,8,9);
+splice为删除元素
+    arr.splice(start_index, delete_count);
+
+
+day3
+String属性内含有length属性
+charAt()返回指定位置的字符，indexof()检索字符串的位置，trim()去除字符串两边的空格，substring(start_index,end_index)提取字符串两个指定引索符之间的字符串注意是含头不含尾
+javascript对象定义：
+    var 对象名={
+        属性名：属性值1，
+        属性名：属性值2，
+        属性名：属性值3，
+        函数名称：function（形参列表）{}
+    }；
+    如：
+    var user = {
+        name:"Tom",
+        age:20,
+        gender:"male"
+        eat:function(){
+            alert("okk");
+        }
+        或者：
+        eat(){
+            alert("okk");
+        }
+    };
+json-基础语法
+var 变量名 = '{"key1":value1, "key2":value2}';
+var userStr = '{"name":"Jerry", "age":18, "addr":["北京","天津","上海"]}'
+因为json对象本质是一个字符串，因此网页需要解析拿到里面的数据，就需要转化成js格式
+可以调用：var jsobject = JSON.parse(userStr) 
+调用：var jsonStr = JSON.stringify(jsobject)可以将JSON格式转化成JS格式
+
+
+day4
+window的属性与方法：
+属性：history, location, navigator
+方法：alert(), confirm()[显示一个带有确认按钮和取消按钮的对话框], setInterval()[按照一定周期执行一个函数], setTimeout()
+confirm方法具有返回值，当为“确定”时，返回true，否则为false
+setInterval()里面需要传入函数和周期（ms），比如:
+    var count=0;
+    setInterval(function(){
+        count++;
+        console.log("定时器执行了"+ count +"次");
+    }, 2000)
+上诉就是每两秒执行一次console.log()
+setTimeout()里面也需要传入函数和时间（ms），但是只会执行一次，此语句的意思为：延迟一定时间执行此函数
+location可以获取地址栏的地址，通过window.location.属性;或者location.属性可以获得，比如获取URL属性，可以通过location.href获得
+    location.href= "https://www.bilibili.com"，左边的语句执行时，浏览器会自动跳转至此网页
+DOM对象：
+包含：Document, Element, Attribute, Text, Comment
+DOM操作获取指定对象（通过document获取）：
+    var h1 = document.getElementByID('h1');
+    var div = document.getElementByTagName('div');
+    var hobby = document.getElementByName('hobby');
+    var class = document.getElementByClassName('cls');
+
+
+day5
+事件的绑定方式：
+方式一：定义函数,通过html绑定
+    <input type="button" value="value" onclick="function()">
+    <script>
+    function(){
+        xxx
+    }
+    </script>
+方式二：通过DOM元素绑定
+    <input type="button" id="btn" value="value">
+    <script>
+    document.getElementById('btn').onclick=function(){
+        xxx
+    }
+    </script>
+JS的常见事件
+1.onclick 2.onblur（失去焦点） 3.onfocus(获得焦点) 4.onload(页面或图像被加载完成) 5.onsubmit(提交) 6.onkeydown(某个键盘的键被按下) 7.onmouseover(鼠标移动到某元素上) 8.onmouseout(鼠标从某元素上移开)
+vue技术：
+{{表达式}}，里面的表达式可以是1.变量，2.三元运算符，3.函数调用，4.算术运算
+new Vue({
+    el:"#app"
+    data:{
+        url:...
+        age:...
+        addrs:[..., ..., ...]
+    },
+    methods:{
+        function_name:function{
+
+        }
+    }
+})
+
+
+day6
+v-bind:<a v-bind:href="url"></a> or <a :href="url"></a>
+v-model:<input type="Text" v-model="url">当text之中的属性发生改变，vue中的url属性也会改变，所以vue中url绑定的其他元素也会发生改变
+v-on:<input type="button" value="按钮" v-on:click="handle()"> or <input type="button" value="按钮" @click="handle()">
+需要注意的是v-on内不只有单击事件click，还有离焦事件blur，聚焦事件focus等等
+v-if/v-else/v-else-if:<span v-if="condition_1"></span> <span v-else-if="condition_2"></span>，当只有一个条件成立时，对应语句才会有效
+v-show:<span v-show="condition"></span>，当条件成立时展示出来，否则不展示，与上面v-if是否有效有区别
+v-for:<div v-for="addr in addrs">{{addr}}</div>，循环，或:<div v-for="(addr, index) in addrs">{{index + x}}:{{addr}}</div>，这是循环出坐标，坐标从x开始
+
+day7
+vue生命周期指令（其中一个为mounted）与method方法平级
+Ajax：异步的javaScript和XML(用于存储数据)
+Ajax作用：数据交换：可以给服务器发送请求，并获取服务器响应的数据；异步交互：可以在不加载整个页面的情况下与服务器交换数据并更新部分网页的技术
+Ajax使用代码：
+    <script>
+        function getData(){
+            var xmlHttpRequest = new XMLHttpRequest();
+
+            xmlHttpRequest.open('GET',"url");
+            xmlHttpRequest.send();
+
+            xmlHttpRequest.onreadystatechange = function(){
+                if(xmlHttpRequest.readState==4&&xmlHttpRequest.status==200){
+                    document.getElementById("id_name").innerHTML = xmlHttpRequest.responseText;
+                }
+            }
+
+        }
+    </script>
+Axios：Ajax的加强
+需要引用：
+    <script src="axios-0.18.0.js"></script>
+后需要服务器端的访问：
+    function get(){
+    //通过axios发送异步请求-get
+        axios({
+            method:"get",
+            url: "http://yapi.smart-xwork.cn/mock/169327/emp/list"
+        }).then(result =>{
+            console.log(result.data);
+        })
+    }
+
+    function post(){
+        //通过axios发送异步请求-post
+        axios({
+            method:"post",
+            url: "http://yapi.smart-xwork.cn/mock/169327/emp/deleteById",
+            data:"id=1"
+        }).then(result =>{
+            console.log(result.data);
+        })
+    }
+或等价于：
+        axios.get("http://yapi.smart-xwork.cn/mock/169327/emp/list").then(result => {
+            console.log(result.data);
+        })
+        axios.post("http://yapi.smart-xwork.cn/mock/169327/emp/deleteById", "id = 1").then(result => {
+            console.log(result.data);
+        })
+        
+
+day8
+yapi地址：http://yapi.smart-xwork.cn

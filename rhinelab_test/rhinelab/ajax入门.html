@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原生AJAX</title>
+    <script src="../js/axios-1.x/dist/axios.js"></script>
+</head>
+
+<body>
+    <input type="button" value="读取p" onclick="post()">
+    <input type="button" value="读取g" onclick="get()">
+    <div id="div1"></div>
+
+
+</body>
+<script>
+    // function getData(){
+    //     var xml = new XMLHttpRequest();
+
+    //     xml.open('GET', 'http://yapi.smart-xwork.cn/mock/169327/emp/list');
+    //     xml.send();
+
+    //     xml.onreadystatechange = function(){
+    //         if(xml.readyState ==4 && xml.status==200){
+    //             document.getElementById('div1').innerHTML = xml.responseText;
+    //         }
+    //         else{
+    //             alert('error')
+    //         }
+    //     }
+
+    // }
+
+    function get() {
+        //通过axios发送异步请求-get
+        // axios({
+        //     method: "get",
+        //     url: "http://yapi.smart-xwork.cn/mock/169327/emp/list"
+        // }).then(result => {
+        //     console.log(result.data);
+        // })
+
+        axios.get("http://yapi.smart-xwork.cn/mock/169327/emp/list").then(result => {
+            console.log(result.data);
+        })
+        }
+
+    function post() {
+        //通过axios发送异步请求-post
+        // axios({
+        //     method:"post",
+        //     url: "http://yapi.smart-xwork.cn/mock/169327/emp/deleteById",
+        //     data:"id=1"
+        // }).then(result =>{
+        //     console.log(result.data);
+        // })
+        axios.post("http://yapi.smart-xwork.cn/mock/169327/emp/deleteById", "id = 1").then(result => {
+            console.log(result.data);
+        })
+    }
+</script>
+
+</html>

@@ -1,0 +1,141 @@
+body {
+    background-color: #F0FFF0;
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', sans-serif;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  table {
+    width: calc(100% / 2.5);
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+  }
+  
+  td {
+    border: none;
+    text-align: center;
+    position: relative;
+  }
+  
+  td:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: linear-gradient(to bottom right, #00cc99, #00ffff, #00cc99);
+  }
+  
+  button {
+    padding: 0;
+    background-color: #00cc99;
+    color: #000; /* 将字体颜色设置为黑色 */
+    border: none;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: 20px;
+    position: relative;
+    z-index: 1;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+  }
+  
+  button:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+  
+  button:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    z-index: -1;
+    background-color: transparent;
+    border: 2px solid #000; /* 将边框颜色设置为黑色 */
+    border-radius: 50%;
+  }
+  
+  button:after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    z-index: -2;
+    background-color: #00cc99;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.2s ease;
+  }
+  
+  button:hover:after {
+    transform: scale(1);
+  }
+  
+  button:first-child:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 50%;
+    bottom: 0;
+    z-index: -1;
+    background-color: #fff;
+  }
+  
+  button:last-child:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-color: #fff;
+  }
+  
+  button:first-child:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -2;
+    background-color: #00cc99;
+    transform: translate(-100%, -50%);
+  }
+  
+  button:last-child:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -2;
+    background-color: #00cc99;
+    transform: translate(100%, -50%);
+  }

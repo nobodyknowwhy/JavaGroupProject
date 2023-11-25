@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>遍历User</title>
+
+</head>
+<body>
+
+	<div class="easyui-panel" th:fragment="content"
+		style="width: 500px; margin: 20px auto; text-align: center">
+		<table align='center' border='1' cellspacing='0'>
+			<tr>
+				<td>id</td>
+				<td>name</td>
+				<td>编辑</td>
+				<td>删除</td>
+			</tr>
+			<tr th:each="c:${pages.list}">
+				<td th:text="${c.studentno}">1</td>
+				<td th:text="${c.studentname}">name</td>
+				<td><a th:href="@{/findStudent(id=${c.id})}">编辑</a></td>
+				<td><a th:href="@{/deleteStudent(id=${c.id})}">删除</a></td>
+			</tr>
+		</table>
+		<br />
+		<div>
+			<a th:href="@{/listStudent(start=0)}">[首 页]</a> <a
+				th:href="@{/listStudent(start=${pages.pageNum-1})}">[上一页]</a> <a
+				th:href="@{/listStudent(start=${pages.pageNum+1})}">[下一页]</a> <a
+				th:href="@{/listStudent(start=${pages.pages})}">[末 页]</a>
+		</div>
+		<br />
+		<form action="addStudent" method="post">
+
+			学号: <input name="studentno"/> <br />
+			 姓名:<input name="studentname"	/> <br /> 
+			密码: <input name="password"/> <br />
+			<button class="easyui-linkbutton" type="submit">添加</button>
+
+		</form>
+	</div>
+</body>
+</html>

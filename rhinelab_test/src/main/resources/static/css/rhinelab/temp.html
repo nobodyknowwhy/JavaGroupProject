@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Confirm Example</title>
+</head>
+<body>
+
+  <h2>Confirm Example</h2>
+
+  <button onclick="showResult()">Click to Confirm</button>
+
+  <p id="result"></p>
+
+  <script>
+    function showResult() {
+      if (confirm('Are you sure?')) {
+        // 如果用户点击了确认按钮，则在页面上显示 1
+        document.getElementById('result').innerHTML = '1';
+      } else {
+        // 如果用户点击了取消按钮，则在页面上显示 0
+        document.getElementById('result').innerHTML = '0';
+      }
+    }
+  </script>
+
+</body>
+</html>

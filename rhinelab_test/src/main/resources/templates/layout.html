@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+     <link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo.css">
+	<script type="text/javascript" src="jquery-easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="main-js.js"></script>
+</head>
+<body>
+<header th:fragment="header"  >
+    springBoot Demo
+     
+</header>
+<div th:replace="::content" >
+    这是正文
+</div>
+<footer th:fragment="footer" >
+   版权所有@gdufs
+</footer>
+</body>
+</html>

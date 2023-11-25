@@ -1,0 +1,232 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Times New Roman', Times, serif;
+    
+}
+
+header {
+    background-color: #3b3838;
+    color: #8d7575;
+    padding: 8px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#personal-center {
+    display: inline-block;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+#personal-center img {
+    vertical-align: middle;
+    width: 40px;
+    height: 40px;
+}
+
+#main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 105px);
+    background-color: #f9f9f9;
+}
+
+#slider {
+    position: relative;
+    width: 90%;
+    height: 500px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#slider img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    display: none;
+    transition: opacity 0.5s ease-in-out;
+    
+}
+
+#slider .active {
+    opacity: 1;
+    display: block;
+}
+
+#slider .slider-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #c0dfc6;
+    font-size: 30px;
+    padding: 10px;
+    cursor: pointer;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 0;
+}
+
+#slider:hover .slider-control {
+    opacity: 1;
+    
+}
+
+#slider .slider-control.left {
+    left: 0;
+}
+
+#slider .slider-control.right {
+    right: 0;
+}
+
+#slider .slider-caption {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    color: #d4d7cb;
+    font-size: 25px;
+    padding: 8px;
+    margin-bottom: 0px;
+    text-align: center;
+    transition: opacity 0.35s ease-in-out;
+    opacity: 0;
+}
+
+#slider:hover .slider-caption {
+    opacity: 1;
+}
+
+#main-content .feature-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+
+#main-content .feature-buttons .top-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#main-content .feature-buttons .bottom-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#main-content .feature-buttons a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #898181;
+    text-decoration: none;
+    padding: 20px;
+    margin-left: 90px;
+    margin-right: 90px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+#main-content .feature-buttons a:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 10px rgb(179 120 120 / 20%);
+    background-color: rgb(220 229 201);
+
+}
+
+#main-content .feature-buttons a i {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+#main-content .feature-buttons a span {
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#main-content .feature-buttons img {
+    width: 80px;
+
+}
+
+.navbar {
+    background-color: #494444;
+    color: #c1b2b2;
+    padding: 15px;
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0;
+}
+
+.navbar li {
+    display: inline-block;
+    margin-right: 40px;
+}
+
+.navbar li:last-child {
+    margin-right: 0;
+}
+
+.navbar a {
+    color: #d3dedf;
+    text-decoration: none;
+}
+
+.fa-submission{
+    width: 140px;
+    height: 0px;
+}
+
+.fa-exhibition{
+    
+    width: 140px;
+    height: 1px;
+}
+
+.fa-reception{
+    width: 140px;
+    height: 0.5px;
+}
+
+.fa-distribution{
+    width: 140px;
+    height: 0px;
+}
+
+.fa-resources{
+    width: 140px;
+    height: 38px;
+}
+
+.fa-feedback{
+    width: 140px;
+    height: 8px;
+}

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="icon" type="image/jpeg" th:href="@{/img/rahinelab_logo.png}" sizes="32x32">
+  <title>RHINE LAB</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/rhine_lab.css}">
+</head>
+
+<body class="bg-image">
+  <hr>
+  <hr>
+  <hr>
+  <ul class="dropdown-menu">
+    <li><a href="#">About</a>
+      <ul>
+        <li><a href="/what_is_rhine" class="ap">What is Rhine Lab?</a></li>
+        <li><a href="/why_rhine" class="ap">Why Rhine Lab?</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Company</a>
+      <ul>
+        <li><a href="#" class="ap">Blog</a></li>
+        <li><a href="#" class="ap">Environment</a></li>
+        <li><a href="#" class="ap">Charter</a></li>
+        <li><a href="#" class="ap">Security</a></li>
+        <li><a href="#" class="ap">Careers</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Product</a>
+      <ul>
+        <li><a href="#" class="ap">Neurotransmitter</a></li>
+        <li><a href="#" class="ap">Resonator</a></li>
+        <li><a href="#" class="ap">Energy Well</a></li>
+        <li><a href="#" class="ap">Starry Garden</a></li>
+        <li><a href="#" class="ap">R-11 Assault Powered Armor</a></li>
+        <li><a href="#" class="ap">R-13 Heavy Powered Armor</a></li>
+
+      </ul>
+    </li>
+    <li><a href="#">Composition</a>
+      <ul>
+        <li><a href="#" class="ap">Component Control Section</a></li>
+        <li><a href="#" class="ap">Defense Section</a></li>
+        <li><a href="#" class="ap">Business Section</a></li>
+        <li><a href="#" class="ap">Human Resources Section</a></li>
+        <li><a href="#" class="ap">Engineering Section</a></li>
+        <li><a href="#" class="ap">Structural Section</a></li>
+        <li><a href="#" class="ap">Energy Section</a></li>
+        <li><a href="#" class="ap">Opiginium Art Section</a></li>
+        <li><a href="#" class="ap">Ecological Section</a></li>
+        <li><a href="#" class="ap">Scientific Investigation Section</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Resource</a>
+      <ul>
+        <li><a href="#" class="ap">Literature</a></li>
+        <li><a href="#" class="ap">Science</a></li>
+        <li><a href="#" class="ap">Technology</a></li>
+        <li><a href="#" class="ap">Human</a></li>
+        <li><a href="#" class="ap">Business</a></li>
+      </ul>
+    </li>
+
+
+    <li><a href="/Rhinelab_join">Join Us!</a></li>
+  </ul>
+
+
+  <img class="rhinelab_logo_part3" th:src="@{/img/rahinelab_logo_part3.png}" alt="示例图片">
+  <img th:src="@{/img/temp/无标题0.5.png}" alt="" class="one_five">
+  <img th:src="@{/img/temp/无标题.png}" alt="" class="one">
+  <img th:src="@{/img/temp/无标题2.png}" alt="" class="two">
+  <img th:src="@{/img/temp/无标题3.png}" alt="" class="three">
+  <img th:src="@{/img/temp/无标题4.5.png}" alt="" class="four_five">
+  <img th:src="@{/img/temp/无标题4.6.png}" alt="" class="four_six">
+  <img th:src="@{/img/temp/无标题4.png}" alt="" class="four">
+  <img th:src="@{/img/temp/无标题5.png}" alt="" class="five">
+  <img th:src="@{/img/temp/无标题6.png}" alt="" class="six">
+  <img th:src="@{/img/temp/无标题7.png}" alt="" class="seven">
+  <img th:src="@{/img/temp/无标题8.png}" alt="" class="eight">
+  <img th:src="@{/img/temp/无标题9.png}" alt="" class="nine">
+  <img th:src="@{/img/temp/无标题10.png}" alt="" class="ten_1">
+  <img th:src="@{/img/temp/无标题11.png}" alt="" class="elevent">
+  <img th:src="@{/img/rhinelab_logo_part4.png}" class="rhinelab_logo_part4">
+  <img th:src="@{/img/temp/x.png}" alt="" class="ten">
+
+
+
+
+  <div class="introduction">
+    <p id="text"></p>
+    <p id="text2" class="text2"></p>
+  </div>
+  <a href="/Rhinelab_resign" role="button" tabindex="0">
+    <img th:src="@{/img/temp/ren.png}" class="resign">
+  </a>
+
+
+  <div class="video-container">
+    <video th:src="@{/vedio/rhinelabintr.mp4}" controls></video>
+  </div>
+  <p class="videoin">
+    learn more about us!
+  </p>
+  <p class="videoin2">
+    ↓
+  </p>
+
+
+
+
+
+
+
+
+  <script>
+    let i = 0; // 将i定义为全局变量
+    let j = 0;
+
+    function disableZoom() {
+      document.addEventListener("touchmove", function (event) {
+        event.preventDefault();
+      }, {
+        passive: false
+      });
+    }
+    window.onload = function () {
+      disableZoom();
+      const part3 = document.getElementsByClassName('rhinelab_logo_part3')
+
+      function showpart() {
+        part3.style.display = 'flex';
+      }
+
+      setTimeout(showpart, 800);
+
+      const text = document.getElementById('text');
+      const text2 = document.getElementById('text2');
+      const str = 'Welcome to';
+      const str2 = 'R H I N E · L A B';
+
+
+
+      function typeWriter() {
+        if (i < str.length) {
+          text.innerHTML += str.charAt(i);
+          i++;
+          setTimeout(typeWriter, 50); 
+        }
+      }
+
+      var tempwrite = 0;
+
+      function typeWriter2() {
+
+        // 如果j小于str2的长度
+        if (j < str2.length) {
+
+          // 将str2的第j位字符添加到text2中
+          text2.innerHTML += str2.charAt(j);
+          j++;
+          // 重新调用typeWriter2函数
+          setTimeout(typeWriter2, 50); 
+        }
+
+
+
+      }
+
+      var images = ["./rhinelab/temp/无标题0.5.png", "./rhinelab/temp/无标题.png", "./rhinelab/temp/无标题2.png",
+        "./rhinelab/temp/无标题3.png", "./rhinelab/temp/无标题4.5.png", "./rhinelab/temp/无标题4.6.png",
+        "./rhinelab/temp/无标题4.png", "./rhinelab/temp/无标题5.png", "./rhinelab/temp/无标题6.png",
+        "./rhinelab/temp/无标题7.png", "./rhinelab/temp/无标题8.png", "./rhinelab/temp/无标题9.png",
+        "./rhinelab/temp/无标题10.png", "./rhinelab/temp/无标题11.png", "./rhinelab/temp/x.png"
+      ];
+
+      function showNextImage(index) {
+        // 如果index小于图片数量
+        if (index < images.length) {
+          // 获取当前图片
+          var currentImg = document.querySelector("." + ["one_five", "one", "two", "three", "four_five", "four_six",
+            "four", "five", "six", "seven", "eight", "nine", "ten_1", "elevent", "ten"
+          ][index]);
+          // 获取上一张图片
+          var previousImg = document.querySelector("." + ["one_five", "one", "two", "three", "four_five", "four_six",
+            "four", "five", "six", "seven", "eight", "nine", "ten_1", "elevent", "ten"
+          ][index - 1]);
+
+          // 显示当前图片
+          currentImg.style.display = "block";
+          // 如果有上一张图片，隐藏
+          if (previousImg) {
+            previousImg.style.display = "none";
+          }
+
+          // 延时50ms，继续显示下一张图片
+          index++;
+          setTimeout(function () {
+            showNextImage(index);
+          }, 50);
+        }
+      }
+
+
+
+
+      showNextImage(0);
+
+
+      setTimeout(typeWriter, 1800);
+
+      setTimeout(typeWriter2, 2300);
+
+
+
+
+
+
+      const imageContainer = document.querySelector(".learn");
+      const buttonContainer = document.querySelector(".button-container");
+      var x = 1;
+      imageContainer.addEventListener("click", () => {
+
+        if (x) {
+          buttonContainer.style.display = "block";
+          x = 0;
+        } else {
+          buttonContainer.style.display = "none";
+          x = 1;
+        }
+      });
+
+
+    }
+
+
+
+    const join_usp = document.querySelector('.join_us');
+    join_usp.addEventListener('click', () => {
+      window.location.href = './Rhinelab_join.php';
+
+    })
+  </script>
+</body>
+
+</html>

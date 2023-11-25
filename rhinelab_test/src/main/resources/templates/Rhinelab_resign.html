@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+	<meta charset="UTF-8">
+	<title>RHINELAB login</title>
+	<link rel="icon" type="image/jpeg" th:href="@{/img/rahinelab_logo.png}" sizes="32x32">
+	<link rel="stylesheet" th:href="@{/css/styleofresign.css}">
+
+</head>
+
+<body>
+	<div class="container">
+		<div class="form-container">
+			<div class="form-toggle">
+				<input type="radio" name="form-toggle" value="login" id="login-radio" checked>
+				<label for="login-radio">Log In</label>
+				<input type="radio" name="form-toggle" value="register" id="register-radio">
+				<label for="register-radio">Register</label>
+			</div>
+			<form class="login-form" id="login-form" method="post" action="/rhineLog">
+				<label for="email">Email:</label>
+				<input type="email" id="email" name="email" required>
+				<label for="password">Password:</label>
+				<input type="password" id="password" name="password" required>
+				<span>
+					<small th:text="${message}" style="color: red;"></small>
+				</span>
+				<span class="wrong-message" id="wrong-message"></span>
+				<div class="form-buttons">
+					<button type="submit">Log In</button>
+					<button type="button" id="login-cancel">Cancel</button>
+				</div>
+			</form>
+			<form class="register-form" id="register-form" method="post" action="/rhineRegister">
+				<label for="name">Name:</label>
+				<input type="text" id="name" name="name" required>
+				<label>Gender:</label>
+				<div class="gender-radio">
+					<label for="male-radio">Male</label>
+					<input type="radio" id="male-radio" name="gender" value="male" required>
+					<label for="female-radio">Female</label>
+					<input type="radio" id="female-radio" name="gender" value="female" required>
+				</div>
+				<label for="password">Password:</label>
+				<input type="password" id="password" name="password" required>
+				<label for="confirm-password">Confirm Password:</label>
+				<input type="password" id="confirm-password" name="confirmPassword" required>
+				<span id="confirm-error" style="color: red;"></span>
+
+
+				<label for="email">Email:</label>
+				<input type="email" id="email" name="email" required>
+				<div class="form-buttons">
+					<button type="submit">Register</button>
+					<button type="button" id="register-clear">Clear</button>
+					<button type="button" id="register-cancel">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+		const loginForm = document.getElementById('login-form');
+		const registerForm = document.getElementById('register-form');
+		const loginRadio = document.getElementById('login-radio');
+		const registerRadio = document.getElementById('register-radio');
+		const loginCancel = document.getElementById('login-cancel');
+		const registerClear = document.getElementById('register-clear');
+		const registerCancel = document.getElementById('register-cancel');
+		// 获取密码和确认密码的输入框元素
+		var passwordInput = document.getElementById('password');
+		var confirmPasswordInput = document.getElementById('confirm-password');
+
+		// 获取用于显示错误信息的元素
+		var confirmError = document.getElementById('confirm-error');
+
+
+		registerCancel.addEventListener('click', () => {
+			window.location.href = './RHINE LAB.html';
+		});
+
+		loginRadio.addEventListener('change', () => {
+			loginForm.style.display = 'block';
+			registerForm.style.display = 'none';
+		});
+
+		registerRadio.addEventListener('change', () => {
+			loginForm.style.display = 'none';
+			registerForm.style.display = 'block';
+		});
+
+		loginCancel.addEventListener('click', () => {
+			window.location.href = './RHINE LAB.html';
+		});
+
+		registerClear.addEventListener('click', () => {
+			registerForm.reset();
+		});
+
+
+		// 定义检查密码一致性的函数
+		function checkPasswordMatch() {
+			var password = passwordInput.value;
+			var confirmPassword = confirmPasswordInput.value;
+
+			if (password !== confirmPassword) {
+				confirmError.textContent = "the password doesn't the same!";
+			} else {
+				confirmError.textContent = '';
+			}
+		}
+
+		// 每隔一定时间调用检查密码一致性的函数
+		setInterval(checkPasswordMatch, 1000); // 1000毫秒（1秒）
+
+		// 初始状态下进行一次密码一致性检查
+		checkPasswordMatch();
+
+	</script>
+
+
+</body>
+
+</html>

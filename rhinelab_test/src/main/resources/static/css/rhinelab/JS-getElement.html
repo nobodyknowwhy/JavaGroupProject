@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS-getElement</title>
+</head>
+
+<body>
+    <img id="h1" src="../myhomework/chapter02/test1/mouse.jpg"><br><br>
+
+    <div class="cls">船只教育</div> <br>
+    <div class="cls">?????</div> <br>
+
+    <label><input type="checkbox" name="hobby">电影</label>
+    <label><input type="checkbox" name="hobby">旅游</label>
+    <label><input type="checkbox" name="hobby">游戏</label>
+    <br>
+    <input type="text" id="giddy" onfocus="function4()" onblur="function5()">
+    <form>
+        <label><input type="button" value="更换图片" onclick="function1()"></label>
+        <label><input type="button" value="全选" onclick="function3()"></label>
+        <label><input type="button" value="更换字体" onclick="function2()"></label>
+    </form>
+
+
+</body>
+<script>
+    // var img = document.getElementById('h1');
+
+    // var div = document.getElementsByTagName('div')
+
+    // for (let i = 0; i < div.length; i++) {
+    //     // alert(div[i])
+
+    // }
+
+    // var hobby = document.getElementsByName('hobby');
+
+    // var classes = document.getElementsByClassName('cls')
+
+    // div[0].innerHTML = "船只教育666"
+    function function1() {
+        var img = document.getElementById('h1');
+        img.src = "../myhomework/chapter02/test1/ys.png";
+    }
+
+    function function2() {
+        var div = document.getElementsByTagName("div");
+        for (let i = 0; i < div.length; i++) {
+            const element = div[i];
+            element.innerHTML += "<font color='red'> very good! </font>";
+        }
+    }
+
+    function function3() {
+        var hobby = document.getElementsByName('hobby');
+        var countp = 0;
+
+        for (let i = 0; i < hobby.length; i++) {
+            const element = hobby[i];
+            if (element.checked == true) {
+                countp++;
+            }
+        }
+
+        if (countp == hobby.length) {
+            for (let i = 0; i < hobby.length; i++) {
+                const element = hobby[i];
+                element.checked = false;
+            }
+        } else {
+            for (let i = 0; i < hobby.length; i++) {
+                const element = hobby[i];
+                element.checked = true;
+            }
+        }
+    }
+
+    function function4(){
+        var a = document.getElementById("giddy");
+        a.value= a.value.toLowerCase();
+
+
+    }
+
+    function function5(){
+        var a = document.getElementById("giddy");
+        a.value= a.value.toUpperCase();
+
+
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" th:href="@{/img/rahinelab_logo.png}" sizes="32x32">
+    <link rel="stylesheet" th:href="@{/css/rhinelabmain.css}">
+
+    <title>Rhine·Lab</title>
+
+</head>
+
+<body>
+    <header>
+        <div id="personal-center">
+            <a href="查询管理.php"><img src="./rhinelab/temp/personal.png" alt="个人中心"></a>
+        </div>
+    </header>
+    <div id="main-content">
+        <div id="slider"  class="active">
+            <a href="./new_1.html" onclick="window.location.href=this.href; return false;"><img src="./rhinelab/silder/1.jpg" id="s1" alt="Slide 1" data-caption="Kyrsten Wright successed in breaking through the sky!"/></a>
+            <a href="./new_2.html" onclick="window.location.href=this.href; return false;"><img src="./rhinelab/silder/2.jpg" alt="Slide 2" data-caption="Science need no boundary..."></a>
+            <a href="./new_3.html" onclick="window.location.href=this.href; return false;"><img src="./rhinelab/silder/3.jpg" alt="Slide 3" data-caption="Rhine hole formed!"></a>
+            <a href="./new_4.html" onclick="window.location.href=this.href; return false;"><img src="./rhinelab/silder/5.jpg" alt="Slide 4" data-caption="TBS had an exclusive interview with Muelsyse"></a>
+            <a href="./new_5.html" onclick="window.location.href=this.href; return false;"><img src="./rhinelab/silder/6.jpg" alt="Slide 5" data-caption="The future with become now, and now will become then"></a>
+            
+            <div class="slider-control left" onclick="prevSlide()">❮</div>
+            <div class="slider-control right" onclick="nextSlide()">❯</div>
+            <div class="slider-caption"></div>
+          </div>
+        <div class="feature-buttons">
+            <div class="top-row">
+                <a href="./project_select.html">
+                    <img src="./rhinelab/temp/researches.png" alt="1" class="one1">
+                    <i class="fa-submission"></i>
+                    <span>Project Related</span>
+                </a>
+                <a href="./total_p.php">
+                    <img src="./rhinelab/temp/achievement.png" alt="2" class="two2">
+                    <i class="fa-exhibition"></i>
+                    <span>Results Exhibition</span>
+                </a>
+                <a href="./Rhinelab_join.html">
+                    <img src="./rhinelab/temp/job.png" alt="3" class="three3">
+                    <i class="fa-reception"></i>
+                    <span> Join Us </span>
+                </a>
+            </div>
+            <div class="bottom-row">
+                <a href="./product.php">
+                    <img src="./rhinelab/temp/product_e.png" alt="4" class="four4">
+                    <i class="fa-distribution"></i>
+                    <span>Product Display</span>
+                </a>
+                <a href="人员管理/index.php">
+                    <img src="./rhinelab/temp/human.png" alt="5" class="five5">
+                    <i class="fa-resources"></i>
+                    <span> Staff Management </span>
+                </a>
+                <a href="./product_all.html">
+                    <img src="./rhinelab/temp/buy.png" alt="6" class="six6">
+                    <i class="fa-feedback"></i>
+                    <span> Purchase Related </span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="element">
+        <nav class="navbar">
+            <ul>
+                <li><a href="./RHINE LAB.html">welcome page</a></li>
+                <li><a href="./personal.html">personal center</a></li>
+                <li><a href="./Rhinelab_join.html">join us</a></li>
+            </ul>
+        </nav>
+    </div>
+</body>
+<script src="./rhinelabmain.js"></script>
+
+</html>

@@ -1,0 +1,700 @@
+body {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgba(186, 214, 142, 0.5);
+    background-image: url(./rhinelab/rahine_background/pl.png);
+    animation-name: change-background;
+    animation-duration: 40s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    backface-visibility: hidden;
+
+}
+
+@keyframes change-background {
+    0% {
+        background-image: url(./rhinelab/rahine_background/pl.png);
+
+    }
+
+    20% {
+        background-image: url(./rhinelab/rahine_background/pl2.png);
+
+    }
+
+    40% {
+        background-image: url(./rhinelab/rahine_background/pl3.png);
+
+    }
+
+    60% {
+        background-image: url(./rhinelab/rahine_background/pl4.png);
+
+    }
+
+    80% {
+        background-image: url(./rhinelab/rahine_background/pl5.png);
+
+    }
+
+    100% {
+        background-image: url(./rhinelab/rahine_background/pl.png);
+
+    }
+}
+
+
+.introduction p:first-child {
+    position: absolute;
+    top: 58%;
+    left: 43.8%;
+    right: 50%;
+    bottom: 50%;
+    height: auto;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    font-size: 40px;
+    margin-top: 0%;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+
+}
+
+.introduction p:last-child {
+    position: absolute;
+    top: 62%;
+    left: 43.4%;
+    right: 50%;
+    bottom: 50%;
+    height: auto;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    font-size: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bolder;
+    margin-top: 0%;
+
+
+}
+
+.resign {
+    position: absolute;
+    top: 45%;
+    left: 52.4%;
+    right: 50%;
+    bottom: 50%;
+    width: 80px;
+    height: 80px;
+    opacity: 0;
+    visibility: hidden;
+    animation-name: fade-in2;
+    animation-duration: 0.3s;
+    animation-delay: 2.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    transition: transform 0.2s ease-in-out;
+
+}
+
+.resign:hover {
+    transform: scale(1.2);
+}
+
+@keyframes fade-in2 {
+    from {
+        opacity: 0;
+        visibility: hidden;
+
+    }
+
+    to {
+        opacity: 1;
+        visibility: visible;
+
+    }
+
+}
+
+
+.learn {
+    left: 0.5%;
+    position: relative;
+    opacity: 0;
+    visibility: hidden;
+    animation-name: fade-in2;
+    animation-duration: 0.5s;
+    animation-delay: 2.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+
+    display: inline-block;
+
+
+}
+
+
+.button-container {
+    position: absolute;
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+    top: 100%;
+    left: 0;
+    height: 0px;
+    display: none;
+    transition: transform 0.2s ease-in-out;
+}
+
+.button {
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+    display: block;
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+    background-color: grey;
+    border: 2px solid black;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+
+}
+
+.button:hover {
+    transform: scale(1.05);
+    border: 3px solid greenyellow;
+
+}
+
+/* .learn:hover{
+    transform: scale(1.2);
+} */
+
+/* .learn:hover .button-container {
+    display: block;
+    transform: scale(1.2);
+  } */
+
+.imagelearn {
+    top: 20%;
+    width: 200px;
+    height: 30px;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.imagelearn:hover {
+    transform: scale(1.1);
+    border-color: aquamarine;
+}
+
+.join_us {
+    position: absolute;
+    width: 100px;
+    height: 25px;
+    left: 90.5%;
+    transition: transform 0.2s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    animation-name: fade-in2;
+    animation-duration: 0.5s;
+    animation-delay: 2.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.join_us:hover {
+    transform: scale(1.1);
+    border-color: aquamarine;
+    cursor: pointer;
+}
+
+.text2 {
+    animation: blink 0.5s linear 17;
+    animation-delay: 5s;
+}
+
+@keyframes blink {
+    from {
+        visibility: hidden;
+    }
+
+    50% {
+        visibility: visible;
+    }
+
+    to {
+        visibility: hidden;
+    }
+
+}
+
+.dropdown-menu {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    transition: transform 0.2s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    animation-name: fade-in2;
+    animation-duration: 0.3s;
+    animation-delay: 2.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.dropdown-menu>li {
+    font-size: 16px;
+    position: relative;
+    margin-right: 20px;
+}
+
+.dropdown-menu>li>a {
+    display: block;
+    font-size: 20px;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 2px solid #000;
+    padding-bottom: 0%;
+}
+
+.dropdown-menu>li.open:before {
+
+    font-family: Arial, Helvetica, sans-serif;
+    /* position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%); */
+    position: absolute;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border: 2px solid #000;
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
+    margin-top: -2px;
+    margin-left: -20px;
+}
+
+.dropdown-menu ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 999;
+    display: none;
+    padding: 0;
+    margin: 0;
+    border: 1px;
+    min-width: 130%;
+    width: 230px;
+    font-weight: bolder;
+}
+
+.dropdown-menu li:hover ul {
+    display: block;
+}
+
+.dropdown-menu ul li {
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-menu ul li a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+}
+
+.dropdown-menu ul li:hover a {
+    border-bottom-color: #000;
+}
+
+
+.one {
+    position: absolute;
+    top: 43.5%;
+    left: 55.4%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 145px;
+    height: auto;
+    display: none;
+
+}
+
+.one_five {
+    position: absolute;
+    top: 44.3%;
+    left: 57.9%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 88px;
+    height: auto;
+    display: none;
+
+}
+
+.two {
+    position: absolute;
+    top: 48.8%;
+    left: 52%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 222px;
+    height: auto;
+    display: none;
+}
+
+.three {
+    position: absolute;
+    top: 48.9%;
+    left: 49.0%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 281px;
+    height: auto;
+    display: none;
+}
+
+.four_five {
+    position: absolute;
+    top: 48.35%;
+    left: 48.4%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 264px;
+    height: auto;
+    display: none;
+}
+
+.four_six {
+    position: absolute;
+    top: 48.8%;
+    left: 47.5%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 239px;
+    height: auto;
+    display: none;
+}
+
+.four {
+    position: absolute;
+    top: 48.9%;
+    left: 47.9%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 246px;
+    height: auto;
+    display: none;
+}
+
+.five {
+    position: absolute;
+    top: 48.9%;
+    left: 49.4%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: auto;
+    display: none;
+}
+
+.six {
+    position: absolute;
+    top: 49.0%;
+    left: 50%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 305px;
+    height: auto;
+    display: none;
+}
+
+.seven {
+    position: absolute;
+    top: 49.1%;
+    left: 50.1%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 305px;
+    height: auto;
+    display: none;
+}
+
+.eight {
+    position: absolute;
+    top: 48.9%;
+    left: 49.9%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 303px;
+    height: auto;
+    display: none;
+}
+
+.nine {
+    position: absolute;
+    top: 48.5%;
+    left: 50%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 310px;
+    height: auto;
+    display: none;
+}
+
+.ten {
+    position: absolute;
+    top: 49.3%;
+    left: 50.5%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 316px;
+    height: auto;
+    display: none;
+    animation-name: fade-in;
+    animation-duration: 1.08s;
+    animation-delay: 0.23s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.ten_1 {
+    position: absolute;
+    top: 48.8%;
+    left: 49.7%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 310px;
+    height: auto;
+    display: none;
+}
+
+.elevent {
+    position: absolute;
+    top: 48.6%;
+    left: 49.75%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 324px;
+    height: auto;
+    display: none;
+}
+
+.rhinelab_logo_part2 {
+    position: absolute;
+    top: 48.3%;
+    left: 50%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: auto;
+    opacity: 0.5;
+}
+
+.rhinelab_logo_part3 {
+    position: absolute;
+    top: 48.5%;
+    left: 44.8%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: auto;
+    opacity: 0;
+    visibility: hidden;
+    animation-name: rota;
+    animation-duration: 1.8s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0.3s;
+    animation-fill-mode: forwards;
+    transform-origin: center;
+}
+
+
+@keyframes rota {
+    from {
+
+        transform: translate(-50%, -50%) rotate(0deg) scale(0)
+    }
+
+
+
+    20% {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, -50%) rotate(0deg) scale(1)
+    }
+
+    40% {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, -50%) rotate(90deg)
+    }
+
+    to {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(113px) scale(0.8)
+    }
+
+
+
+}
+
+
+@keyframes rota2 {
+    from {
+
+        transform: translate(-50%, -50%) rotate(0deg) scale(0)
+    }
+
+
+
+    20% {
+
+        transform: translate(-50%, -50%) rotate(0deg)
+    }
+
+    40% {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, -50%) scale(1)
+    }
+
+    to {
+        opacity: 1;
+        visibility: visible;
+        width: 310px;
+        transform: translate(-50%, -50%) translateX(-150px) scale(0.8)
+    }
+
+
+
+}
+
+@keyframes fade-in {
+    from {}
+
+    to {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, -50%) translateX(-130px) scale(0.8);
+        
+    }
+}
+
+.rhinelab_logo_part4 {
+    position: absolute;
+    top: 48.7%;
+    left: 56.6%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: auto;
+    opacity: 0;
+    visibility: hidden;
+    animation-name: rota2;
+    animation-duration: 1.8s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0.3s;
+
+    animation-fill-mode: forwards;
+
+    transform-origin: center;
+
+}
+
+
+.rhinelab_logo_part2 {
+    position: absolute;
+    opacity: 0.5;
+    top: 48.3%;
+    left: 50%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: auto;
+}
+
+.video-container {
+    position: absolute;
+    top: 50%;
+    left: 4%;
+    width: 350px;
+    height: 200px; 
+    transform: translateY(-50%);
+    opacity: 0;
+    visibility: hidden;
+    animation-name: fade-in2;
+    animation-duration: 0.3s;
+    animation-delay: 2.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+  }
+
+  .video-container video {
+    position: absolute;
+    /* top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    width: 100%;
+    height: 100%;
+    
+  }
+
+.videoin{
+    font-size: 45px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, Times, serif;
+    position: absolute;
+    top: 14%;
+    left: 4.9%;
+    font-weight: bolder;
+    opacity: 0;
+    visibility: hidden;
+    animation-name: fade-in2;
+    animation-duration: 0.3s;
+    animation-delay: 2.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.videoin2{
+    font-size: 45px;
+    font-family: 'Times New Roman', Times, serif;
+    position: absolute;
+    top: 20%;
+    left: 16%;
+    opacity: 0;
+    visibility: hidden;
+    animation-name: fade-in2;
+    animation-duration: 0.3s;
+    animation-delay: 2.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}

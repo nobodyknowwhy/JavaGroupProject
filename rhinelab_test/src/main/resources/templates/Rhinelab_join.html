@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>RHINELAB application</title>
+    <link rel="stylesheet" th:href="@{/css/Rhinelab_join.css}">
+    <link rel="icon" type="image/jpeg" th:href="@{/img/rahinelab_logo.png}" sizes="32x32">
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-container">
+            <form id="my-form" method="post" action="/Rhinelab_join_action" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name">name:</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Please enter your name"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <p class="gender">
+                        <label for="male-radio">Male</label>
+                        <input type="radio" id="male-radio" name="gender" value="male" required>
+                        <label for="female-radio">Female</label>
+                        <input type="radio" id="female-radio" name="gender" value="female" required>
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="degree">degree:</label>
+                    <select class="form-control" id="degree" name="degree" required>
+                        <option value="">Please choose your degree</option>
+                        <option value="academician">academician</option>
+                        <option value="associate">associate</option>
+                        <option value="bachelor">bachelor</option>
+                        <option value="master">master</option>
+                        <option value="doctoral">doctoral</option>
+                        <option value="others">others</option>
+                    </select>
+                </div>
+                <div class="form-group" id="other-education" style="display:none;">
+                    <label for="other-education-text">Please enter your degree</label>
+                    <input type="text" class="form-control" id="other-education-text"
+                        placeholder="Please enter your degree" name="others">
+                </div>
+                <div class="form-group">
+                    <label for="nation">Nation:</label>
+                    <input type="text" class="form-control" id="nation" placeholder="Please enter your nation"
+                        name="nation" required></input>
+                </div>
+                <div class="form-group">
+                    <label for="section">Applying Section:</label>
+                    <select class="form-control" id="section" name="applicationSection" required>
+                        <option value="">Please choose your applying section</option>
+                        <option value="COMPONENTS CONTROL SECTION">COMPONENTS CONTROL SECTION</option>
+                        <option value="DEFENSE SECTION">DEFENSE SECTION</option>
+                        <option value="BUSINESS SECTION">BUSINESS SECTION</option>
+                        <option value="HUMAN RESOURCES INVESTIGATION SECTION">HUMAN RESOURCES INVESTIGATION SECTION</option>
+                        <option value="ENGINEERING SECTION">ENGINEERING SECTION</option>
+                        <option value="STRUCTURAL SECTION">STRUCTURAL SECTION</option>
+                        <option value="ENERGY SECTION">ENERGY SECTION</option>
+                        <option value="ORIGINIUM ART SECTION">ORIGINIUM ART SECTION</option>
+                        <option value="ECOLOGICAL SECTION">ECOLOGICAL SECTION</option>
+                        <option value="SCIENTIFIC INVESTIGATION SECTION">SCIENTIFIC INVESTIGATION SECTION</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="birth">Birthdays:</label>
+                    <input type="date" class="form-control" id="birth" name="birthday" required></input>
+                </div>
+                <div class="form-group">
+                    <label for="native-place">Native place:</label>
+                    <input type="text" class="form-control" id="native-place" placeholder="Please enter your Birthdays"
+                        name="birthplace" required></input>
+                </div>
+                <div class="form-group">
+                    <label for="politics-status">Politics status:</label>
+                    <p class="temp_p">
+                    <input type="text" class="politics-status" id="politics-status"
+                        placeholder="Please enter your Politics status" name="politicalStatus" required></input>
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="marry">Marital Status:</label>
+                    <select class="form-control" id="marry" name="marriage" required>
+                        <option value="">Please choose your marital status</option>
+                        <option value="married">married</option>
+                        <option value="spinsterhood">spinsterhood</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="id-card">ID card:</label>
+                    <p class="id-card-s">
+                        <input type="text" class="id-card" id="id-card"
+                            placeholder="Please enter your identity card number" name="IDNum" required
+                            pattern="^\d{17}[\dXx]$"></input>
+                        <p class="temp_p">
+                            <small class="form-text text-muted">Please enter a valid 18-digit identity card
+                                number.</small>
+                        </p>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{11}" class="form-control" required>
+
+                    <small>please enter your 11-digit phone number, example:13812345678</small>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <input type="file" id="file" name="applicationForms" required>
+                    <p class="temp_p">
+                        <small>please upload your application form.</small>
+                    </p>
+
+                </div>
+                <div class="form-group">
+                    <input type="file" id="file" name="photos" accept="image/*" required>
+                    <p class="temp_p">
+                      <small>Please upload your personal picture.</small>
+                    </p>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-secondary" id="clear-button">Clear</button>
+                <button type="button" class="btn btn-secondary" id="cancel-button">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        var educationSelect = document.getElementById('degree');
+        var otherEducation = document.getElementById('other-education');
+        var clearButton = document.getElementById('clear-button');
+        var cancelButton = document.getElementById('cancel-button');
+
+        educationSelect.addEventListener('change', function () {
+            if (this.value === 'others') {
+                otherEducation.style.display = 'block';
+            } else {
+                otherEducation.style.display = 'none';
+            }
+        });
+
+        clearButton.addEventListener('click', function () {
+            document.getElementById('my-form').reset();
+        });
+
+        cancelButton.addEventListener('click', function () {
+            window.location.href = './RHINE LAB.html';
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>List</title>
+<script src="http://how2j.cn/study/vue.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="http://how2j.cn/study/jquery.min.js"></script>
+<script>
+ //获取url参数
+  function getQueryVariable(variable)
+  {
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
+
+	$(function() {
+		
+		var page = "/rest/getAllStudentsPage";
+		// 从后台获取数据
+        var start=getQueryVariable("start");
+		if(!start)
+			start=1;
+	 	 getStudent(start);
+		
+	})
+	function getStudent(start) {
+	
+		// 使用ajax发起一个GET方法的请求
+		$.get("/rest/getAllStudentsPage?start="+start,
+		// result参数是后台传过来的student数组
+		function(result) {
+			// 将返回结果绑定到UI上，这里用到了vue
+			new Vue({
+				el : '#div1',
+				data : {
+					pages : result,
+				},
+				methods : {
+					delt : function(index) {
+						del(index);
+						this.students.splice(index, 1);
+					}
+				}
+			})
+		})
+	}
+	function add() {
+		var page = "/rest/saveStudent";
+		$.ajax({
+			url : page,
+			type : "put", // 使用的put方法，对应后台中的添加方法
+			datatype : "json",
+			data : $("#addForm").serialize(),
+			success : function() {
+				location.reload()
+			}
+		})
+	}
+	
+	function del(id) {
+		var page = "/rest/deleteStudent?id="+id;
+		alert(page);
+
+		$.ajax({
+			url : page,
+			type : "delete", // 使用的put方法，对应后台中的添加方法
+			datatype : "json",
+			data : {
+				id : id
+			},
+			success : function() {
+				alert("deleted"+id);
+				location.reload()
+			}
+		})
+	}
+
+ 
+</script>
+</head>
+<body>
+	<div id="div1"
+		style="width: 500px; margin: 20px auto; text-align: center">
+		<table align='center' border='1' cellspacing='0'>
+			<tr>
+				<td>id</td>
+				<td>学号</td>
+                <td>姓名</td>
+				<td>删除</td>
+			</tr>
+			<!-- 这里利用的Vue的循环，绑定数据到UI上非常方便，而且代码可读性好-->
+			<tr v-for="(student,index) in pages.list">
+				<td>{{student.id}}</td>
+				<td>{{student.studentno}}</td>
+                <td>{{student.studentname}}</td>
+				<td><a href="javascript:;" @click="delt(student.id)">  删除
+				</a></td>
+			</tr>
+
+		</table>
+		<br> 
+		 <div>
+		      
+			   <a href="list_student_restful_page.html?start=0" > [首 页]</a> 
+			     <a :href="'list_student_restful_page.html?start='+(pages.pageNum-1)">[上一页]</a> 
+			     <a :href="'list_student_restful_page.html?start='+(pages.pageNum+1)"> [下一页]</a> 
+			    <a :href="'list_student_restful_page.html?start='+pages.pages">[末 页]</a>
+		</div>
+		<br>
+		<form id="addForm" action="" method="">
+			学号: <input id="studentno" name="studentno"> <br> 姓名: <input
+				id="studentname" name="studentname"> <br>
+		</form>
+		<button id="addStudent" type="button" onclick="add()">提交</button>
+	</div>
+
+
+
+</body>
+</html>

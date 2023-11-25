@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>personal center</title>
+    <link rel="stylesheet" href="./personal.css">
+    <link rel="icon" type="image/jpeg" href="./rhinelab/rahinelab_logo.png" sizes="32x32">
+    <script src="./personal.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="user-info">
+                <div class="username">Username:</div>
+                <div class="personalName" id="personalName"></div>
+                <div class="permission">Authority lv:0</div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="info">
+                <div class="label">Birthday:</div>
+                <div class="value"><input type="date" id="birthday"></div>
+            </div>
+            <div class="info">
+                <div class="label">Gender:</div>
+                <div class="value">
+                    <select id="gender">
+                        <option value="male">male</option>
+                        <option value="female">female</option>
+                    </select>
+                </div>
+            </div>
+            <div class="info">
+                <div class="label">Motto:</div>
+                <div class="value"><input type="text" id="motto"></div>
+            </div>
+            <div class="info">
+                <div class="label">Bio:</div>
+                <div class="value"><textarea id="intro"></textarea></div>
+            </div>
+        </div>
+        <div class="footer">
+            <button id="saveBtn">Save</button>
+            <button id="cancelBtn" onclick="location.href='./rhinelabmain.html'">Cancel</button>
+        </div>
+    </div>
+</body>
+
+</html>
