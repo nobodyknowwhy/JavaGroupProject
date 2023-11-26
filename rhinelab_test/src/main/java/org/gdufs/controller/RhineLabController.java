@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Objects;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 @Controller
 @RequestMapping
@@ -173,6 +178,44 @@ public class RhineLabController {
 
         return "query_result";
     }
+
+    @RequestMapping("/product")
+    public String toproduct() {
+        return "product";
+    }
+    @RequestMapping("/showProValue")
+    public String showValue(Model model) {
+        String url = "jdbc:mysql://localhost:3306/rhinelabtest?serverTimezone=Asia/Shanghai";
+        String username = "root";
+        String password = "12345678";
+
+        try {
+            Connection connection = DriverManager.getConnection(url, username, password);
+            Statement statement = connection.createStatement();
+            for(int i=0;i<43;i++){
+                String sql = "SELECT * FROM product WHERE productNum = "+i+";";
+                ResultSet resultSet = statement.executeQuery(sql);
+                resultSet.next();
+                String value = resultSet.getString("quantity");
+                String cost = resultSet.getString("unitPrice");
+                resultSet.close();
+                String values="value"+i;
+                String costs="cost"+i;
+                model.addAttribute(values, value);
+                model.addAttribute(costs, cost);
+            }
+            statement.close();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            model.addAttribute("value", "链接数据库失败");
+            System.out.println("连接失败");
+        }
+
+        return "product";
+    }
+
 
 
 }
