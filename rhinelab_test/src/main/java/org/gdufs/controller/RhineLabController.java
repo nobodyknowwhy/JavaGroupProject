@@ -203,6 +203,24 @@ public class RhineLabController {
         return "project_acc";
     }
 
+    @RequestMapping("/projectStatusAction")
+    public String toProjectStatusAction(@RequestParam("button") String buttonValue, Model model) {
+        System.out.println(buttonValue);
+        if(buttonValue.equals("unreviewed")){
+            System.out.println(buttonValue);
+            return "accept";
+        }else {
+            System.out.println(buttonValue);
+            rhineLabMapper.deleteProject(Integer.parseInt(buttonValue));
+
+            return "redirect:project_accTemp";
+        }
+
+
+    }
+
+
+
     @RequestMapping("/query_management")
     public String toQueryManagement() {
         return "query_management";

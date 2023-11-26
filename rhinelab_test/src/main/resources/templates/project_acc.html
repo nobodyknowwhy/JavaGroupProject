@@ -7,23 +7,31 @@
 
 </head>
 <body>
-<table>
-    <tr>
-        <th>Project ID</th>
-        <th>Project Name</th>
-        <th>Project Type</th>
-        <th>Project Significance</th>
-        <th>Project Timeline</th>
-        <th>Project Budget</th>
-    </tr>
-    <tr th:each="project : ${projects}">
-        <td th:text="${project.projectNum}"></td>
-        <td th:text="${project.name}"></td>
-        <td th:text="${project.type}"></td>
-        <td th:text="${project.meaning}"></td>
-        <td th:text="${project.totalTime}"></td>
-        <td th:text="${project.expenditure}"></td>
-    </tr>
-</table>
+<form action="/projectStatusAction" method="post">
+    <table>
+        <tr>
+            <th>Project ID</th>
+            <th>Project Name</th>
+            <th>Project Type</th>
+            <th>Project Significance</th>
+            <th>Project Timeline /D</th>
+            <th>Project Budget /$</th>
+            <th>Project Status</th>
+        </tr>
+        <tr th:each="project : ${projects}">
+            <td th:text="${project.projectNum}"></td>
+            <td th:text="${project.name}"></td>
+            <td th:text="${project.type}"></td>
+            <td th:text="${project.meaning}"></td>
+            <td th:text="${project.totalTime}"></td>
+            <td th:text="${project.expenditure}"></td>
+            <td>
+                <button type="submit" class="accomplish" name="button" th:value="${project.projectNum}" th:if="${project.status == '已完成'}">ACCOMPLISHED</button>
+                <button type="submit" class="unreviewed" name="button" value="unreviewed" th:if="${project.status == '待审核'}">UNREVIEWED</button>
+                <span class="ongoing" th:if="${project.status == '进行中'}">ONGOING</span>
+            </td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>

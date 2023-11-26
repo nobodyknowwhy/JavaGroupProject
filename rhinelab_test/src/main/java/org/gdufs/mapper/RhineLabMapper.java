@@ -1,10 +1,7 @@
 package org.gdufs.mapper;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.gdufs.entity.*;
 
 
@@ -53,6 +50,9 @@ public interface RhineLabMapper {
 
     @Select("SELECT * FROM project")
     List<Project> getProjectAll();
+
+    @Delete("delete from project where projectNum= #{projectNum} ")
+    public void deleteProject(int projectNum);
 
 
 }
