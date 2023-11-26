@@ -15,6 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import java.util.List;
 import java.util.Objects;
@@ -32,6 +35,15 @@ public class RhineLabController {
 
 
         return "RHINE LAB";
+    }
+
+    @RequestMapping(value = "/rhinelabmain")
+    public String toMain(HttpServletRequest request){
+        if(checkUserNameInCookie(request)){
+            return "rhinelabmain";
+        }else {
+            return "Rhinelab_resign";
+        }
     }
 
     @RequestMapping("/what_is_rhine")
@@ -70,14 +82,9 @@ public class RhineLabController {
         return "Rhinelab_resign";
     }
 
-    @GetMapping("/rhinelabmain")
-    public String toMain(){
-        return "rhinelabmain";
-    }
-
 
     @PostMapping("/rhineLog")
-    public String toLog(@ModelAttribute("user") User user, Model model) {
+    public String toLog(@ModelAttribute("user") User user, Model model, HttpServletResponse response) {
         String email = user.getEmail();
         String password = user.getPassword();
 
@@ -87,13 +94,17 @@ public class RhineLabController {
             model.addAttribute("messageLogError", "Email or password is incorrect!");
             return "Rhinelab_resign";
         } else {
-            return "rhinelabmain";
+            String userNameStore = user.getName();
+            Cookie userNameCookie = new Cookie("userNameOfRhineLab", userNameStore);
+            userNameCookie.setMaxAge(365 * 24 * 60 * 60);
+            response.addCookie(userNameCookie);
+
+            return "redirect:rhinelabmain";
         }
     }
 
-
     @RequestMapping(value = "/rhineRegister", method = {RequestMethod.POST})
-    public String toRegister(@ModelAttribute("user") User user, Model model, String confirmPassword) {
+    public String toRegister(@ModelAttribute("user") User user, Model model, String confirmPassword, HttpServletResponse response) {
         String password = user.getPassword();
         if(!Objects.equals(confirmPassword, password)){
             model.addAttribute("messageRegisterError", "Register error: the password and the confirmed password is not equalled!");
@@ -105,7 +116,11 @@ public class RhineLabController {
             if(userEmail.isEmpty()){
                 if(userName.isEmpty()){
                     rhineLabMapper.userSave(user);
-                    return "rhinelabmain";
+                    String userNameStore = user.getName();
+                    Cookie userNameCookie = new Cookie("userNameOfRhineLab", userNameStore);
+                    userNameCookie.setMaxAge(365 * 24 * 60 * 60);
+                    response.addCookie(userNameCookie);
+                    return "redirect:rhinelabmain";
                 }else {
                     model.addAttribute("messageRegisterError", "Register error: the user name have been used!");
                     return "Rhinelab_resign";
@@ -118,13 +133,32 @@ public class RhineLabController {
             }
         }
 
+    }
 
+    @RequestMapping(value = "/new_1")
+    public String toNewOne(Model model, HttpServletRequest request){
+        if(checkUserNameInCookie(request)){
+            return "new_1";
+        }else {
+            return "Rhinelab_resign";
+        }
 
     }
 
+    @GetMapping("/checkUserNameInCookie")
+    public Boolean checkUserNameInCookie(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
 
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("userNameOfRhineLab")) {
+                    return true;
+                }
+            }
+        }
 
-
+        return false;
+    }
 
 
 
