@@ -28,7 +28,7 @@ html{
   
   }
   body{
-      background-image: url("./image/OIP-C.jfif");/* 主要图片 */
+      background-image: url(./image/OIP-C.png);/* 主要图片 */
       background-repeat:no-repeat;
       opacity: 0.8;
       background-size:100%;
