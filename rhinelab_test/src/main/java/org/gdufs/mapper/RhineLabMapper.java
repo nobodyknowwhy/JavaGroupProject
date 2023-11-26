@@ -36,8 +36,11 @@ public interface RhineLabMapper {
     @Select("select * from user where email=#{email}")
     List<User> checkEmail(@Param("email") String email);
 
+    @Select("select * from user where name=#{name}")
+    List<User> checkUserName(@Param("name") String name);
 
-
+    @Insert("insert into user (name, gender, password, email) values (#{name}, #{gender}, #{password}, #{email})")
+    public int userSave(User user);
 
 
 

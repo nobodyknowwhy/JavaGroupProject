@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Objects;
 
 
 @Controller
@@ -83,35 +84,42 @@ public class RhineLabController {
         List<User> users = rhineLabMapper.checkUser(email, password);
 
         if (users.isEmpty()) {
-            model.addAttribute("message", "Email or password is incorrect!");
+            model.addAttribute("messageLogError", "Email or password is incorrect!");
             return "Rhinelab_resign";
         } else {
-            model.addAttribute("message", "Welcome " + user.getName() + ", successfully logged in!");
             return "rhinelabmain";
         }
     }
 
 
     @RequestMapping(value = "/rhineRegister", method = {RequestMethod.POST})
-    public String toRegister(User usr, Model model, String confirmPassword) {
-
-        String email = usr.getEmail();
-        String password = usr.getPassword();
-//        System.out.println(email + " " + password);
-
-        List<User> users = rhineLabMapper.checkUser(email, password);
-
-        if (users.isEmpty()) {
-
-            model.addAttribute("message", "Email or password is incorrect!");
-
+    public String toRegister(@ModelAttribute("user") User user, Model model, String confirmPassword) {
+        String password = user.getPassword();
+        if(!Objects.equals(confirmPassword, password)){
+            model.addAttribute("messageRegisterError", "Register error: the password and the confirmed password is not equalled!");
             return "Rhinelab_resign";
-        } else {
+        }else {
 
-            model.addAttribute("message", "Welcome " + usr.getName() + ", successfully logged in!");
+            List<User> userEmail = rhineLabMapper.checkEmail(user.getEmail());
+            List<User> userName = rhineLabMapper.checkUserName(user.getName());
+            if(userEmail.isEmpty()){
+                if(userName.isEmpty()){
+                    rhineLabMapper.userSave(user);
+                    return "rhinelabmain";
+                }else {
+                    model.addAttribute("messageRegisterError", "Register error: the user name have been used!");
+                    return "Rhinelab_resign";
+                }
 
-            return "Rhinelab_resign";
+
+            }else {
+                model.addAttribute("messageRegisterError", "Register error: the email have been used!");
+                return "Rhinelab_resign";
+            }
         }
+
+
+
     }
 
 
