@@ -87,9 +87,10 @@ public class RhineLabController {
         } else {
             String userNameStore = user.getName();
             Cookie userNameCookie = new Cookie("userNameOfRhineLab", userNameStore);
+            Cookie userEmailCookie = new Cookie("userEmailCookie", user.getEmail());
             userNameCookie.setMaxAge(365 * 24 * 60 * 60);
             response.addCookie(userNameCookie);
-
+            response.addCookie(userEmailCookie);
             return "redirect:rhinelabmain";
         }
     }
@@ -109,8 +110,10 @@ public class RhineLabController {
                     rhineLabMapper.userSave(user);
                     String userNameStore = user.getName();
                     Cookie userNameCookie = new Cookie("userNameOfRhineLab", userNameStore);
+                    Cookie userEmailCookie = new Cookie("userEmailCookie", user.getEmail());
                     userNameCookie.setMaxAge(365 * 24 * 60 * 60);
                     response.addCookie(userNameCookie);
+                    response.addCookie(userEmailCookie);
                     return "redirect:rhinelabmain";
                 } else {
                     model.addAttribute("messageRegisterError", "Register error: the user name have been used!");
@@ -151,6 +154,50 @@ public class RhineLabController {
         return false;
     }
 
+
+    @RequestMapping("/project_select")
+    public String toProjectSelect(HttpServletRequest request){
+        if (checkUserNameInCookie(request)) {
+            return "project_select";
+        } else {
+            return "Rhinelab_resign";
+        }
+
+    }
+
+    @PostMapping("/projectChoice")
+    public String handleButtonChoice(@RequestParam("button") String buttonValue, HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (buttonValue.equals("projectLaunch")) {
+            return "project_select";
+        } else if (buttonValue.equals("projectAcceptance")) {
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("userEmailCookie")) {
+                        String userEmail = cookie.getValue();
+                        if (checkAdmin(userEmail)) {
+                            return "redirect:project_accTemp";
+                        } else {
+                            return "permissionDenied";
+                        }
+                    }
+                }
+            }
+        } else {
+            System.out.println("what are you fucking clicking?");
+            return "product";
+        }
+        return "rhinelabmain";
+
+    }
+
+    @RequestMapping("/project_accTemp")
+    public String toProjectAcc(Model model) {
+        List<Project> projects = rhineLabMapper.getProjectAll();
+        model.addAttribute("projects", projects);
+        return "project_acc";
+    }
+
     @RequestMapping("/query_management")
     public String toQueryManagement() {
         return "query_management";
@@ -173,6 +220,19 @@ public class RhineLabController {
 
         return "query_result";
     }
+
+
+    @RequestMapping("/checkAdmin")
+    public Boolean checkAdmin(String email){
+        List<Employee> employees = rhineLabMapper.checkAdmin(email);
+        if(!employees.isEmpty()){
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
 
 
 }

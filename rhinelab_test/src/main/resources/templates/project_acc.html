@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>APPLICATION APPROVAL</title>
+    <link rel='stylesheet' type='text/css' th:href='@{/css/project_acc.css}'>
+    <link rel="icon" type="image/jpeg" th:href="@{/img/rahinelab_logo.png}" sizes="32x32">
+
+</head>
+<body>
+<table>
+    <tr>
+        <th>Project ID</th>
+        <th>Project Name</th>
+        <th>Project Type</th>
+        <th>Project Significance</th>
+        <th>Project Timeline</th>
+        <th>Project Budget</th>
+    </tr>
+    <tr th:each="project : ${projects}">
+        <td th:text="${project.projectNum}"></td>
+        <td th:text="${project.name}"></td>
+        <td th:text="${project.type}"></td>
+        <td th:text="${project.meaning}"></td>
+        <td th:text="${project.totalTime}"></td>
+        <td th:text="${project.expenditure}"></td>
+    </tr>
+</table>
+</body>
+</html>

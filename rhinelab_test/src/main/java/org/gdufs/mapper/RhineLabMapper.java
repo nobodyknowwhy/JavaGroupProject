@@ -48,6 +48,11 @@ public interface RhineLabMapper {
     @Select("SELECT * FROM project WHERE phone = #{phone} ORDER BY CASE status WHEN '待审核' THEN 1 WHEN '进行中' THEN 2 ELSE 3 END")
     List<Project> getProject(String phone);
 
+    @Select("select * from employee where email=#{email} and level='2'")
+    List<Employee> checkAdmin(@Param("email") String email);
+
+    @Select("SELECT * FROM project")
+    List<Project> getProjectAll();
 
 
 }
