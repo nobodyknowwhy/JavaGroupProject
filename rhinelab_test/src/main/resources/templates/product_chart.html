@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN" style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<body style="height: 100%; margin: 0">
+<div id="container" style="height: 100%"></div>
+<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/echarts/5.1.2/echarts.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+        renderer: 'canvas',
+        useDirtyRect: false
+    });
+    var arr = /*[[${arr}]]*/ [];
+    var option;
+    var names = [],value = [],number = [],sl = [],max = [];
+    for(let i = 0;i < arr.length;i++){
+        names[i] = arr[i]['qu']
+        value[i] = arr[i]['lr'];
+        number[i] = arr[i]['number'];
+        sl[i] = arr[i]['sl'];
+        max[i] = arr[i]['max'];
+    }
+
+    setTimeout(() => {
+        option = {
+            title: {
+                text: '产品统计'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axis指向: 'shadow'
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data:names,
+                axisTick: {
+                    alignWithLabel: true
+                }
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:'利润',
+                    data:value,
+                    type: 'bar'
+                }
+                ,{
+                    name:'生产数量',
+                    type: 'bar',
+                    data: number
+                }
+                ,{
+                    name:'售量',
+                    type: 'bar',
+                    data: sl
+                }
+                ,{
+                    name:'最大利润',
+                    type: 'bar',
+                    data: max
+                }
+            ]
+        };
+
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
+
+        window.addEventListener('resize', myChart.resize);
+    }, "2000");
+
+
+</script>
+</body>
+</html>
