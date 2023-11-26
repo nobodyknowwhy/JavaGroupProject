@@ -42,6 +42,12 @@ public interface RhineLabMapper {
     @Insert("insert into user (name, gender, password, email) values (#{name}, #{gender}, #{password}, #{email})")
     public int userSave(User user);
 
+    @Select("SELECT * FROM purchase WHERE phone = #{phone} ORDER BY CASE status WHEN '待审核' THEN 1 WHEN '进行中' THEN 2 ELSE 3 END, purchaseDate DESC")
+    List<Purchase> getPurchase(String phone);
+
+    @Select("SELECT * FROM project WHERE phone = #{phone} ORDER BY CASE status WHEN '待审核' THEN 1 WHEN '进行中' THEN 2 ELSE 3 END")
+    List<Project> getProject(String phone);
+
 
 
 }

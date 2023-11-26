@@ -2,10 +2,8 @@ package org.gdufs.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.gdufs.entity.User;
+import org.gdufs.entity.*;
 import org.gdufs.general.FileUploadUtil;
-import org.gdufs.entity.Application;
-import org.gdufs.entity.Student;
 import org.gdufs.mapper.RhineLabMapper;
 import org.gdufs.mapper.StudentMapper;
 import org.gdufs.service.StudentService;
@@ -158,6 +156,32 @@ public class RhineLabController {
         }
 
         return false;
+    }
+
+    @RequestMapping("/query_management")
+    public String toQueryManagement(){
+        return "query_management";
+    }
+
+
+    @PostMapping("/query")
+    public String getQuery(@RequestParam("type") String type,
+                           @RequestParam("phone") String phone,
+                           Model model){
+        QueryResult queryResult = new QueryResult();
+        if (type.equals("order")){
+            List<Purchase> resultList = rhineLabMapper.getPurchase(phone);
+            queryResult.setQueryType("order");
+            queryResult.setResult(resultList);
+        }
+        else if (type.equals("project")){
+            List<Project> resultList = rhineLabMapper.getProject(phone);
+            queryResult.setQueryType("project");
+            queryResult.setResult(resultList);
+        }
+        model.addAttribute("queryResult", queryResult);
+
+        return "query_result";
     }
 
 

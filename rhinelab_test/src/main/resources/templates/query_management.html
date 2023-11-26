@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Page</title>
+    <style type="text/css">
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #eee;
+        }
+
+        form {
+            display: flex;
+            /*align-items: left;*/
+            justify-content: space-between;
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        select, input[type="text"], input[type="submit"] {
+            padding: 1px;
+            font-size: 16px;
+            border-radius: 5px;
+            width: 50px;
+            border: none;
+            flex: 1;
+            margin-right: 50px;
+            box-shadow: 0 0 5px #aaa;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color .3s, color .3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #fff;
+            color: #4CAF50;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+            border: 1px solid #ddd;
+            margin: 0 4px;
+        }
+
+    </style>
+</head>
+<body>
+
+<form id="queryForm" method="POST" action="/query">
+    <label for="type">Search Type:</label>
+    <select name="type" id="type" required>
+        <option value="">--choice--</option>
+        <option value="order">Check order status</option>
+        <option value="project">Check project progress</option>
+    </select>
+    <br><br>
+    <label for="phone">Phone</label>
+    <input type="text" name="phone" id="phone" placeholder="please enter your phone number" required>
+    <br><br>
+    <input type="submit" name="submit" value="Search">
+</form>
+</body>
+</html>
