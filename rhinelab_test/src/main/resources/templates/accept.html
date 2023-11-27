@@ -1,42 +1,15 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="icon" type="image/jpeg" th:href="@{/img/rahinelab_logo.png}" sizes="32x32">
 <head>
     <title>表单</title>
-    <link rel="stylesheet" href="./accept.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/accept.css}">
 </head>
 
 <body>
-    <?php
-    /* 建立数据库 */
-    $Server_name = "localhost";
-    $User_name = "root";
-    $Password = "Zz15987324860";
-    $Databases_name = "rhinelab";
-    $conn = new mysqli($Server_name, $User_name, $Password, $Databases_name);
-    $project_number = $_POST['project-id'];
-    if ($conn->connect_error) {
-        die("Connection failed :" . $conn->connect_error);
-    }
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        
-        $intproject_number = intval($project_number);
-
-        if (isset($_POST['accomplished'])) {
-
-            $sqluserinsert = "UPDATE 项目 SET 项目状态='已完成' WHERE 项目编号=$intproject_number ";
-            $resultuserinsert = mysqli_query($conn, $sqluserinsert);
-
-            $conn->close();
-            echo "<script>alert('mission accomplished!'); window.location.href = './project_acc.php';</script>";
-        } 
-    }
 
 
-    $conn->close();
-    ?>
-
-    <form onsubmit="return validateForm()" action="./accept_con.php" method="post">
+    <form onsubmit="return validateForm()" action="./accept_con" method="post">
         <h1>Registration</h1>
         <label for="username">Name:</label>
         <label for="username">Amiya</label>
@@ -63,6 +36,6 @@
 
 
 </body>
-<script src="./Node.js"></script><!--引入js  -->
+<script th:src="@{/js/Node.js}"></script><!--引入js  -->
 
 </html>

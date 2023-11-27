@@ -280,6 +280,36 @@ public class RhineLabController {
 
         return "product";
     }
+    @RequestMapping("/accept_con")
+    public String accept_con(Model model) {
+        String url = "jdbc:mysql://localhost:3306/rhinelabtest?serverTimezone=Asia/Shanghai";
+        String username = "root";
+        String password = "12345678";
+
+        try {
+            Connection connection = DriverManager.getConnection(url, username, password);
+            Statement statement = connection.createStatement();
+                String sql = "SELECT * FROM product WHERE productNum =0;";
+                ResultSet resultSet = statement.executeQuery(sql);
+                resultSet.next();
+                String value = resultSet.getString("quantity");
+                String cost = resultSet.getString("unitPrice");
+                resultSet.close();
+                String values="value";
+                String costs="cost";
+                model.addAttribute(values, value);
+                model.addAttribute(costs, cost);
+            statement.close();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            model.addAttribute("value", "链接数据库失败");
+            System.out.println("连接失败");
+        }
+
+        return "product";
+    }
 
 
 
