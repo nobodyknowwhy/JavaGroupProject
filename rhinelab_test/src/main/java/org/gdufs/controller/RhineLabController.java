@@ -19,6 +19,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 
 @Controller
 @RequestMapping
@@ -281,34 +282,45 @@ public class RhineLabController {
         return "product";
     }
     @RequestMapping("/accept_con")
-    public String accept_con(Model model) {
+    public String accept_con(Model model,@RequestParam(value = "projectNum", required = false) String PNum,@RequestParam("department") List<String> SelDepart) {
         String url = "jdbc:mysql://localhost:3306/rhinelabtest?serverTimezone=Asia/Shanghai";
         String username = "root";
         String password = "12345678";
-
+        System.out.println(PNum);
         try {
             Connection connection = DriverManager.getConnection(url, username, password);
             Statement statement = connection.createStatement();
-                String sql = "SELECT * FROM product WHERE productNum =0;";
-                ResultSet resultSet = statement.executeQuery(sql);
+            String sql = "UPDATE project SET status='进行中' WHERE projectNum = " + PNum + ";";
+            int rowsAffected = statement.executeUpdate(sql);
+            int count = SelDepart.size();
+            for (int i = 0; i < count; i++) {
+                String SecNum = SelDepart.get(i);
+                String sql2 = "SELECT COUNT(*) FROM receive WHERE projectNum = ? AND sectionNum = ?";
+                PreparedStatement checkStatement = connection.prepareStatement(sql2);
+                checkStatement.setString(1, PNum);
+                checkStatement.setString(2, SecNum);
+                ResultSet resultSet = checkStatement.executeQuery();
                 resultSet.next();
-                String value = resultSet.getString("quantity");
-                String cost = resultSet.getString("unitPrice");
-                resultSet.close();
-                String values="value";
-                String costs="cost";
-                model.addAttribute(values, value);
-                model.addAttribute(costs, cost);
+                int rowCount = resultSet.getInt(1);
+                if (rowCount == 0) {
+                    String insertSql = "INSERT INTO receive (projectNum, sectionNum) VALUES (?, ?)";
+                    PreparedStatement insertStatement = connection.prepareStatement(insertSql);
+                    insertStatement.setString(1, PNum);
+                    insertStatement.setString(2, SecNum);
+                    insertStatement.executeUpdate();
+                    insertStatement.close();
+                }
+                checkStatement.close();
+            }
             statement.close();
             connection.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
             model.addAttribute("value", "链接数据库失败");
             System.out.println("连接失败");
         }
 
-        return "product";
+        return "project_select";
     }
 
 

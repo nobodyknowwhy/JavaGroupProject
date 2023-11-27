@@ -47,11 +47,34 @@ input[type="submit"] {
     cursor: pointer;
     font-size: 16px;
 }
+#button {
+    padding: 0;
+    background-color: #00cc99;
+    color: #000; /* 将字体颜色设置为黑色 */
+    border: none;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: 20px;
+    position: relative;
+    z-index: 1;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+}
+
 input[type="submit"]:hover {
     background-color: gray;
     
 }
 input:hover{
+    animation: pulse 1s ease-in-out infinite ;
+}
+#button{
     animation: pulse 1s ease-in-out infinite ;
 }
 h1 {

@@ -9,7 +9,7 @@
 <body>
 
 
-    <form onsubmit="return validateForm()" action="./accept_con" method="post">
+    <form onsubmit="return validateForm()" action="/accept_con" method="post">
         <h1>Registration</h1>
         <label for="username">Name:</label>
         <label for="username">Amiya</label>
@@ -18,24 +18,25 @@
         <hr width="100%" color="white">
         <p>Welcome back!</p>
         <label for="department">Select:</label>
-        <input type="checkbox" name="department[]" value="0">COMPONENTS CONTROL SECTION<br>
-        <input type="checkbox" name="department[]" value="1">DEFENSE SECTION<br>
-        <input type="checkbox" name="department[]" value="2">BUSINESS SECTION<br>
-        <input type="checkbox" name="department[]" value="3">HUMAN RESOURCES INVESTIGATION SECTION<br>
-        <input type="checkbox" name="department[]" value="4">ENGINEERING SECTION<br>
-        <input type="checkbox" name="department[]" value="5">STRUCTURAL SECTION<br>
-        <input type="checkbox" name="department[]" value="6">ENERGY SECTION<br>
-        <input type="checkbox" name="department[]" value="7">ORIGINIUM ART SECTION<br>
-        <input type="checkbox" name="department[]" value="8">ECOLOGICAL SECTION<br>
-        <input type="checkbox" name="department[]" value="9">SCIENTIFIC INVESTIGATION SECTION<br><br>
+        <input type="checkbox" name="department" value="0">COMPONENTS CONTROL SECTION<br>
+        <input type="checkbox" name="department" value="1">DEFENSE SECTION<br>
+        <input type="checkbox" name="department" value="2">BUSINESS SECTION<br>
+        <input type="checkbox" name="department" value="3">HUMAN RESOURCES INVESTIGATION SECTION<br>
+        <input type="checkbox" name="department" value="4">ENGINEERING SECTION<br>
+        <input type="checkbox" name="department" value="5">STRUCTURAL SECTION<br>
+        <input type="checkbox" name="department" value="6">ENERGY SECTION<br>
+        <input type="checkbox" name="department" value="7">ORIGINIUM ART SECTION<br>
+        <input type="checkbox" name="department" value="8">ECOLOGICAL SECTION<br>
+        <input type="checkbox" name="department" value="9">SCIENTIFIC INVESTIGATION SECTION<br><br>
         <input type="hidden" name="project-id" value="<?php echo $project_number; ?>">
         <label for="password">Note</label>
         <input type="text" id="Note" name="Note">
-        <input type="submit" value="Submit">
+        <input type="hidden" name="projectNum" th:value="${projectNum}" />
+        <button id="button" type="submit">SUBMIT</button>
     </form>
 
 
 </body>
-<script th:src="@{/js/Node.js}"></script><!--引入js  -->
+<script th:src="@{/js/Node.js}"></script>
 
 </html>
