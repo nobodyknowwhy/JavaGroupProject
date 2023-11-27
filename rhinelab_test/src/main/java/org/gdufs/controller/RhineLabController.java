@@ -204,19 +204,19 @@ public class RhineLabController {
     }
 
     @RequestMapping("/projectStatusAction")
-    public String toProjectStatusAction(@RequestParam("button") String buttonValue, Model model) {
-        System.out.println(buttonValue);
-        if(buttonValue.equals("unreviewed")){
-            System.out.println(buttonValue);
+    public String toProjectStatusAction(@RequestParam(value = "accomplish", required = false) String buttonAccomplishValue,
+                                        @RequestParam(value = "unreviewed", required = false) String buttonUnreviewedValue,
+                                        Model model) {
+
+        if (buttonUnreviewedValue != null && !buttonUnreviewedValue.isEmpty()) {
+            model.addAttribute("projectNum", buttonUnreviewedValue);
             return "accept";
-        }else {
-            System.out.println(buttonValue);
-            rhineLabMapper.deleteProject(Integer.parseInt(buttonValue));
-
+        } else if (buttonAccomplishValue != null && !buttonAccomplishValue.isEmpty()) {
+            rhineLabMapper.deleteProject(Integer.parseInt(buttonAccomplishValue));
             return "redirect:project_accTemp";
+        } else {
+            return "error";
         }
-
-
     }
 
 
