@@ -48,11 +48,20 @@ public interface RhineLabMapper {
     @Select("select * from employee where email=#{email} and level='2'")
     List<Employee> checkAdmin(@Param("email") String email);
 
+    @Select("select * from employee where email=#{email} and level='1'")
+    List<Employee> checkEmployee(@Param("email") String email);
+
+    @Select("select * from employee where employeeNum=#{id} and password=#{password}")
+    Employee checkEmployeeByEmployee(@Param("id") int id, @Param("password") String password);
+
     @Select("SELECT * FROM project")
     List<Project> getProjectAll();
 
     @Delete("delete from project where projectNum= #{projectNum} ")
     public void deleteProject(int projectNum);
+
+    @Select("SELECT employeeNum, name, photo, gender, nation, birthday, politicalStatus, birthplace, phone, email, entryTime, sectionNum, status from employee where employeeNum=#{bianhao} AND password=#{password}")
+    List<Employee> getEmployeeAll(int bianhao, String password);
 
 
 }

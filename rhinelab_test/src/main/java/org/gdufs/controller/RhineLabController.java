@@ -145,6 +145,43 @@ public class RhineLabController {
 
     }
 
+    @RequestMapping(value = "/shenQing")
+    public String toShenQing() {
+        return "/人员管理/员工/shenqing";
+    }
+
+    @RequestMapping(value = "/employeeLogin")
+    public String toEmployeeLogin(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("userEmailCookie")) {
+                String userEmail = cookie.getValue();
+                if(checkAdmin(userEmail)){
+                    return "/人员管理/index";
+                }else if(checkEmployee(userEmail)){
+                    return "/人员管理/index";
+                }else {
+                    return "permissionDenied";
+                }
+            }
+        }
+        return "permissionDenied";
+    }
+
+
+    @RequestMapping(value = "/employeeLoginTo")
+    public String toEmployeeLoginTo(int id,String password) {
+        Employee employee = rhineLabMapper.checkEmployeeByEmployee(id, password);
+        if(employee.getLevel().equals("1")){
+            return "/人员管理/员工/index";
+        }else if(employee.getLevel().equals("2")){
+            return "/人员管理/管理/index";
+        }else {
+            return "permissionDenied";
+        }
+
+    }
+
     @GetMapping("/checkUserNameInCookie")
     public Boolean checkUserNameInCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
@@ -334,6 +371,16 @@ public class RhineLabController {
             return false;
         }
 
+    }
+
+    @RequestMapping("/checkEmployee")
+    public Boolean checkEmployee(String email){
+        List<Employee> employees = rhineLabMapper.checkEmployee(email);
+        if(!employees.isEmpty()){
+            return true;
+        }else {
+            return false;
+        }
     }
 
 
