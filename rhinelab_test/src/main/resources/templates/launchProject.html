@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title><!DOCTYPE html>
+    <html>
+    <head>
+        <title>Project Launch</title>
+        <style>
+            body {
+                font-family:'Times New Roman', Times, serif;
+                background-color: #eee;
+            }
+            .form-container {
+                width: 40%;
+                margin: 50px auto;
+                background-color: rgba(255, 255, 255, 0.8);
+                padding: 20px;
+                border-radius: 10px;
+            }
+            h1 {
+                text-align: center;
+            }
+
+            form {
+                margin-top: 20px;
+            }
+
+            input[type="text"],
+            select,
+            input[type="number"],
+            input[type="tel"] {
+                padding: 5px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            input[type="submit"] {
+                padding: 10px;
+                background-color: #4CAF50;
+                color: white;
+                border-radius: 5px;
+                border: none;
+                cursor: pointer;
+            }
+
+            input[type="submit"]:hover {
+                background-color: #3e8e41;
+            }
+        </style>
+    </head>
+    <body>
+
+    <div class="form-container">
+        <h1>Project Form</h1>
+        <form method="post" action="/">
+            <label for="customerName">Customer Name:</label>
+            <input type="text" name="customerName" id="customerName" placeholder="Customer Name..." required>
+            <br><br>
+
+            <label for="contact">Phone:</label>
+            <input type="tel" name="contact" id="contact" placeholder="phone number is..." required>
+            <br><br>
+
+            <label for="projectName">Project Name:</label>
+            <input type="text" name="projectName" id="projectName" placeholder="project name..." required>
+            <br><br>
+
+            <label for="projectType">Project Type:</label>
+            <select name="projectType" id="projectType" required>
+                <option value="">Please Choose Your Project Type</option>
+                <option value="矢量级">Vector Magnitude Level</option>
+                <option value="轨道级">Orbit Level</option>
+                <option value="星尘级">Cosmic Level</option>
+                <option value="恒星级">Stellar Level</option>
+                <option value="星河级">Galactic Level</option>
+            </select>
+            <br><br>
+
+            <label for="projectMeaning">Project Significance</label>
+            <textarea name="projectMeaning" id="projectMeaning" placeholder="Project significance is..." required></textarea>
+            <br><br>
+
+            <label for="projectTime">Project Timeline:</label>
+            <input type="number" name="projectTime" id="projectTime" placeholder="the project timeline is..." min="0" max="24" required>
+            <br><br>
+
+            <label for="projectBudget">Project Budget:</label>
+            <input type="text" name="projectBudget" id="projectBudget" placeholder="the project budget is..." required>
+            <br><br>
+
+            <input type="submit" name="submit" value="Submit">
+        </form>
+    </div>
+    </body>
+    </html>
+</head>
+<body>
+
+</body>
+</html>

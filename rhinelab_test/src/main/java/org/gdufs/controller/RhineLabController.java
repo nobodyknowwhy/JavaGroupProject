@@ -193,10 +193,8 @@ public class RhineLabController {
                 }
             }
         }
-
         return false;
     }
-
 
     @RequestMapping("/project_select")
     public String toProjectSelect(HttpServletRequest request){
@@ -205,14 +203,13 @@ public class RhineLabController {
         } else {
             return "Rhinelab_resign";
         }
-
     }
 
     @PostMapping("/projectChoice")
     public String handleButtonChoice(@RequestParam("button") String buttonValue, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (buttonValue.equals("projectLaunch")) {
-            return "project_select";
+            return "launchProject";
         } else if (buttonValue.equals("projectAcceptance")) {
             if (cookies != null) {
                 for (Cookie cookie : cookies) {
@@ -227,7 +224,6 @@ public class RhineLabController {
                 }
             }
         } else {
-            System.out.println("what are you fucking clicking?");
             return "product";
         }
         return "rhinelabmain";
@@ -257,8 +253,6 @@ public class RhineLabController {
         }
     }
 
-
-
     @RequestMapping("/query_management")
     public String toQueryManagement() {
         return "query_management";
@@ -281,7 +275,6 @@ public class RhineLabController {
 
         return "query_result";
     }
-
     @RequestMapping("/product")
     public String toproduct() {
         return "product";
@@ -360,8 +353,6 @@ public class RhineLabController {
         return "project_select";
     }
 
-
-
     @RequestMapping("/checkAdmin")
     public Boolean checkAdmin(String email){
         List<Employee> employees = rhineLabMapper.checkAdmin(email);
@@ -383,6 +374,10 @@ public class RhineLabController {
         }
     }
 
+    @RequestMapping("/launchProject")
+    public String launchProject(Model model){
+        return "launchProject";
+    }
 
 
 }
