@@ -118,8 +118,13 @@
 		// 每隔一定时间调用检查密码一致性的函数
 		setInterval(checkPasswordMatch, 1000); // 1000毫秒（1秒）
 
+
+
 		// 初始状态下进行一次密码一致性检查
 		checkPasswordMatch();
+
+		loginForm.style.display = 'block';
+		registerForm.style.display = 'none';
 
 	</script>
 
