@@ -2,6 +2,7 @@ package org.gdufs.controller;
 
 import org.gdufs.entity.*;
 import org.gdufs.general.FileUploadUtil;
+import org.gdufs.general.PurchaseInfo;
 import org.gdufs.mapper.RhineLabMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -168,8 +171,17 @@ public class RhineLabController {
         }
     }
 
+    @RequestMapping("/purchase_select")
+    public String toPurchaseSelect(HttpServletRequest request){
+        if (checkUserNameInCookie(request)) {
+            return "product_all";
+        } else {
+            return "Rhinelab_resign";
+        }
+    }
+
     @PostMapping("/projectChoice")
-    public String handleButtonChoice(@RequestParam("button") String buttonValue, HttpServletRequest request) {
+    public String handleButtonChoiceProject(@RequestParam("button") String buttonValue, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (buttonValue.equals("projectLaunch")) {
             return "launchProject";
@@ -193,12 +205,59 @@ public class RhineLabController {
 
     }
 
+    @RequestMapping ("/purchaseChoice")
+    public String handleButtonChoicePurchase(@RequestParam("button") String buttonValue, HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (buttonValue.equals("productPurchase")) {
+            return "订购";
+        } else if (buttonValue.equals("purchaseDetail")) {
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("userEmailCookie")) {
+                        String userEmail = cookie.getValue();
+                        if (checkAdmin(userEmail)) {
+                            return "redirect:purchase_allTemp";
+                        } else {
+                            return "permissionDenied";
+                        }
+                    }
+                }
+            }
+        } else {
+            return "product_all";
+        }
+        return "rhinelabmain";
+
+    }
+
     @RequestMapping("/project_accTemp")
     public String toProjectAcc(Model model) {
         List<Project> projects = rhineLabMapper.getProjectAll();
         model.addAttribute("projects", projects);
         return "project_acc";
     }
+
+
+    @RequestMapping("/purchase_allTemp")
+    public String toPurchaseAll(Model model) {
+        List<Purchase> purchases = rhineLabMapper.getPurchaseAll();
+        List<PurchaseInfo> purchaseInfos = new ArrayList<>();
+
+        for (Purchase purchase : purchases) {
+            long productNum = purchase.getProductNum();
+            List<Product> products = rhineLabMapper.getProductOne(productNum);
+            for (Product product : products) {
+                PurchaseInfo purchaseInfo = new PurchaseInfo();
+                purchaseInfo.setPurchase(purchase);
+                purchaseInfo.setProductName(product.getName());
+                purchaseInfos.add(purchaseInfo);
+            }
+        }
+
+        model.addAttribute("purchaseInfos", purchaseInfos);
+        return "purchase_acc";
+    }
+
 
     @RequestMapping("/projectStatusAction")
     public String toProjectStatusAction(@RequestParam(value = "accomplish", required = false) String buttonAccomplishValue,
@@ -211,6 +270,18 @@ public class RhineLabController {
         } else if (buttonAccomplishValue != null && !buttonAccomplishValue.isEmpty()) {
             rhineLabMapper.deleteProject(Integer.parseInt(buttonAccomplishValue));
             return "redirect:project_accTemp";
+        } else {
+            return "error";
+        }
+    }
+
+    @RequestMapping("/purchaseStatusAction")
+    public String toPurchaseStatusAction(@RequestParam(value = "accomplish", required = false) String buttonAccomplishValue,
+                                        Model model) {
+
+        if (buttonAccomplishValue != null && !buttonAccomplishValue.isEmpty()) {
+            rhineLabMapper.deleteProject(Integer.parseInt(buttonAccomplishValue));
+            return "redirect:purchase_allTemp";
         } else {
             return "error";
         }
@@ -330,6 +401,8 @@ public class RhineLabController {
     public String launchProject(Model model){
         return "launchProject";
     }
+
+
 
 
 }

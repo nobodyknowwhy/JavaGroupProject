@@ -54,5 +54,14 @@ public interface RhineLabMapper {
     @Delete("delete from project where projectNum= #{projectNum} ")
     public void deleteProject(int projectNum);
 
+    @Select("SELECT * FROM purchase")
+    List<Purchase> getPurchaseAll();
+
+    @Delete("delete from purchase where purchaseNum= #{purchase} ")
+    public void deletePurchase(int purchase);
+
+    @Select("SELECT * FROM product where productNum = #{productNum}")
+    List<Product> getProductOne(@Param("productNum") long productNum);
+
 
 }

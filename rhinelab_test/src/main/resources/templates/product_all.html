@@ -1,25 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="icon" type="image/jpeg" th:href="@{/img/rahinelab_logo.png}" sizes="32x32">
 <head>
 	<meta charset="UTF-8">
-	<title>Buttons in Table</title>
-    <link rel="stylesheet" href="product_all.css">
+	<title>Project Select</title>
+	<link rel="stylesheet" th:href="@{/css/product_all.css}">
 
 </head>
 <body>
-	<div class="container">
+<div class="container">
+	<form action="/purchaseChoice" method="post">
 		<table>
 			<tbody>
-				<tr>
-					<td>
-						<button onclick="window.location.href='订购.php';">Product Purchase</button>
-					</td>
-					<td>
-						<button onclick="window.location.href='Product_A.php';">Purchase detail<br>(Administrator Only)</button>
-					</td>
-				</tr>
+			<tr>
+				<td>
+					<button type="submit" name="button" value="productPurchase" href="/launchProject">Product Purchase</button>
+				</td>
+				<td>
+					<button type="submit" name="button" value="purchaseDetail">Purchase Detail<br>(Administrator Only)</button>
+				</td>
+			</tr>
 			</tbody>
 		</table>
-	</div>
+	</form>
+</div>
 </body>
 </html>
