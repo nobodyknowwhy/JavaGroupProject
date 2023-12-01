@@ -13,7 +13,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -155,6 +154,43 @@ public class RhineLabController {
 
     }
 
+    @RequestMapping(value = "/shenQing")
+    public String toShenQing() {
+        return "/人员管理/员工/shenqing";
+    }
+
+    @RequestMapping(value = "/employeeLogin")
+    public String toEmployeeLogin(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("userEmailCookie")) {
+                String userEmail = cookie.getValue();
+                if(checkAdmin(userEmail)){
+                    return "/人员管理/index";
+                }else if(checkEmployee(userEmail)){
+                    return "/人员管理/index";
+                }else {
+                    return "permissionDenied";
+                }
+            }
+        }
+        return "permissionDenied";
+    }
+
+
+    @RequestMapping(value = "/employeeLoginTo")
+    public String toEmployeeLoginTo(int id,String password) {
+        Employee employee = rhineLabMapper.checkEmployeeByEmployee(id, password);
+        if(employee.getLevel().equals("1")){
+            return "/人员管理/员工/index";
+        }else if(employee.getLevel().equals("2")){
+            return "/人员管理/管理/index";
+        }else {
+            return "permissionDenied";
+        }
+
+    }
+
     @GetMapping("/checkUserNameInCookie")
     public Boolean checkUserNameInCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
@@ -178,17 +214,8 @@ public class RhineLabController {
         }
     }
 
-    @RequestMapping("/purchase_select")
-    public String toPurchaseSelect(HttpServletRequest request){
-        if (checkUserNameInCookie(request)) {
-            return "product_all";
-        } else {
-            return "Rhinelab_resign";
-        }
-    }
-
     @PostMapping("/projectChoice")
-    public String handleButtonChoiceProject(@RequestParam("button") String buttonValue, HttpServletRequest request) {
+    public String handleButtonChoice(@RequestParam("button") String buttonValue, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (buttonValue.equals("projectLaunch")) {
             return "launchProject";
@@ -210,6 +237,22 @@ public class RhineLabController {
         }
         return "rhinelabmain";
 
+    }
+
+    @RequestMapping("/project_accTemp")
+    public String toProjectAcc(Model model) {
+        List<Project> projects = rhineLabMapper.getProjectAll();
+        model.addAttribute("projects", projects);
+        return "project_acc";
+    }
+
+    @RequestMapping("/purchase_select")
+    public String toPurchaseSelect(HttpServletRequest request){
+        if (checkUserNameInCookie(request)) {
+            return "product_all";
+        } else {
+            return "Rhinelab_resign";
+        }
     }
 
     @RequestMapping ("/purchaseChoice")
@@ -237,13 +280,6 @@ public class RhineLabController {
 
     }
 
-    @RequestMapping("/project_accTemp")
-    public String toProjectAcc(Model model) {
-        List<Project> projects = rhineLabMapper.getProjectAll();
-        model.addAttribute("projects", projects);
-        return "project_acc";
-    }
-
 
     @RequestMapping("/purchase_allTemp")
     public String toPurchaseAll(Model model) {
@@ -264,24 +300,6 @@ public class RhineLabController {
         model.addAttribute("purchaseInfos", purchaseInfos);
         return "purchase_acc";
     }
-
-
-    @RequestMapping("/projectStatusAction")
-    public String toProjectStatusAction(@RequestParam(value = "accomplish", required = false) String buttonAccomplishValue,
-                                        @RequestParam(value = "unreviewed", required = false) String buttonUnreviewedValue,
-                                        Model model) {
-
-        if (buttonUnreviewedValue != null && !buttonUnreviewedValue.isEmpty()) {
-            model.addAttribute("projectNum", buttonUnreviewedValue);
-            return "accept";
-        } else if (buttonAccomplishValue != null && !buttonAccomplishValue.isEmpty()) {
-            rhineLabMapper.deleteProject(Integer.parseInt(buttonAccomplishValue));
-            return "redirect:project_accTemp";
-        } else {
-            return "error";
-        }
-    }
-
     @RequestMapping("/purchaseStatusAction")
     public String toPurchaseStatusAction(@RequestParam(value = "accomplish", required = false) String buttonAccomplishValue,
                                         Model model) {
@@ -293,6 +311,7 @@ public class RhineLabController {
             return "error";
         }
     }
+
 
     @RequestMapping("/query_management")
     public String toQueryManagement() {
@@ -404,12 +423,21 @@ public class RhineLabController {
         }
 
     }
+
+    @RequestMapping("/checkEmployee")
+    public Boolean checkEmployee(String email){
+        List<Employee> employees = rhineLabMapper.checkEmployee(email);
+        if(!employees.isEmpty()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     @RequestMapping("/launchProject")
     public String launchProject(Model model){
         return "launchProject";
     }
-
-
 
 
 }

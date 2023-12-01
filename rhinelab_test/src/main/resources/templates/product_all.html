@@ -2,26 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <link rel="icon" type="image/jpeg" th:href="@{/img/rahinelab_logo.png}" sizes="32x32">
 <head>
-	<meta charset="UTF-8">
 	<title>Project Select</title>
 	<link rel="stylesheet" th:href="@{/css/product_all.css}">
 
 </head>
 <body>
 <div class="container">
-	<form action="/purchaseChoice" method="post">
-		<table>
-			<tbody>
-			<tr>
-				<td>
-					<button type="submit" name="button" value="productPurchase" href="/launchProject">Product Purchase</button>
-				</td>
-				<td>
-					<button type="submit" name="button" value="purchaseDetail">Purchase Detail<br>(Administrator Only)</button>
-				</td>
-			</tr>
-			</tbody>
-		</table>
+		<form action="/purchaseChoice" method="post">
+			<table>
+				<tbody>
+				<tr>
+					<td>
+						<button type="submit" name="button" value="productPurchase" href="/launchProject">Product Purchase</button>
+					</td>
+					<td>
+						<button type="submit" name="button" value="purchaseDetail">Purchase Detail<br>(Administrator Only)</button>
+					</td>
+				</tr>
+				</tbody>
+			</table>
 	</form>
 </div>
 </body>

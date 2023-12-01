@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="icon" type="image/jpeg" th:href="@{/img/rahinelab_logo.png}" sizes="32x32">
+    <head>
+    <title>登录</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        table {
+            background-color: #e6f2ff;
+            margin: 0 auto; text-align: center;
+        }
+        td, th {
+            padding: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+        .black{
+            text-decoration: none;
+            color:#000;
+        }
+    </style>
+    </head>
+    <body>
+        <h1>登录</h1>
+        <form action="/employeeLogin" method="post">
+            <table>
+                <tr>
+                    <td>员工编号:</td>
+                    <td><input type="text" name="id"></td>
+                </tr>
+                <tr>
+                    <td>密码:</td>
+                    <td><input type="password" name="password"></td>
+                </tr>
+                <tr>
+                    <td>身份:</td>
+                    <td>
+                        <select name="identity">
+                            <option value="employee">员工</option>
+                            <option value="director">主任</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+<!--                        <input type="submit" value="登录">-->
+                        <button><a href='/employeeLoginTo' >登录</a></button>
+                        <button><a href='/rhinelabmain' class='black'>返回</a></button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
