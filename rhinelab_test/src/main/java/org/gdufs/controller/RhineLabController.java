@@ -62,18 +62,25 @@ public class RhineLabController {
     }
 
     @RequestMapping(value = "/Rhinelab_join_action", method = {RequestMethod.POST})
-    public String joinAction(Application application) throws Exception {
-        FileUploadUtil.saveFileToForm(application.getApplicationForms());
-        FileUploadUtil.saveFileToPhoto(application.getPhotos());
-        application.setApplicationForm(application.getApplicationForms().getName());
-        application.setPhoto(application.getPhotos().getName());
-        if (application.getOthers() == null) {
-            rhineLabMapper.applicationSave(application);
-        } else {
-            rhineLabMapper.applicationSaveO(application);
+    public String joinAction(Application application, Model model) throws Exception {
+        List<Employee> employees = rhineLabMapper.isAlreadyEmployee(application.getEmail());
+        if(employees.isEmpty()){
+            FileUploadUtil.saveFileToForm(application.getApplicationForms());
+            FileUploadUtil.saveFileToPhoto(application.getPhotos());
+            application.setApplicationForm(application.getApplicationForms().getName());
+            application.setPhoto(application.getPhotos().getName());
+            if (application.getOthers() == null) {
+                rhineLabMapper.applicationSave(application);
+            } else {
+                rhineLabMapper.applicationSaveO(application);
+            }
+            return "joinafter";
+        }else {
+            model.addAttribute("messageJoinError", "you have already a member of RHINE LAB");
+            return "Rhinelab_join";
         }
 
-        return "joinafter";
+
     }
 
 
@@ -280,7 +287,7 @@ public class RhineLabController {
                                         Model model) {
 
         if (buttonAccomplishValue != null && !buttonAccomplishValue.isEmpty()) {
-            rhineLabMapper.deleteProject(Integer.parseInt(buttonAccomplishValue));
+            rhineLabMapper.deletePurchase(Integer.parseInt(buttonAccomplishValue));
             return "redirect:purchase_allTemp";
         } else {
             return "error";

@@ -63,5 +63,8 @@ public interface RhineLabMapper {
     @Select("SELECT * FROM product where productNum = #{productNum}")
     List<Product> getProductOne(@Param("productNum") long productNum);
 
+    @Select("SELECT * FROM employee where email = #{email}")
+    List<Employee> isAlreadyEmployee(@Param("email") String email);
+
 
 }
