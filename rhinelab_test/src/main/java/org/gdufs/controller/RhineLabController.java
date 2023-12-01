@@ -274,6 +274,7 @@ public class RhineLabController {
                 }
             }
         } else {
+            System.out.println("阿弥诺斯");
             return "product_all";
         }
         return "rhinelabmain";
