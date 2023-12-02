@@ -440,7 +440,11 @@ public class RhineLabController {
         return "launchProject";
     }
 
-
+    @PostMapping("/launch")
+    public String launch(@ModelAttribute("project") Project project, Model model, HttpServletResponse response) {
+        rhineLabMapper.launch(project);
+        return "rhinelabmain";
+    }
 }
 
 

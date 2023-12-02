@@ -75,5 +75,6 @@ public interface RhineLabMapper {
     @Select("SELECT * FROM employee where email = #{email}")
     List<Employee> isAlreadyEmployee(@Param("email") String email);
 
-
+    @Insert("insert into project (phone, name, type, meaning, totalTime, expenditure, status) values (#{phone}, #{name}, #{type}, #{meaning}, #{totalTime}, #{expenditure}, '待审核')")
+    public int launch(Project project);
 }
