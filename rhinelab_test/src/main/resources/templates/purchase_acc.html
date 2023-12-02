@@ -25,7 +25,6 @@
             <td th:text="${purchaseInfo.purchase.totalPrices}"></td>
             <td th:text="${purchaseInfo.purchase.purchaseDate}"></td>
             <td th:text="${purchaseInfo.purchase.address}"></td>
-            <!--            <td th:text="${purchaseInfo.purchase.status}"></td>-->
             <td>
                 <button type="submit" class="accomplish" name="accomplish" th:value="${purchaseInfo.purchase.purchaseNum}" th:if="${purchaseInfo.purchase.status == '已完成'}">ACCOMPLISHED</button>
                 <button class="ongoing" th:if="${purchaseInfo.purchase.status == '待发货'}" onclick="return false;">UNPACKED</button>
