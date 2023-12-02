@@ -25,11 +25,11 @@
     </head>
     <body>
         <h1>登录</h1>
-        <form action="/employeeLogin" method="post">
+        <form action="/employeeLoginTo" method="post">
             <table>
                 <tr>
                     <td>员工编号:</td>
-                    <td><input type="text" name="id"></td>
+                    <td><input type="text" name="idEmployee"></td>
                 </tr>
                 <tr>
                     <td>密码:</td>
@@ -46,8 +46,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-<!--                        <input type="submit" value="登录">-->
-                        <button><a href='/employeeLoginTo' >登录</a></button>
+                        <button name="button" type="submit">登录</button>
                         <button><a href='/rhinelabmain' class='black'>返回</a></button>
                     </td>
                 </tr>

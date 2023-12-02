@@ -52,7 +52,7 @@ public interface RhineLabMapper {
     List<Employee> checkEmployee(@Param("email") String email);
 
     @Select("select * from employee where employeeNum=#{id} and password=#{password}")
-    Employee checkEmployeeByEmployee(@Param("id") int id, @Param("password") String password);
+    Employee checkEmployeeByEmployee(@Param("id") long id, @Param("password") String password);
 
     @Select("SELECT * FROM project")
     List<Project> getProjectAll();

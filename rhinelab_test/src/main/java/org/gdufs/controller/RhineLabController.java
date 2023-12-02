@@ -29,6 +29,14 @@ public class RhineLabController {
     @Autowired
     RhineLabMapper rhineLabMapper;
 
+    public class AlertMessage {
+        private String message;
+
+        public AlertMessage(String message) {
+            this.message = message;
+        }
+
+    }
     @RequestMapping(value = "/RHINE LAB", method = {RequestMethod.POST, RequestMethod.GET})
     public String listUser(Model model, @RequestParam(value = "start", defaultValue = "0") int start, @RequestParam(value = "size", defaultValue = "10") int size) throws Exception {
 
@@ -178,8 +186,13 @@ public class RhineLabController {
     }
 
 
-    @RequestMapping(value = "/employeeLoginTo")
-    public String toEmployeeLoginTo(int id,String password) {
+    @RequestMapping(value = "/employeeLoginTo", method = {RequestMethod.POST})
+    public String toEmployeeLoginTo(@RequestParam(value = "idEmployee", required = false) String idName,
+                                    @RequestParam(value = "password", required = false) String password,
+                                    @RequestParam(value = "identity", required = false) String identity) {
+
+
+        long id = Integer.parseInt(idName);
         Employee employee = rhineLabMapper.checkEmployeeByEmployee(id, password);
         if(employee.getLevel().equals("1")){
             return "/人员管理/员工/index";
