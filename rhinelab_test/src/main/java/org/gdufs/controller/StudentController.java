@@ -6,7 +6,7 @@ import com.github.pagehelper.PageInfo;
 
 import org.gdufs.entity.Student;
 import org.gdufs.mapper.StudentMapper;
-import org.gdufs.service.StudentService;
+import org.gdufs.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +22,7 @@ public class StudentController {
     StudentMapper studentMapper;
     
     @Autowired
-    StudentService studentService;
+    EmployeeService employeeService;
     //添加
     @RequestMapping("/addStudent")
     public String listStudent(Student student) throws Exception {
@@ -71,7 +71,7 @@ public class StudentController {
                            @RequestParam(value = "size", defaultValue = "10") int size) throws Exception {
         PageHelper.startPage(start,size,true);
 //        List<Student> studentList=studentMapper.findAll();
-        List<Student> studentList=studentService.getAllStudents();
+        List<Student> studentList= employeeService.getAllStudents();
         PageInfo<Student> page = new PageInfo<Student>(studentList);
         model.addAttribute("pages", page);
        

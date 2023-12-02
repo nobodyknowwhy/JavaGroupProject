@@ -3,21 +3,21 @@ package org.gdufs.service.impl;
 import java.util.List;
 
 import org.gdufs.entity.Student;
-import org.gdufs.mapper.StudentMapper;
-import org.gdufs.service.StudentService;
+import org.gdufs.mapper.RhineLabMapper;
+import org.gdufs.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("studentService")
-public class StudentServiceImpl implements StudentService {
+public class employeeServiceImpl implements EmployeeService {
 	
 	// 依赖注入
 	@Autowired
-	StudentMapper studentMapper;
+	RhineLabMapper rhineLabMapper;
 	@Override
 	public List<Student> getAllStudents() {
 		// TODO Auto-generated method stub
-		return studentMapper.findAll();
+		return rhineLabMapper.findAll();
 	}
 
 }

@@ -1,5 +1,7 @@
 package org.gdufs.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.gdufs.entity.*;
 import org.gdufs.general.FileUploadUtil;
 import org.gdufs.general.PurchaseInfo;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.gdufs.service.EmployeeService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -29,8 +32,20 @@ public class RhineLabController {
     @Autowired
     RhineLabMapper rhineLabMapper;
 
+    @Autowired
+    EmployeeService employeeService;
+
+    public class AlertMessage {
+        private String message;
+
+        public AlertMessage(String message) {
+            this.message = message;
+        }
+
+    }
     @RequestMapping(value = "/RHINE LAB", method = {RequestMethod.POST, RequestMethod.GET})
-    public String listUser(Model model, @RequestParam(value = "start", defaultValue = "0") int start, @RequestParam(value = "size", defaultValue = "10") int size) throws Exception {
+    public String listUser(Model model, @RequestParam(value = "start", defaultValue = "0")
+    int start, @RequestParam(value = "size", defaultValue = "10") int size) throws Exception {
 
 
         return "RHINE LAB";
@@ -177,9 +192,12 @@ public class RhineLabController {
         return "permissionDenied";
     }
 
-
-    @RequestMapping(value = "/employeeLoginTo")
-    public String toEmployeeLoginTo(int id,String password) {
+    //员工管理登录判断
+    @RequestMapping(value = "/employeeLoginTo", method = {RequestMethod.POST})
+    public String toEmployeeLoginTo(@RequestParam(value = "idEmployee", required = false) String idName,
+                                    @RequestParam(value = "password", required = false) String password,
+                                    @RequestParam(value = "identity", required = false) String identity) {
+        long id = Integer.parseInt(idName);
         Employee employee = rhineLabMapper.checkEmployeeByEmployee(id, password);
         if(employee.getLevel().equals("1")){
             return "/人员管理/员工/index";
@@ -189,6 +207,20 @@ public class RhineLabController {
             return "permissionDenied";
         }
 
+    }
+
+    //遍历
+    @RequestMapping(value = "/listStudent", method = { RequestMethod.POST,	RequestMethod.GET })
+    public String listEmployee(Model model, @RequestParam(value = "start", defaultValue = "0") int start,
+                           @RequestParam(value = "size", defaultValue = "10") int size) throws Exception {
+        PageHelper.startPage(start,size,true);
+//        List<Student> studentList=studentMapper.findAll();
+        List<Employee> employeesList = EmployeeService.getAllStudents();
+//        List<Student> studentList=studentService.getAllStudents();
+//        PageInfo<Student> page = new PageInfo<Student>(studentList);
+//        model.addAttribute("pages", page);
+
+        return "liststudent";
     }
 
     @GetMapping("/checkUserNameInCookie")

@@ -4,6 +4,6 @@ import java.util.List;
 
 import org.gdufs.entity.Student;
 
-public interface StudentService {
+public interface EmployeeService {
 public List<Student> getAllStudents();
 }

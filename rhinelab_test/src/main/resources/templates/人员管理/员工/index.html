@@ -1,18 +1,14 @@
-<?php
-    session_start();
-?>
-
-
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="icon" type="image/jpeg" th:href="@{/img/rahinelab_logo.png}" sizes="32x32">
 <head>
   <title>个人界面</title>
   <script>
         function myFunction(){
-        var x;
-        var r=confirm("是否确认退出");
-        if (r==true){
-           window.location.href = "../index.php";
+          var x;
+          var r=confirm("是否确认退出");
+          if (r==true){
+             window.location.href = "../index";
         }
         }
     </script>
@@ -78,40 +74,22 @@
 <body>
   <div class="personal-info">
   <input type="button" class="button" onclick="myFunction()" value="退出登录" >
-    <?php
-      $conn = mysqli_connect("localhost", "root", "Zz15987324860", "rhinelab");
-      if ($conn-> connect_error) {
-        die("Connection failed:". $conn-> connect_error);
-      }
-      $bianhao = $_SESSION['id'];
-      $password = $_SESSION['password'];
-      $sql = "SELECT 员工编号, 姓名, 照片, 性别, 民族, 生日, 政治面貌, 籍贯, 手机号码, 邮箱, 入职时间, 部门编号, 状态 from 员工 where 员工编号='$bianhao' AND 密码='$password'";
-      $result = $conn-> query($sql);
-      if ($result-> num_rows > 0) {
-        while ($row = $result-> fetch_assoc()) {
-          echo "<h2 style='text-align: center;'>个人信息</h2>";
-          echo "<img src='../干员/LinImage/". $row["照片"] . "' alt='Description of image'>";
-          echo "<h3 style='text-align: center;'>". $row["姓名"]."</h3>";
-          echo "<div style='background-color: #f2f2f2;'>";
-          echo "<div style='background-color: #f2f2f2;'>";
-          echo "<div class='button-row'>";
-          echo "<button onclick='signIn()'>签到</button>";
-          echo "<span id='signInTime'></span>";
-          echo "<button onclick='signOut()'>签退</button>";
-          echo "<span id='signOutTime'></span>";
-          echo "<button onclick='apply()'>申请</button>";
-          echo "</div>";
-          echo "</div>";
-          echo "<table>";
-          echo "<tr><td>员工编号: ". $row["员工编号"]."</td><td>姓名: ". $row["姓名"]."</td><td>性别: ". $row["性别"]."</td><td>民族: ". $row["民族"]."</td><td>生日: ". $row["生日"]."</td><td>政治面貌: ". $row["政治面貌"]."</td><td>籍贯: ". $row["籍贯"]."</td><td>手机号码: ". $row["手机号码"]."</td><td>邮箱: ". $row["邮箱"]."</td><td>入职时间: ". $row["入职时间"]."</td><td>部门编号: ". $row["部门编号"]."</td><td>状态: ". $row["状态"]."</td><td id='working-hours'></td></tr>";
-          echo "</table>";
-        }
-      }
-      else {
-        echo "0 result";
-      }
-      $conn-> close();
-    ?>
+    <h2 style='text-align: center;'>个人信息</h2>";
+    <img src='../干员/LinImage/". $row["照片"] . "' alt='Description of image'>";
+    <h3 style='text-align: center;'>". $row["姓名"]."</h3>";
+    <div style='background-color: #f2f2f2;'>";
+      <div style='background-color: #f2f2f2;'>";
+        <div class='button-row'>";
+          <button onclick='signIn()'>签到</button>";
+          <span id='signInTime'></span>";
+          <button onclick='signOut()'>签退</button>";
+          <span id='signOutTime'></span>";
+          <button onclick='apply()'>申请</button>";
+        </div>";
+      </div>";
+      <table>";
+        <tr><td>员工编号: ". $row["员工编号"]."</td><td>姓名: ". $row["姓名"]."</td><td>性别: ". $row["性别"]."</td><td>民族: ". $row["民族"]."</td><td>生日: ". $row["生日"]."</td><td>政治面貌: ". $row["政治面貌"]."</td><td>籍贯: ". $row["籍贯"]."</td><td>手机号码: ". $row["手机号码"]."</td><td>邮箱: ". $row["邮箱"]."</td><td>入职时间: ". $row["入职时间"]."</td><td>部门编号: ". $row["部门编号"]."</td><td>状态: ". $row["状态"]."</td><td id='working-hours'></td></tr>";
+      </table>";
   </div>
   <script>
     function signIn() {
