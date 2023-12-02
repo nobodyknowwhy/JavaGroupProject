@@ -521,6 +521,7 @@ body {
     left: 44.8%;
     right: 50%;
     bottom: 50%;
+    display: none;
     transform: translate(-50%, -50%);
     width: 300px;
     height: auto;
@@ -529,7 +530,7 @@ body {
     animation-name: rota;
     animation-duration: 1.8s;
     animation-timing-function: ease-in-out;
-    animation-delay: 0.3s;
+    /*animation-delay: 0.3s;*/
     animation-fill-mode: forwards;
     transform-origin: center;
 }
@@ -621,7 +622,8 @@ body {
     animation-name: rota2;
     animation-duration: 1.8s;
     animation-timing-function: ease-in-out;
-    animation-delay: 0.3s;
+    /*animation-delay: 0.3s;*/
+    display: none;
 
     animation-fill-mode: forwards;
 
