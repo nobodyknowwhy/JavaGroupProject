@@ -239,6 +239,8 @@ public class RhineLabController {
 
     }
 
+
+
     @RequestMapping("/project_accTemp")
     public String toProjectAcc(Model model) {
         List<Project> projects = rhineLabMapper.getProjectAll();
@@ -301,6 +303,22 @@ public class RhineLabController {
         model.addAttribute("purchaseInfos", purchaseInfos);
         return "purchase_acc";
     }
+
+    @RequestMapping("/projectStatusAction")
+    public String toProjectStatusAction(@RequestParam(value = "accomplish", required = false) String buttonAccomplishValue,
+                                        @RequestParam(value = "unreviewed", required = false) String buttonUnreviewedValue,
+                                        Model model) {
+        if (buttonUnreviewedValue != null && !buttonUnreviewedValue.isEmpty()) {
+            model.addAttribute("projectNum", buttonUnreviewedValue);
+            return "accept";
+        } else if (buttonAccomplishValue != null && !buttonAccomplishValue.isEmpty()) {
+            rhineLabMapper.deleteProject(Integer.parseInt(buttonAccomplishValue));
+            return "redirect:project_accTemp";
+        } else {
+            return "error";
+        }
+    }
+
     @RequestMapping("/purchaseStatusAction")
     public String toPurchaseStatusAction(@RequestParam(value = "accomplish", required = false) String buttonAccomplishValue,
                                         Model model) {
