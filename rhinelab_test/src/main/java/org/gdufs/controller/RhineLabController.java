@@ -68,7 +68,7 @@ public class RhineLabController {
             FileUploadUtil.saveFileToPhoto(application.getPhotos());
             application.setApplicationForm(application.getApplicationForms().getName());
             application.setPhoto(application.getPhotos().getName());
-            if (application.getOthers() == null) {
+            if (application.getOthers().isEmpty()) {
                 rhineLabMapper.applicationSave(application);
             } else {
                 rhineLabMapper.applicationSaveO(application);

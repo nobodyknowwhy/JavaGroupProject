@@ -19,12 +19,12 @@ public interface RhineLabMapper {
     @Select("select * from employee")
     List<Employee> findAllMember();
 
-    @Insert("insert into application (name, gender, photo, birthday, politicalStatus, degree, marriage, birthplace, IDNum, phone, email, applicationSection, applicationForm) values (#{name}, #{gender}, " +
-            "#{photo}, #{birthday}, #{politicalStatus}, #{degree}, #{marriage}, #{birthplace}, #{IDNum}, #{phone}, #{email}, #{applicationSection}, #{applicationForm})")
+    @Insert("insert into application (name, gender, photo, nation, birthday, politicalStatus, degree, marriage, birthplace, IDNum, phone, email, applicationSection, applicationForm) values (#{name}, #{gender}, " +
+            "#{photo}, #{nation}, #{birthday}, #{politicalStatus}, #{degree}, #{marriage}, #{birthplace}, #{IDNum}, #{phone}, #{email}, #{applicationSection}, #{applicationForm})")
     public int applicationSave(Application application);
 
-    @Insert("insert into application (name, gender, photo, birthday, politicalStatus, degree, marriage, birthplace, IDNum, phone, email, applicationSection, applicationForm) values (#{name}, #{gender}, " +
-            "#{photo}, #{birthday}, #{politicalStatus}, #{others}, #{marriage}, #{birthplace}, #{IDNum},  #{phone}, #{email}, #{applicationSection}, #{applicationForm});")
+    @Insert("insert into application (name, gender, photo, nation, birthday, politicalStatus, degree, marriage, birthplace, IDNum, phone, email, applicationSection, applicationForm) values (#{name}, #{gender}, " +
+            "#{photo}, #{nation}, #{birthday}, #{politicalStatus}, #{others}, #{marriage}, #{birthplace}, #{IDNum},  #{phone}, #{email}, #{applicationSection}, #{applicationForm});")
     public int applicationSaveO(Application application);
 
     @Select("select * from user where email=#{email} and password=#{password}")
