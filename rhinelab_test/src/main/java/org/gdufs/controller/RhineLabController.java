@@ -215,7 +215,7 @@ public class RhineLabController {
                            @RequestParam(value = "size", defaultValue = "10") int size) throws Exception {
         PageHelper.startPage(start,size,true);
 //        List<Student> studentList=studentMapper.findAll();
-        List<Employee> employeesList = EmployeeService.getAllStudents();
+//        List<Employee> employeesList = EmployeeService.getAllStudents();
 //        List<Student> studentList=studentService.getAllStudents();
 //        PageInfo<Student> page = new PageInfo<Student>(studentList);
 //        model.addAttribute("pages", page);
