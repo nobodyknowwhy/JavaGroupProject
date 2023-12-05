@@ -76,7 +76,7 @@ public class RhineLabController {
             FileUploadUtil.saveFileToPhoto(application.getPhotos());
             application.setApplicationForm(application.getApplicationForms().getName());
             application.setPhoto(application.getPhotos().getName());
-            if (application.getOthers() == null) {
+            if (application.getOthers().isEmpty()) {
                 rhineLabMapper.applicationSave(application);
             } else {
                 rhineLabMapper.applicationSaveO(application);
@@ -252,6 +252,8 @@ public class RhineLabController {
 
     }
 
+
+
     @RequestMapping("/project_accTemp")
     public String toProjectAcc(Model model) {
         List<Project> projects = rhineLabMapper.getProjectAll();
@@ -287,6 +289,7 @@ public class RhineLabController {
                 }
             }
         } else {
+            System.out.println("阿弥诺斯");
             return "product_all";
         }
         return "rhinelabmain";
@@ -313,6 +316,22 @@ public class RhineLabController {
         model.addAttribute("purchaseInfos", purchaseInfos);
         return "purchase_acc";
     }
+
+    @RequestMapping("/projectStatusAction")
+    public String toProjectStatusAction(@RequestParam(value = "accomplish", required = false) String buttonAccomplishValue,
+                                        @RequestParam(value = "unreviewed", required = false) String buttonUnreviewedValue,
+                                        Model model) {
+        if (buttonUnreviewedValue != null && !buttonUnreviewedValue.isEmpty()) {
+            model.addAttribute("projectNum", buttonUnreviewedValue);
+            return "accept";
+        } else if (buttonAccomplishValue != null && !buttonAccomplishValue.isEmpty()) {
+            rhineLabMapper.deleteProject(Integer.parseInt(buttonAccomplishValue));
+            return "redirect:project_accTemp";
+        } else {
+            return "error";
+        }
+    }
+
     @RequestMapping("/purchaseStatusAction")
     public String toPurchaseStatusAction(@RequestParam(value = "accomplish", required = false) String buttonAccomplishValue,
                                         Model model) {
@@ -452,7 +471,11 @@ public class RhineLabController {
         return "launchProject";
     }
 
-
+    @PostMapping("/launch")
+    public String launch(@ModelAttribute("project") Project project, Model model, HttpServletResponse response) {
+        rhineLabMapper.launch(project);
+        return "rhinelabmain";
+    }
 }
 
 
