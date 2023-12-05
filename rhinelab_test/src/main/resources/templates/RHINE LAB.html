@@ -70,7 +70,7 @@
   </ul>
 
 
-  <img class="rhinelab_logo_part3" th:src="@{/img/rahinelab_logo_part3.png}" alt="示例图片">
+  <img class="rhinelab_logo_part3" th:src="@{/img/rahinelab_logo_part3.png}" alt="示例图片" id="rhinelab_logo_part3">
   <img th:src="@{/img/temp/无标题0.5.png}" alt="" class="one_five">
   <img th:src="@{/img/temp/无标题.png}" alt="" class="one">
   <img th:src="@{/img/temp/无标题2.png}" alt="" class="two">
@@ -85,7 +85,7 @@
   <img th:src="@{/img/temp/无标题9.png}" alt="" class="nine">
   <img th:src="@{/img/temp/无标题10.png}" alt="" class="ten_1">
   <img th:src="@{/img/temp/无标题11.png}" alt="" class="elevent">
-  <img th:src="@{/img/rhinelab_logo_part4.png}" class="rhinelab_logo_part4">
+  <img th:src="@{/img/rhinelab_logo_part4.png}" class="rhinelab_logo_part4" id="rhinelab_logo_part4">
   <img th:src="@{/img/temp/x.png}" alt="" class="ten">
 
 
@@ -206,10 +206,25 @@
       }
 
 
+      var rhineLabLogoPart3 = document.getElementById("rhinelab_logo_part3");
+      var rhineLabLogoPart4 = document.getElementById("rhinelab_logo_part4");
+
+      function showLogo3(){
+        rhineLabLogoPart3.style.display = "block";
+      }
+
+      function showLogo4(){
+        rhineLabLogoPart4.style.display = "block";
+      }
+
+
 
 
       showNextImage(0);
 
+      setTimeout(showLogo3, 280);
+
+      setTimeout(showLogo4, 280);
 
       setTimeout(typeWriter, 1800);
 
@@ -238,12 +253,6 @@
     }
 
 
-
-    const join_usp = document.querySelector('.join_us');
-    join_usp.addEventListener('click', () => {
-      window.location.href = './Rhinelab_join.php';
-
-    })
   </script>
 </body>
 

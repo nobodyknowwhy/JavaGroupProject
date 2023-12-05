@@ -55,21 +55,21 @@
 
     <div class="form-container">
         <h1>Project Form</h1>
-        <form method="post" action="/">
+        <form method="post" action="/launch">
             <label for="customerName">Customer Name:</label>
             <input type="text" name="customerName" id="customerName" placeholder="Customer Name..." required>
             <br><br>
 
-            <label for="contact">Phone:</label>
-            <input type="tel" name="contact" id="contact" placeholder="phone number is..." required>
+            <label for="phone">Phone:</label>
+            <input type="tel" name="phone" id="phone" placeholder="phone number is..." required>
             <br><br>
 
-            <label for="projectName">Project Name:</label>
-            <input type="text" name="projectName" id="projectName" placeholder="project name..." required>
+            <label for="name">Project Name:</label>
+            <input type="text" name="name" id="name" placeholder="project name..." required>
             <br><br>
 
-            <label for="projectType">Project Type:</label>
-            <select name="projectType" id="projectType" required>
+            <label for="type">Project Type:</label>
+            <select name="type" id="type" required>
                 <option value="">Please Choose Your Project Type</option>
                 <option value="矢量级">Vector Magnitude Level</option>
                 <option value="轨道级">Orbit Level</option>
@@ -79,16 +79,16 @@
             </select>
             <br><br>
 
-            <label for="projectMeaning">Project Significance</label>
-            <textarea name="projectMeaning" id="projectMeaning" placeholder="Project significance is..." required></textarea>
+            <label for="meaning">Project Significance</label>
+            <textarea name="meaning" id="meaning" placeholder="Project significance is..." required></textarea>
             <br><br>
 
-            <label for="projectTime">Project Timeline:</label>
-            <input type="number" name="projectTime" id="projectTime" placeholder="the project timeline is..." min="0" max="24" required>
+            <label for="totalTime">Project Timeline:</label>
+            <input type="number" name="totalTime" id="totalTime" placeholder="the project timeline is..." min="0" max="24" required>
             <br><br>
 
-            <label for="projectBudget">Project Budget:</label>
-            <input type="text" name="projectBudget" id="projectBudget" placeholder="the project budget is..." required>
+            <label for="expenditure">Project Budget:</label>
+            <input type="text" name="expenditure" id="expenditure" placeholder="the project budget is..." required>
             <br><br>
 
             <input type="submit" name="submit" value="Submit">
