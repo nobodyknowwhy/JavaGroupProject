@@ -194,33 +194,20 @@ public class RhineLabController {
 
     //员工管理登录判断
     @RequestMapping(value = "/employeeLoginTo", method = {RequestMethod.POST})
-    public String toEmployeeLoginTo(@RequestParam(value = "idEmployee", required = false) String idName,
+    public String toEmployeeLoginTo(Model model,@RequestParam(value = "idEmployee", required = false) String idName,
                                     @RequestParam(value = "password", required = false) String password,
                                     @RequestParam(value = "identity", required = false) String identity) {
         long id = Integer.parseInt(idName);
         Employee employee = rhineLabMapper.checkEmployeeByEmployee(id, password);
         if(employee.getLevel().equals("1")){
+            model.addAttribute("employee", employee);
             return "/人员管理/员工/index";
         }else if(employee.getLevel().equals("2")){
+            model.addAttribute("employee", employee);
             return "/人员管理/管理/index";
         }else {
             return "permissionDenied";
         }
-
-    }
-
-    //遍历
-    @RequestMapping(value = "/listStudent", method = { RequestMethod.POST,	RequestMethod.GET })
-    public String listEmployee(Model model, @RequestParam(value = "start", defaultValue = "0") int start,
-                           @RequestParam(value = "size", defaultValue = "10") int size) throws Exception {
-        PageHelper.startPage(start,size,true);
-//        List<Student> studentList=studentMapper.findAll();
-//        List<Employee> employeesList = EmployeeService.getAllStudents();
-//        List<Student> studentList=studentService.getAllStudents();
-//        PageInfo<Student> page = new PageInfo<Student>(studentList);
-//        model.addAttribute("pages", page);
-
-        return "liststudent";
     }
 
     @GetMapping("/checkUserNameInCookie")
