@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ender Lilies Collections</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/PersonalCentre.css}"><!-- 引入css -->
+</head>
+<body>
+<div  class="hidden" >
+
+    <div class="outside-wrapper">
+        <h1>Personal Profile</h1>
+    </div>
+
+    <div id="main" class="centre">
+        <h1>Basic Information</h1>
+        <div>
+            <p >Name: <a th:text="${name}"></a></p>
+            <p>Gender: <a th:text="${gender}"></a></p>
+            <p>email: <a th:text="${email}"></a></p>
+        </div>
+        <h1>Project</h1>
+        <div>
+            <p >Project Name:<a  th:text="${Proname}"></a></p>
+            <p >Project Status:<a  th:text="${Prostatus}"></a></p>
+        </div>
+        <h1>More</h1>
+        <div>
+            <p >Modified your information?<a  href="/Modify">Go</a></p>
+        </div>
+
+
+    </div>
+
+    <div id="main2" class="right">
+        <!-- Actions -->
+        <div id="A1_show" class="show" style="display:block">
+            <h1 th:text="${name}"></h1>
+            <hr width="100%" color="White" >
+            <p id="sort">Hope you have another good day!</p>
+            <img th:src="@{/img/LinImage/__${name}__.jpg}" >
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+
+
+</body>
+<script src="test.js"></script><!--引入js  -->
+</html>
