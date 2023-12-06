@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  th:href="@{/css/PersonalCentreFrom.css}">
+    <title>Sign Up</title>
+
+</head>
+<body>
+<form onsubmit="return validateForm()" action="/Modify2" method="post">
+    <h1>Password Modify</h1>
+    <label th:text="${name}"></label>
+    <input type="password" id="password" name="password" required>
+    <span id="password-error" class="error"></span><br><br>
+    <input type="submit" value="Submit">
+</form>
+<script>
+    function validateForm() {
+        var username = document.getElementById("username").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var usernameError = document.getElementById("username-error");
+        var emailError = document.getElementById("email-error");
+        var passwordError = document.getElementById("password-error");
+        var valid = true;
+
+        if (username.length >7) {
+            usernameError.innerHTML = "User name should not exceed 6 characters";
+            valid = false;
+        } else {
+            usernameError.innerHTML = "";
+        }
+
+        if (!email.includes("@")) {
+            emailError.innerHTML = "Please enter a valid email address";
+            valid = false;
+        } else {
+            emailError.innerHTML = "";
+        }
+
+        if (password.length < 6) {
+            passwordError.innerHTML = "Password must be at least 6 characters long";
+            valid = false;
+        } else {
+            passwordError.innerHTML = "";
+        }
+
+        return valid;
+    }
+</script>
+</body>
+</html>
