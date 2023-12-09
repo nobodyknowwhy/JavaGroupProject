@@ -106,6 +106,7 @@
     <input type="submit" name="submit" value="Search">
 </form>
 <div id="result">
+    <form method="post">
     <table>
         <!-- 根据queryType动态设置表格的第一行属性 -->
         <thead>
@@ -128,6 +129,7 @@
             <th>Project Timeline</th>
             <th>Project Budget</th>
             <th>Project Status</th>
+            <th>Project PDF</th>
         </tr>
         </thead>
 
@@ -136,10 +138,14 @@
             <td th:each="property : ${item.class.declaredFields}">
                 <span th:text="${item[property.name]}"></span>
             </td>
+            <td>
+                <button th:value="${item.projectNum}" th:name="projectNum" type="submit">导出 PDF</button>
+            </td>
         </tr>
         </tbody>
 
     </table>
+    </form>
 </div>
 </body>
 </html>

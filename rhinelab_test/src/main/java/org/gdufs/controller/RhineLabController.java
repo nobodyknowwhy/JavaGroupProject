@@ -358,20 +358,27 @@ public class RhineLabController {
 
 
     @PostMapping("/query")
-    public String getQuery(@RequestParam("type") String type, @RequestParam("phone") String phone, Model model) {
-        QueryResult queryResult = new QueryResult();
-        if (type.equals("order")) {
-            List<Purchase> resultList = rhineLabMapper.getPurchase(phone);
-            queryResult.setQueryType("order");
-            queryResult.setResult(resultList);
-        } else if (type.equals("project")) {
-            List<Project> resultList = rhineLabMapper.getProject(phone);
-            queryResult.setQueryType("project");
-            queryResult.setResult(resultList);
-        }
-        model.addAttribute("queryResult", queryResult);
+    public String getQuery(
+            @RequestParam(name = "type", required = false) String type,
+            @RequestParam(name = "phone", required = false) String phone,
+            @RequestParam(name = "projectNum", required = false) String projectNum,
+            Model model) {
+        if (projectNum == null){
+            QueryResult queryResult = new QueryResult();
+            if (type.equals("order")) {
+                List<Purchase> resultList = rhineLabMapper.getPurchase(phone);
+                queryResult.setQueryType("order");
+                queryResult.setResult(resultList);
+            } else if (type.equals("project")) {
+                List<Project> resultList = rhineLabMapper.getProject(phone);
+                queryResult.setQueryType("project");
+                queryResult.setResult(resultList);
+            }
+            model.addAttribute("queryResult", queryResult);
 
-        return "query_result";
+            return "query_result";
+        }
+        return "rhinelabmain";
     }
     @RequestMapping("/product")
     public String toproduct() {
