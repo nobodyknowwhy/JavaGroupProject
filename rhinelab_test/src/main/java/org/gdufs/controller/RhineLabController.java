@@ -81,8 +81,8 @@ public class RhineLabController {
         if(employees.isEmpty()){
             FileUploadUtil.saveFileToForm(application.getApplicationForms());
             FileUploadUtil.saveFileToPhoto(application.getPhotos());
-            application.setApplicationForm(application.getApplicationForms().getName());
-            application.setPhoto(application.getPhotos().getName());
+            application.setApplicationForm(application.getApplicationForms().getOriginalFilename());
+            application.setPhoto(application.getPhotos().getOriginalFilename());
             if (application.getOthers().isEmpty()) {
                 rhineLabMapper.applicationSave(application);
             } else {
@@ -321,6 +321,15 @@ public class RhineLabController {
 
         model.addAttribute("purchaseInfos", purchaseInfos);
         return "purchase_acc";
+    }
+
+    @RequestMapping("/joinAll_allTemp")
+    public String toJoinAll(Model model) {
+        List<Application> applications = rhineLabMapper.getApplicationAll();
+
+
+        model.addAttribute("applicationInfo", applications);
+        return "joinAll";
     }
 
     @RequestMapping("/projectStatusAction")

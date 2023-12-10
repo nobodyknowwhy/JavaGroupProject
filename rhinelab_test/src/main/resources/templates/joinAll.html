@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>PROJECT MANAGEMENT</title>
+    <link rel='stylesheet' type='text/css' th:href='@{/css/project_acc.css}'>
+    <link rel="icon" type="image/jpeg" th:href="@{/img/rahinelab_logo.png}" sizes="32x32">
+
+</head>
+<body>
+<form action="/projectStatusAction" method="post">
+    <table>
+        <tr>
+            <th>Application Number</th>
+            <th>Name</th>
+            <th>Photo</th>
+            <th>Email</th>
+            <th>Nation</th>
+            <th>Degree</th>
+            <th>Application Form</th>
+        </tr>
+        <tr th:each="applications:${applicationInfo}">
+            <td th:text="${applications.applicationNum}"></td>
+            <td th:text="${applications.name}"></td>
+            <td th:text="${applications.email}"></td>
+            <td th:text="${applications.nation}"></td>
+            <td th:text="${applications.degree}"></td>
+            <td>
+                <a th:text="${applications.applicationForm}" th:download="@{/applications/__${applications.applicationForm}__}"></a>
+            </td>
+            <td>
+                <button type="submit" class="agree" name="agree">AGREE</button>
+                <button type="submit" class="disagree" name="disagree">DISAGREE</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
