@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="icon" type="image/jpeg" th:href="@{/img/rahinelab_logo.png}" sizes="32x32">
 <head>
     <title>申请表</title>
     <style>
@@ -65,7 +66,7 @@
         <button onclick="goBack()">返回</button>
         <h1>申请表</h1>
     </div>
-    <form action="submit.php" method="POST">
+    <form action="/submitEmployeeManner" method="POST">
         <label>员工编号:</label>
         <input type="text" name="employee_id"><br><br>
         <label>姓名:</label>

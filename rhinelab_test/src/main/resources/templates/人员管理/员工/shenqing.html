@@ -5,7 +5,13 @@
     <title>申请表</title>
     <style>
         body {
-            background-color: #e6f2ff;
+            text-align: center;
+            background-image: url(/img/image/ebc.png);/* 主要图片 */
+            background-repeat:no-repeat;
+            opacity: 0.8;
+            background-size:100%;
+            font-family: 'Times New Roman', Times, serif;
+            background-attachment:fixed;
         }
         form {
             display: table;
@@ -63,10 +69,10 @@
 </head>
 <body>
     <div class="header">
-        <button onclick="goBack()">返回</button><link rel="icon" type="image/jpeg" th:href="@{/img/rahinelab_logo.png}" sizes="32x32">
-    <form action="submit.php" method="POST">
+        <button onclick="goBack()">返回</button>
+    <form action="/submitEmployee" method="POST">
         <label>员工编号:</label>
-        <input type="text" name="employee_id"><br><br>
+        <p type="text" name="employee_id"><br><br>
         <label>姓名:</label>
         <input type="text" name="name"><br><br>
         <label>原部门:</label>
