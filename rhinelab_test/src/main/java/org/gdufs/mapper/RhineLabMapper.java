@@ -66,6 +66,9 @@ public interface RhineLabMapper {
     @Select("SELECT * FROM purchase")
     List<Purchase> getPurchaseAll();
 
+    @Select("SELECT * FROM application")
+    List<Application> getApplicationAll();
+
     @Delete("delete from purchase where purchaseNum= #{purchase} ")
     public void deletePurchase(int purchase);
 
