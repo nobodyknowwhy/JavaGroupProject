@@ -569,7 +569,7 @@ public class RhineLabController {
                                 System.out.println("连接失败");
                             }
                         } else {
-                            String url = "jdbc:mysql://localhost:3306/rhinelabtest?serverTimezone=Asia/Shanghai";
+                            String url = "jdbc:mysql://localhost:3306/rhinelab?serverTimezone=Asia/Shanghai";
                             String username = "root";
                             String password = "12345678";
                             try {
@@ -581,27 +581,27 @@ public class RhineLabController {
                                 String email= resultSet.getString("email");
                                 String gender= resultSet.getString("gender");
                                 String name= resultSet.getString("name");
-//                                String phone= resultSet.getString("phone");
-//                                sql = "SELECT * FROM project WHERE phone = \""+phone+"\";";
-//                                resultSet = statement.executeQuery(sql);
-//                                resultSet.next();
-//                                String Proname;
-//                                String Prostatus;
-//                                try{
-//                                    Proname =resultSet.getString("name");
-//                                }catch (Exception e){
-//                                    Proname = "暂无项目";
-//                                }
-//                                try{
-//                                    Prostatus =resultSet.getString("status");
-//                                }catch (Exception e){
-//                                    Prostatus = "...";
-//                                }
+                                String phone= resultSet.getString("phone");
+                                sql = "SELECT * FROM project WHERE phone = \""+phone+"\";";
+                                resultSet = statement.executeQuery(sql);
+                                resultSet.next();
+                                String Proname;
+                                String Prostatus;
+                                try{
+                                    Proname =resultSet.getString("name");
+                                }catch (Exception e){
+                                    Proname = "暂无项目";
+                                }
+                                try{
+                                    Prostatus =resultSet.getString("status");
+                                }catch (Exception e){
+                                    Prostatus = "...";
+                                }
                                 model.addAttribute("gender", gender);
                                 model.addAttribute("name", name);
                                 model.addAttribute("email", email);
-//                                model.addAttribute("Prostatus", Prostatus);
-//                                model.addAttribute("Proname", Proname);
+                                model.addAttribute("Prostatus", Prostatus);
+                                model.addAttribute("Proname", Proname);
                             }catch(Exception e){
                                 System.out.println(e);
                             }
