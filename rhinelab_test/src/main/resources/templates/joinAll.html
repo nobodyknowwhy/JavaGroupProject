@@ -17,15 +17,19 @@
             <th>Nation</th>
             <th>Degree</th>
             <th>Application Form</th>
+            <th>Status</th>
         </tr>
         <tr th:each="applications:${applicationInfo}">
             <td th:text="${applications.applicationNum}"></td>
             <td th:text="${applications.name}"></td>
+            <td>
+                <img th:src="@{/photos/__${applications.photo}__}" alt="x" style="width: 50px;"></img>
+            </td>
             <td th:text="${applications.email}"></td>
             <td th:text="${applications.nation}"></td>
             <td th:text="${applications.degree}"></td>
             <td>
-                <a th:text="${applications.applicationForm}" th:download="@{/applications/__${applications.applicationForm}__}"></a>
+                <a th:text="${applications.applicationForm}" th:href="@{/applications/__${applications.applicationForm}__}" download></a>
             </td>
             <td>
                 <button type="submit" class="agree" name="agree">AGREE</button>
