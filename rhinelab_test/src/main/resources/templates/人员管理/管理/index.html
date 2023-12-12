@@ -76,22 +76,33 @@
 <body>
   <div class="personal-info">
   <input type="button" class="button" onclick="myFunction()" value="退出登录" >
-    <h2 style='text-align: center;'>个人信息</h2>";
-    <img src='../干员/LinImage/". $row["照片"] . "' alt='Description of image'>";
-    <h3 style='text-align: center;'>". $row["姓名"]."</h3>";
-    <div style='background-color: #f2f2f2;'>";
-      <div class='button-row'>";
-        <button onclick='signIn()'>签到</button>";
-        <span id='signInTime'></span>";
-        <button onclick='signOut()'>签退</button>";
-        <span id='signOutTime'></span>";
-        <button onclick='apply()'>申请</button>";
-        <button onclick='goToControl()'>管理</button>";
-      </div>";
-    </div>";
-    <table>";
-      <tr><td>员工编号: ". $row["员工编号"]."</td><td>姓名: ". $row["姓名"]."</td><td>性别: ". $row["性别"]."</td><td>民族: ". $row["民族"]."</td><td>生日: ". $row["生日"]."</td><td>政治面貌: ". $row["政治面貌"]."</td><td>籍贯: ". $row["籍贯"]."</td><td>手机号码: ". $row["手机号码"]."</td><td>邮箱: ". $row["邮箱"]."</td><td>入职时间: ". $row["入职时间"]."</td><td>部门编号: ". $row["部门编号"]."</td><td>状态: ". $row["状态"]."</td><td id='working-hours'></td></tr>";
-    </table>";
+    <h2 style='text-align: center;'>个人信息</h2>
+    <img th:src="@{/img/LinImage/__${employee.name}__.jpg}" th:alt="${employee.name}">
+    <h3 style='text-align: center;' th:text="${employee.name}"></h3>
+    <div style='background-color: #f2f2f2;'>
+      <div class='button-row'>
+        <button onclick='signIn()'>签到</button>
+        <span id='signInTime'></span>
+        <button onclick='signOut()'>签退</button>
+        <span id='signOutTime'></span>
+        <button onclick='apply()'>申请</button>
+        <button onclick='goToControl()'>管理</button>
+      </div>
+    </div>
+    <table>
+      <tr><td>员工编号: <span th:text="${employee.employeeNum}"></span></td>
+        <td>姓名: <span th:text="${employee.name}"></span></td>
+        <td>性别: <span th:text="${employee.gender}"></span></td>
+        <td>民族: <span th:text="${employee.nation}"></span></td>
+        <td>生日: <span th:text="${employee.birthday}"></span></td>
+        <td>政治面貌: <span th:text="${employee.politicalStatus}"></span></td>
+        <td>籍贯: <span th:text="${employee.birthplace}"></span></td>
+        <td>手机号码: <span th:text="${employee.phone}"></span></td>
+        <td>邮箱: <span th:text="${employee.email}"></span></td>
+        <td>入职时间: <span th:text="${employee.entryTime}"></span></td>
+        <td>部门编号: <span th:text="${employee.sectionNum}"></span></td>
+        <td>状态: <span th:text="${employee.status}"></span></td><td id='working-hours'></td></tr>
+    </table>
   </div>
   <script>
     function signIn() {
@@ -119,13 +130,13 @@
     }
 
     function apply() {
-     window.location.href = "shenqing.php";
+      window.location.href = "/shenQing2";
     }
 
     function goToControl() {
       var password = prompt("请输入管理员密码：");
       if (password == "password") {
-        location.href = "control.php";
+        window.location.href = "/control";
       } else {
         alert("密码错误，无法进入管理界面。");
       }

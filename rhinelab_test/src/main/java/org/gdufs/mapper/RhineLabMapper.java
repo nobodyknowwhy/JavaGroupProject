@@ -9,12 +9,9 @@ import org.gdufs.entity.*;
 public interface RhineLabMapper {
     @Select("select * from employee")
     List<Student> findAll();
-//
-//    @Insert(" insert into student  (studentNo,studentName,password) values (#{studentno},#{studentname},#{password}) ")
-//    public int save(Student student);
-//
-//    @Delete(" delete from student where id= #{id} ")
-//    public void delete(int id);
+
+//    @Select("SELECT COUNT(*) FROM employee")
+//    public int getNumCount();
 
     @Select("select * from employee")
     List<Employee> findAllMember();
@@ -53,6 +50,14 @@ public interface RhineLabMapper {
 
     @Select("select * from employee where employeeNum=#{id} and password=#{password}")
     Employee checkEmployeeByEmployee(@Param("id") long id, @Param("password") String password);
+
+    //更新申请表的数据
+    @Insert("insert into apply (employeeNum, name, origionSection, newSection, origionSalary, newSalary, applyReason) " +
+            "values (#{employeeNum}, #{name}, #{origionSection}, #{newSection}, #{origionSalary}, #{newSalary}, #{applyReason})")
+    public void applySave(Apply apply);
+
+    @Select("select employeeNum from apply where employeeNum=#{id} and applyReason=#{applyReason}")
+    public long checkapply(@Param("id") long id,@Param("applyReason") String applyReason);
 
     @Select("SELECT * FROM project")
     List<Project> getProjectAll();
