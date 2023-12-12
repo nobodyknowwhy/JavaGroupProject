@@ -1,0 +1,186 @@
+
+@keyframes pulse{
+    0% {
+        border-width: 2px;
+        border-color:white;
+    }
+    50% {
+        border-width: 2px;
+        border-color:rgb(40, 39, 40);
+    }
+    100% {
+        border-width: 2px;
+        border-color:white;
+    }
+
+}
+body{
+    background-image: url(./image/rehinlab.png);/* 主要图片 */
+    /* background-color: black; */
+    background-repeat:no-repeat;
+    opacity: 0.8;
+    background-size:100%;
+    font-family: 'Times New Roman', Times, serif;
+    background-attachment:fixed;
+}
+div::-webkit-scrollbar {
+    width: 0px;
+    background-color: transparent;
+}
+/*左*/
+#main{
+    background-color:transparent;
+    width: 36%;
+    height: 80%;
+    position: absolute;
+    top: 55%;
+    left: 78%;
+    transform: translate(-50%, -50%);
+    /* 隐藏滑轮条 */
+    overflow: auto;
+    opacity: 1;
+}
+
+#main p{
+    position: relative;
+    font-size: 20px;
+    font-weight:300;
+    color: white;
+    opacity: 0.8;
+    padding-left: 10px;
+}
+
+p{
+    opacity: 0.8;
+    font-size: 20px;
+    font-weight:300;
+    color: white;
+    position: absolute;
+}
+a {
+    display: inline-block; /* 让链接元素变成块级元素 */
+    margin: 5px; /* 设置外边距 */
+}
+.video-wrapper {
+    position: relative; /* 相对定位 */
+    /* display: inline-block; */
+    margin: 7px; /* 设置外边距 */
+}
+.outside-wrapper h1{
+    font-size: 40px;
+    font-weight: 400;
+    color: white;
+    position: absolute;
+    top:7%;
+    left: 42%;
+}
+.centre h1{
+    width: 500px;
+    background-image:url(./image/h1效果.png);
+    font-size: 25px;
+    font-weight: 400;
+    color: white;
+    background-repeat:no-repeat;
+    opacity: 0.8;
+    background-size:100%;
+    position: relative;
+    padding-bottom: 0px;
+    padding-left: 10px;
+    margin: 10px;
+    left: 0;
+
+    background-attachment:fixed;
+}
+/*右边模型*/
+.show{
+    background-color:transparent;
+    width: 36%;
+    height: 80%;
+    position: absolute;
+    top: 55%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    /* 隐藏滑轮条 */overflow: auto;
+    opacity: 1;
+    margin: 2px;
+    padding: 2px;
+}
+.right h1{
+    color: white;
+}
+#sort{
+    position: relative;
+    text-align: right;
+}
+#reds{
+    font-size: 30px;
+    font-weight:500;
+    color: red;
+}
+#whites{
+    position: relative;
+    font-size: 20px;
+    font-weight: 300;
+    width: 70%;
+    top:30%;
+    color: white;
+}
+.show img{
+    position: absolute;
+    left: 12%;
+    top: 25%;
+    width: 400px;
+    height: 400px;
+}
+#Uses {
+    position: absolute;
+    left: 10%;
+    top: 20%;
+}
+
+#Uses p {
+    font-size: 30px;
+    font-weight: 350;
+}
+
+#Cooldown {
+    position: absolute;
+    left: 72%;
+    top: 20%;
+}
+
+#Cooldown p {
+    font-size: 30px;
+    font-weight: 350;
+}
+
+#Cooldowntime {
+    position: relative;
+    left: 55px;
+}
+#Usestime {
+    position: relative;
+    left: 10px;
+}
+#Aquatic {
+    position: absolute;
+    left: 75%;
+    top: 40%;
+}
+#Aquatic p {
+    font-size: 30px;
+    font-weight: 350;
+}
+.showIn{
+    background-color:transparent;
+    width: 36%;
+    height: 80%;
+    position: absolute;
+    top: 55%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    /* 隐藏滑轮条 */overflow: auto;
+    opacity: 1;
+    margin: 2px;
+    padding: 2px;
+}

@@ -12,7 +12,7 @@ public class FileUploadUtil {
             String currentDirectory = System.getProperty("user.dir");
 
             // 创建mulFile文件夹路径
-            String targetDirectory = currentDirectory + File.separator + "applications";
+            String targetDirectory = currentDirectory + File.separator + "src/main/resources/static/applications";
 
             // 创建mulFile文件夹
             File directory = new File(targetDirectory);
@@ -41,7 +41,7 @@ public class FileUploadUtil {
             String currentDirectory = System.getProperty("user.dir");
 
             // 创建mulFile文件夹路径
-            String targetDirectory = currentDirectory + File.separator + "photos";
+            String targetDirectory = currentDirectory + File.separator + "src/main/resources/static/photos";
 
             // 创建mulFile文件夹
             File directory = new File(targetDirectory);

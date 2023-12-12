@@ -81,8 +81,8 @@ public class RhineLabController {
         if(employees.isEmpty()){
             FileUploadUtil.saveFileToForm(application.getApplicationForms());
             FileUploadUtil.saveFileToPhoto(application.getPhotos());
-            application.setApplicationForm(application.getApplicationForms().getName());
-            application.setPhoto(application.getPhotos().getName());
+            application.setApplicationForm(application.getApplicationForms().getOriginalFilename());
+            application.setPhoto(application.getPhotos().getOriginalFilename());
             if (application.getOthers().isEmpty()) {
                 rhineLabMapper.applicationSave(application);
             } else {
@@ -323,6 +323,15 @@ public class RhineLabController {
         return "purchase_acc";
     }
 
+    @RequestMapping("/joinAll_allTemp")
+    public String toJoinAll(Model model) {
+        List<Application> applications = rhineLabMapper.getApplicationAll();
+
+
+        model.addAttribute("applicationInfo", applications);
+        return "joinAll";
+    }
+
     @RequestMapping("/projectStatusAction")
     public String toProjectStatusAction(@RequestParam(value = "accomplish", required = false) String buttonAccomplishValue,
                                         @RequestParam(value = "unreviewed", required = false) String buttonUnreviewedValue,
@@ -358,20 +367,27 @@ public class RhineLabController {
 
 
     @PostMapping("/query")
-    public String getQuery(@RequestParam("type") String type, @RequestParam("phone") String phone, Model model) {
-        QueryResult queryResult = new QueryResult();
-        if (type.equals("order")) {
-            List<Purchase> resultList = rhineLabMapper.getPurchase(phone);
-            queryResult.setQueryType("order");
-            queryResult.setResult(resultList);
-        } else if (type.equals("project")) {
-            List<Project> resultList = rhineLabMapper.getProject(phone);
-            queryResult.setQueryType("project");
-            queryResult.setResult(resultList);
-        }
-        model.addAttribute("queryResult", queryResult);
+    public String getQuery(
+            @RequestParam(name = "type", required = false) String type,
+            @RequestParam(name = "phone", required = false) String phone,
+            @RequestParam(name = "projectNum", required = false) String projectNum,
+            Model model) {
+        if (projectNum == null){
+            QueryResult queryResult = new QueryResult();
+            if (type.equals("order")) {
+                List<Purchase> resultList = rhineLabMapper.getPurchase(phone);
+                queryResult.setQueryType("order");
+                queryResult.setResult(resultList);
+            } else if (type.equals("project")) {
+                List<Project> resultList = rhineLabMapper.getProject(phone);
+                queryResult.setQueryType("project");
+                queryResult.setResult(resultList);
+            }
+            model.addAttribute("queryResult", queryResult);
 
-        return "query_result";
+            return "query_result";
+        }
+        return "rhinelabmain";
     }
     @RequestMapping("/product")
     public String toproduct() {
@@ -450,6 +466,263 @@ public class RhineLabController {
 
         return "project_select";
     }
+    @RequestMapping("/personal")
+    public String toperson(HttpServletRequest request,Model model) {
+        Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("userEmailCookie")) {
+                        String userEmail = cookie.getValue();
+                        System.out.println(userEmail);
+                        if (Objects.equals(checkEmail(userEmail), "1")||Objects.equals(checkEmail(userEmail), "2")) {
+                            String url = "jdbc:mysql://localhost:3306/rhinelabtest?serverTimezone=Asia/Shanghai";
+                            String username = "root";
+                            String password = "12345678";
+                            try {
+                                Connection connection = DriverManager.getConnection(url, username, password);
+                                Statement statement = connection.createStatement();
+                                    String sql = "SELECT * FROM employee WHERE email = \""+userEmail+"\";";
+                                    ResultSet resultSet = statement.executeQuery(sql);
+                                    resultSet.next();
+                                    String employeeNum = resultSet.getString("employeeNum");
+                                    String name = resultSet.getString("name");
+                                    String gender = resultSet.getString("gender");
+                                    String photo = resultSet.getString("photo");
+                                    String nation = resultSet.getString("nation");
+                                    String birthday = resultSet.getString("birthday");
+                                    String politicalStatus = resultSet.getString("politicalStatus");
+                                    String degree = resultSet.getString("degree");
+                                    String marriage = resultSet.getString("marriage");
+                                    String birthplace = resultSet.getString("birthplace");
+                                    String IDNum = resultSet.getString("IDNum");
+                                    String phone = resultSet.getString("phone");
+                                    String email = resultSet.getString("email");
+                                    String entryTime = resultSet.getString("entryTime");
+                                    String level = resultSet.getString("level");
+                                    String salary = resultSet.getString("salary");
+                                    String sectionNum = resultSet.getString("sectionNum");
+                                    String status = resultSet.getString("status");
+                                    String passwords = resultSet.getString("password");
+                                    String identity = resultSet.getString("identity");
+
+                                    sql = "SELECT name,sectionPeople FROM section WHERE sectionNum = \""+sectionNum+"\";";
+                                    resultSet = statement.executeQuery(sql);
+                                    resultSet.next();
+                                    String section = resultSet.getString("name");
+                                    String sectionP = resultSet.getString("sectionPeople");
+                                    sql = "SELECT * FROM project WHERE phone = \""+phone+"\";";
+                                    resultSet = statement.executeQuery(sql);
+                                    resultSet.next();
+                                    String Proname;
+                                    String Prostatus;
+                                    try{
+                                        Proname =resultSet.getString("name");
+                                    }catch (Exception e){
+                                        Proname = "暂无项目";
+                                    }
+                                    try{
+                                        Prostatus =resultSet.getString("status");
+                                    }catch (Exception e){
+                                        Prostatus = "...";
+                                    }
+
+                                    resultSet.next();
+                                    resultSet.close();
+
+                                    model.addAttribute("employeeNum", employeeNum);
+                                    model.addAttribute("name", name);
+
+                                    model.addAttribute("Proname", Proname);
+                                    model.addAttribute("gender", gender);
+                                    model.addAttribute("photo", photo);
+                                    model.addAttribute("nation", nation);
+                                    model.addAttribute("birthday", birthday);
+                                    model.addAttribute("politicalStatus", politicalStatus);
+                                    model.addAttribute("marriage", marriage);
+                                    model.addAttribute("birthplace", birthplace);
+                                    model.addAttribute("IDNum", IDNum);
+                                    model.addAttribute("phone", phone);
+                                    model.addAttribute("email", email);
+                                    model.addAttribute("entryTime", entryTime);
+                                    System.out.println(level);
+                                    if(Objects.equals(level, "2")){level="Director";}
+                                    else if(Objects.equals(level, "1")){level="Staff";}
+                                    else if(Objects.equals(level, "3")){level="Higest";}
+                                    else{level="Normal";}
+                                    model.addAttribute("level", level);
+                                    model.addAttribute("salary", salary);
+                                    model.addAttribute("sectionNum", sectionNum);
+                                    model.addAttribute("section", section);
+                                    model.addAttribute("sectionP", sectionP);
+                                    model.addAttribute("status", status);
+                                    if(Prostatus==null)Proname="...";
+                                    model.addAttribute("Prostatus", Prostatus);
+                                    model.addAttribute("password", passwords);
+                                    model.addAttribute("identity", identity);
+                                    model.addAttribute("degree", degree);
+                                statement.close();
+                                connection.close();
+                                System.out.println("已经执行完毕1");
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                                model.addAttribute("value", "链接数据库失败");
+                                System.out.println("连接失败");
+                            }
+                        } else {
+                            String url = "jdbc:mysql://localhost:3306/rhinelab?serverTimezone=Asia/Shanghai";
+                            String username = "root";
+                            String password = "12345678";
+                            try {
+                                Connection connection = DriverManager.getConnection(url, username, password);
+                                Statement statement = connection.createStatement();
+                                String sql = "SELECT * FROM user WHERE email = \"" + userEmail + "\";";
+                                ResultSet resultSet = statement.executeQuery(sql);
+                                resultSet.next();
+                                String email= resultSet.getString("email");
+                                String gender= resultSet.getString("gender");
+                                String name= resultSet.getString("name");
+                                String phone= resultSet.getString("phone");
+                                sql = "SELECT * FROM project WHERE phone = \""+phone+"\";";
+                                resultSet = statement.executeQuery(sql);
+                                resultSet.next();
+                                String Proname;
+                                String Prostatus;
+                                try{
+                                    Proname =resultSet.getString("name");
+                                }catch (Exception e){
+                                    Proname = "暂无项目";
+                                }
+                                try{
+                                    Prostatus =resultSet.getString("status");
+                                }catch (Exception e){
+                                    Prostatus = "...";
+                                }
+                                model.addAttribute("gender", gender);
+                                model.addAttribute("name", name);
+                                model.addAttribute("email", email);
+                                model.addAttribute("Prostatus", Prostatus);
+                                model.addAttribute("Proname", Proname);
+                            }catch(Exception e){
+                                System.out.println(e);
+                            }
+                            System.out.println("已经执行完毕2");
+                            return "PersonalCentre2";
+                        }
+                    }
+                }
+            }
+            else{
+                System.out.println("已经执行完毕3");
+                return "permissionDenied";
+            }
+
+        System.out.println("已经执行完毕4");
+        return "PersonalCentre";
+    }
+    @RequestMapping("/checkEmail")
+    public String checkEmail(String email){
+        List<Employee> employees1 = rhineLabMapper.checkEmployee(email);
+        List<Employee> employees2 = rhineLabMapper.checkAdmin(email);
+        List<User> users = rhineLabMapper.checkEmail(email);
+        if(!employees1.isEmpty()){
+            return "1";//是员工
+        }else if(!employees2.isEmpty()){
+            return "2";//是主任
+        }
+        else if(!users.isEmpty()){
+            return "3";//是用户
+        }
+        else{
+            return "0";//啥都不是
+        }
+
+    }
+    @RequestMapping("/Modify")
+    public String Modify(HttpServletRequest request,Model model) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("userEmailCookie")) {
+                    String userEmail = cookie.getValue();
+                    if (Objects.equals(checkEmail(userEmail), "1")||Objects.equals(checkEmail(userEmail), "2")){
+                        String url = "jdbc:mysql://localhost:3306/rhinelabtest?serverTimezone=Asia/Shanghai";
+                        String username = "root";
+                        String password = "12345678";
+                        try{
+                            Connection connection = DriverManager.getConnection(url, username, password);
+                            Statement statement = connection.createStatement();
+                            String sql = "SELECT * FROM employee WHERE email = \""+userEmail+"\";";
+                            ResultSet resultSet = statement.executeQuery(sql);
+                            resultSet.next();
+                            String name = resultSet.getString("name");
+                            model.addAttribute("name", name);
+                            resultSet.close();
+                            statement.close();
+                            connection.close();
+                            return "PersonalCentreForm";
+                        }catch (Exception e){
+
+                        }
+                    }
+                    else{
+                        String url = "jdbc:mysql://localhost:3306/rhinelabtest?serverTimezone=Asia/Shanghai";
+                        String username = "root";
+                        String password = "12345678";
+                        try{
+                            Connection connection = DriverManager.getConnection(url, username, password);
+                            Statement statement = connection.createStatement();
+                            String sql = "SELECT * FROM user WHERE email = \""+userEmail+"\";";
+                            ResultSet resultSet = statement.executeQuery(sql);
+                            resultSet.next();
+                            String name = resultSet.getString("name");
+                            model.addAttribute("name", name);
+                            resultSet.close();
+                            statement.close();
+                            connection.close();
+                            return "PersonalCentreForm";
+                    }catch(Exception e){
+
+                        }
+                    }
+
+
+                }
+            }
+
+        }
+        return "PersonalCentreForm";
+    }
+    @PostMapping("/Modify2")
+    public String Modify2(@ModelAttribute("user") User user,HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("userEmailCookie")) {
+                    String userEmail = cookie.getValue();
+                    String password2=user.getPassword();
+                    String url = "jdbc:mysql://localhost:3306/rhinelabtest?serverTimezone=Asia/Shanghai";
+                    String username = "root";
+                    String password = "12345678";
+                    System.out.println(password2);
+                    try{
+                        Connection connection = DriverManager.getConnection(url, username, password);
+                        Statement statement = connection.createStatement();
+                        String sql = "UPDATE user SET password="+password2+" WHERE email = \""+userEmail+"\";";
+                        int resultSet = statement.executeUpdate(sql);
+                        statement.close();
+                        connection.close();
+                        //System.out.println("已执行完5");
+                        return "redirect:personal";
+                    }catch(Exception e){
+                        System.out.println(e);
+                    }
+                }
+            }
+        }
+//        System.out.println("已执行完6");
+        return "redirect:personal";
+    }
+
 
     @RequestMapping("/checkAdmin")
     public Boolean checkAdmin(String email){
@@ -461,6 +734,7 @@ public class RhineLabController {
         }
 
     }
+
 
     @RequestMapping("/checkEmployee")
     public Boolean checkEmployee(String email){
