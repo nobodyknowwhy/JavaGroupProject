@@ -1,12 +1,6 @@
-<?php
-    session_start();
-    define('ROOT_PATH', '');
-    $username = $_SESSION['username'];
-    $email = $_SESSION['email'];
-?>
-
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="icon" type="image/jpeg" th:href="@{/img/rahinelab_logo.png}" sizes="32x32">
 <head>
   <title>签到信息</title>
   <style>

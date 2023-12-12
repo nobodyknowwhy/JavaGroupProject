@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.attoparser.dom.Document;
 import org.gdufs.entity.*;
+import org.gdufs.general.EmployeeInfo;
 import org.gdufs.general.FileUploadUtil;
 import org.gdufs.general.PurchaseInfo;
 import org.gdufs.mapper.RhineLabMapper;
@@ -171,9 +172,59 @@ public class RhineLabController {
 
     }
 
-    @RequestMapping(value = "/shenQing")
-    public String toShenQing() {
+    //管理人员进入产品页面
+    @RequestMapping(value = "/application")
+    public String toapplication(Model model) {
+
+        return "/人员管理/管理/application";
+    }
+
+    //管理人员进入产品页面
+    @RequestMapping(value = "/production")
+    public String toproduction(Model model) {
+
+        return "/人员管理/管理/production";
+    }
+
+    //管理人员进入修改页面
+    @RequestMapping(value = "/modify")
+    public String tomodify(Model model) {
+
+        return "/人员管理/管理/modify";
+    }
+    //管理人员进入申请页面
+    @RequestMapping(value = "/control")
+    public String tocontrol(Model model) {
+//
+//        List<Employee> employees = rhineLabMapper.findAllMember();
+//        List<Employee> employeesInfos = new ArrayList<>();
+//
+//
+//        for (Employee employee : employees) {
+////            long employeeNum = rhineLabMapper.getNumCount();
+//            EmployeeInfo employeeInfo = new EmployeeInfo();
+//            employeesInfos.add(employeeInfo)
+//
+//
+//            List<Product> products = rhineLabMapper.getProductOne(productNum);
+//
+//
+//        }
+//
+//        model.addAttribute("employeeinfos", employeesInfos);
+        return "/人员管理/管理/control";
+    }
+
+    //员工进入申请页面
+    @RequestMapping(value = "/shenQing1")
+    public String toShenQing1() {
         return "/人员管理/员工/shenqing";
+    }
+
+    //管理员进入申请页面
+    @RequestMapping(value = "/shenQing2")
+    public String toShenQing2() {
+        return "/人员管理/管理/shenqing";
     }
 
     @RequestMapping(value = "/employeeLogin")
@@ -210,6 +261,69 @@ public class RhineLabController {
         }else {
             return "permissionDenied";
         }
+    }
+
+    //员工申请
+    @RequestMapping(value = "/submitEmployee", method = {RequestMethod.POST})
+    public String toSubmitEmployee(Model model,
+                      @RequestParam(value = "employee_id", required = false) String employeeNum,
+                      @RequestParam(value = "name", required = false) String name,
+                      @RequestParam(value = "old_department", required = false) String origionSection,
+                      @RequestParam(value = "new_department", required = false) String newSection,
+                      @RequestParam(value = "old_salary", required = false) String origionSalary,
+                      @RequestParam(value = "new_salary", required = false) String newSalary,
+                      @RequestParam(value = "reason", required = false) String applyReason
+    ) {
+        long id = Integer.parseInt(employeeNum);
+        double os = Double.parseDouble(origionSalary);
+        double ns = Double.parseDouble(newSalary);
+        Apply apply = new Apply();
+        apply.setEmployeeNum(id);
+        apply.setName(name);
+        apply.setOrigionSection(origionSection);
+        apply.setNewSection(newSection);
+        apply.setOrigionSalary(os);
+        apply.setNewSalary(ns);
+        apply.setApplyReason(applyReason);
+        rhineLabMapper.applySave(apply);
+        long check = rhineLabMapper.checkapply(id,applyReason);
+        if (check==id){
+            return "/人员管理/员工/alert";
+        }else {
+            return "/人员管理/员工/wrong";
+        }
+    }
+
+    //主任申请
+    @RequestMapping(value = "/submitEmployeeManner", method = {RequestMethod.POST})
+    public String toSubmitEmployeeManner(Model model,
+                                   @RequestParam(value = "employee_id", required = false) String employeeNum,
+                                   @RequestParam(value = "name", required = false) String name,
+                                   @RequestParam(value = "old_department", required = false) String origionSection,
+                                   @RequestParam(value = "new_department", required = false) String newSection,
+                                   @RequestParam(value = "old_salary", required = false) String origionSalary,
+                                   @RequestParam(value = "new_salary", required = false) String newSalary,
+                                   @RequestParam(value = "reason", required = false) String applyReason
+    ) {
+        long id = Integer.parseInt(employeeNum);
+        double os = Double.parseDouble(origionSalary);
+        double ns = Double.parseDouble(newSalary);
+        Apply apply = new Apply();
+        apply.setEmployeeNum(id);
+        apply.setName(name);
+        apply.setOrigionSection(origionSection);
+        apply.setNewSection(newSection);
+        apply.setOrigionSalary(os);
+        apply.setNewSalary(ns);
+        apply.setApplyReason(applyReason);
+        rhineLabMapper.applySave(apply);
+        long check = rhineLabMapper.checkapply(id,applyReason);
+        if (check==id){
+            return "/人员管理/管理/alert";
+        }else {
+            return "/人员管理/管理/wrong";
+        }
+
     }
 
     @GetMapping("/checkUserNameInCookie")
