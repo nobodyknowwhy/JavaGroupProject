@@ -6,13 +6,37 @@
     <style>
         body {
             text-align: center;
+            background-image: url(/img/image/ebc.png);/* 主要图片 */
+            background-repeat:no-repeat;
+            opacity: 0.8;
+            background-size:100%;
+            font-family: 'Times New Roman', Times, serif;
+            background-attachment:fixed;
+        }
+        h1{
+            font-size: 50px;
+            color: white;
+            margin: 50px;
         }
         table {
-            background-color: #e6f2ff;
-            margin: 0 auto; text-align: center;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 20px;
+            font-weight:300;
+
         }
         td, th {
-            padding: 5px;
+            padding: 15px;
+            font-size: 20px;
+            font-weight:300;
+        }
+        button{
+            margin-left: 25px;
+            font-size: 15px;
+            width: 60px;
+            height: 40px;
+            align-content: center;
+
         }
         .hidden {
             display: none;
@@ -21,10 +45,22 @@
             text-decoration: none;
             color:#000;
         }
+        form {
+            background-color: black;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+            width: 28%;
+            position: absolute;
+            top: 15%;
+            left: 35%;
+            opacity: 0.6;
+            color: white;
+        }
     </style>
     </head>
     <body>
-        <h1>登录</h1>
+        <h1>登         录</h1>
         <form action="/employeeLoginTo" method="post">
             <table>
                 <tr>
