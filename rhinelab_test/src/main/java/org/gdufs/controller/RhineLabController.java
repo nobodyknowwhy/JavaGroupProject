@@ -172,7 +172,7 @@ public class RhineLabController {
 
     }
 
-    //管理人员进入申请页面
+    //管理人员进入产品页面
     @RequestMapping(value = "/application")
     public String toapplication(Model model) {
 
