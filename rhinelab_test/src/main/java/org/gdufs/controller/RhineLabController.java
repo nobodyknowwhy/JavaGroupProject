@@ -546,13 +546,48 @@ public class RhineLabController {
     @RequestMapping("/projectStatusAction")
     public String toProjectStatusAction(@RequestParam(value = "accomplish", required = false) String buttonAccomplishValue,
                                         @RequestParam(value = "unreviewed", required = false) String buttonUnreviewedValue,
+
                                         Model model) {
+        System.out.println(buttonAccomplishValue);
+        System.out.println(buttonUnreviewedValue);
         if (buttonUnreviewedValue != null && !buttonUnreviewedValue.isEmpty()) {
             model.addAttribute("projectNum", buttonUnreviewedValue);
+//            rhineLabMapper.changProjectOngoing(Integer.parseInt(buttonAccomplishValue));
+
+
+
             return "accept";
         } else if (buttonAccomplishValue != null && !buttonAccomplishValue.isEmpty()) {
-            rhineLabMapper.deleteProject(Integer.parseInt(buttonAccomplishValue));
+//            rhineLabMapper.deleteProject(Integer.parseInt(buttonAccomplishValue));
+            rhineLabMapper.changProjectAccomplished(Integer.parseInt(buttonAccomplishValue));
+
             return "redirect:project_accTemp";
+        } else {
+            return "error";
+        }
+    }
+
+    @RequestMapping("/agreementStatusAction")
+    public String toAgreementStatusAction(@RequestParam(value = "agree", required = false) String buttonAgreeValue,
+                                        @RequestParam(value = "disagree", required = false) String buttonDisagreeValue,
+                                        Model model) {
+        if (buttonDisagreeValue != null && buttonAgreeValue.isEmpty()) {
+
+            rhineLabMapper.deleteApplication(Integer.parseInt(buttonAgreeValue));
+
+
+            return "redirect:toJoinAll";
+        } else if (buttonAgreeValue != null && buttonDisagreeValue.isEmpty()) {
+
+            Application application = rhineLabMapper.fromApplicationFindEmail(Integer.parseInt(buttonAgreeValue));
+            String email = application.getEmail();
+
+
+
+
+            rhineLabMapper.deleteApplication(Integer.parseInt(buttonAgreeValue));
+
+            return "redirect:toJoinAll";
         } else {
             return "error";
         }
@@ -562,9 +597,12 @@ public class RhineLabController {
     public String toPurchaseStatusAction(@RequestParam(value = "accomplish", required = false) String buttonAccomplishValue,
                                         Model model) {
 
-        if (buttonAccomplishValue != null && !buttonAccomplishValue.isEmpty()) {
-            rhineLabMapper.deletePurchase(Integer.parseInt(buttonAccomplishValue));
+        if (buttonAccomplishValue != null) {
+//            rhineLabMapper.deletePurchase(Integer.parseInt(buttonAccomplishValue));
+            rhineLabMapper.changPurchaseAccomplished(Integer.parseInt(buttonAccomplishValue));
+
             return "redirect:purchase_allTemp";
+
         } else {
             return "error";
         }

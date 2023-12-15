@@ -7,7 +7,7 @@
 
 </head>
 <body>
-<form action="/projectStatusAction" method="post">
+<form action="/agreementStatusAction" method="post">
     <table>
         <tr>
             <th>Application Number</th>
@@ -32,8 +32,8 @@
                 <a th:text="${applications.applicationForm}" th:href="@{/applications/__${applications.applicationForm}__}" download></a>
             </td>
             <td>
-                <button type="submit" class="agree" name="agree">AGREE</button>
-                <button type="submit" class="disagree" name="disagree">DISAGREE</button>
+                <button type="submit" class="agree" name="agree" th:value="${applications.applicationNum}">AGREE</button>
+                <button type="submit" class="disagree" name="disagree" th:value="${applications.applicationNum}">DISAGREE</button>
             </td>
         </tr>
     </table>

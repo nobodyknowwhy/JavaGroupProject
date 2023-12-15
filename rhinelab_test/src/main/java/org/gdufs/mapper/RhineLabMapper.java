@@ -97,6 +97,18 @@ public interface RhineLabMapper {
     @Delete("delete from project where projectNum= #{projectNum} ")
     public void deleteProject(int projectNum);
 
+    @Update("update project set status='进行中' where projectNum= #{projectNum} ")
+    public void changProjectOngoing(int projectNum);
+
+    @Update("update project set status='已完成' where projectNum= #{projectNum} ")
+    public void changProjectAccomplished(int projectNum);
+
+    @Update("update purchase set status='已完成' where purchaseNum= #{projectNum} ")
+    public void changPurchaseAccomplished(int purchaseNum);
+
+    @Delete("delete from application where applicationNum= #{applicationNum} ")
+    public void deleteApplication(int applicationNum);
+
     @Select("SELECT employeeNum, name, photo, gender, nation, birthday, politicalStatus, birthplace, phone, email, entryTime, sectionNum, status from employee where employeeNum=#{bianhao} AND password=#{password}")
     List<Employee> getEmployeeAll(int bianhao, String password);
 
@@ -117,4 +129,7 @@ public interface RhineLabMapper {
 
     @Insert("insert into project (phone, name, type, meaning, totalTime, expenditure, status) values (#{phone}, #{name}, #{type}, #{meaning}, #{totalTime}, #{expenditure}, '待审核')")
     public int launch(Project project);
+
+    @Select("SELECT * FROM application where applicationNum = #{applicationNum}")
+    Application fromApplicationFindEmail(@Param("applicationNum") int applicationNum);
 }

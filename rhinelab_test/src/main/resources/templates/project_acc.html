@@ -18,7 +18,7 @@
             <th>Project Budget /$</th>
             <th>Project Status</th>
         </tr>
-        <tr th:each="project : ${projects}">
+        <tr th:each="project : ${projects}" th:if="${project.status != '已完成'}">
             <td th:text="${project.projectNum}"></td>
             <td th:text="${project.name}"></td>
             <td th:text="${project.type}"></td>
@@ -26,9 +26,10 @@
             <td th:text="${project.totalTime}"></td>
             <td th:text="${project.expenditure}"></td>
             <td>
-                <button type="submit" class="accomplish" name="accomplish" th:value="${project.projectNum}" th:if="${project.status == '已完成'}">ACCOMPLISHED</button>
+
                 <button type="submit" class="unreviewed" name="unreviewed" th:value="${project.projectNum}" th:if="${project.status == '待审核'}">UNREVIEWED</button>
                 <button class="ongoing" th:if="${project.status == '进行中'}" onclick="return false;">ONGOING</button>
+                <button type="submit" class="accomplish" name="accomplish" th:value="${project.projectNum}" th:if="${project.status == '进行中'}">ACCOMPLISHED</button>
             </td>
         </tr>
     </table>

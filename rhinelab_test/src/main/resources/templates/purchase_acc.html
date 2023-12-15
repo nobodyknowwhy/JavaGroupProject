@@ -18,7 +18,7 @@
             <th>Address</th>
             <th>Purchase Status</th>
         </tr>
-        <tr th:each="purchaseInfo : ${purchaseInfos}">
+        <tr th:each="purchaseInfo : ${purchaseInfos}" th:if="${purchaseInfo.purchase.status == '待发货'}">
             <td th:text="${purchaseInfo.purchase.purchaseNum}"></td>
             <td th:text="${purchaseInfo.productName}"></td>
             <td th:text="${purchaseInfo.purchase.quantity}"></td>
@@ -26,8 +26,8 @@
             <td th:text="${purchaseInfo.purchase.purchaseDate}"></td>
             <td th:text="${purchaseInfo.purchase.address}"></td>
             <td>
-                <button type="submit" class="accomplish" name="accomplish" th:value="${purchaseInfo.purchase.purchaseNum}" th:if="${purchaseInfo.purchase.status == '已完成'}">ACCOMPLISHED</button>
                 <button class="ongoing" th:if="${purchaseInfo.purchase.status == '待发货'}" onclick="return false;">UNPACKED</button>
+                <button type="submit" class="accomplish" name="accomplish" th:value="${purchaseInfo.purchase.purchaseNum}" th:if="${purchaseInfo.purchase.status == '待发货'}">ACCOMPLISHED</button>
             </td>
         </tr>
     </table>
