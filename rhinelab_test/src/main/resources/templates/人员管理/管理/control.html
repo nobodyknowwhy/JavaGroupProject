@@ -6,6 +6,12 @@
   <style>
     body {
       text-align: center;
+      background-image: url(/img/image/ebc.png);/* 主要图片 */
+      background-repeat:no-repeat;
+      opacity: 0.8;
+      background-size:100%;
+      font-family: 'Times New Roman', Times, serif;
+      background-attachment:fixed;
     }
     table {
       background-color: #e6f2ff;
@@ -26,76 +32,57 @@
 </head>
 <body>
   <h1>员工管理</h1>
-  <form method="post">
+  <form action="/control2" method="post">
     <label for="name">姓名：</label>
-    <input type="text" name="name" id="name">
+    <input type="text" name="name" id="name" required>
     <input type="submit" name="search" value="查询">
     <div>
-      <button> <a href = 'modify' class='black'>修改</a></button>
-      <button> <a href = 'application' class='black'>查看申请</a></button>
-      <button> <a href = '../../approve.php' class='black'>查看求职</a></button>
-      <button> <a href = 'production' class='black'>修改产品</a></button>
-      <button> <a href = 'signIn' class='black'>查看签到</a></button>
+      <button onclick="goToModify()"> <a>修改</a></button>
+      <button onclick="goToapplication()"> <a>查看申请</a></button>
+      <button onclick="goTojoinAll_allTemp()"> <a>查看求职</a></button>
+      <button onclick="goToproduction()"> <a>修改产品</a></button>
+      <button onclick="goTosignIn()"> <a>查看签到</a></button>
+      <button onclick="goToControl2()"> <a>返回</a></button>
     </div>
   </form>
   <br>
     <table id='employee-table'>
       <tr><th>员工编号</th><th>姓名</th><th>性别</th><th>民族</th><th>政治面貌</th><th>文化程度</th><th>手机号码</th><th>邮箱</th><th>入职时间</th><th>员工基本工资</th><th>部门编号</th><th>状态</th></tr>
-      while ($row = $result->fetch_assoc()) {
-      echo "";
-      }
-      <tr th:each="employeeinfos : ${employeeinfos}">
-        <td><span th:text="${employeeinfos.employee.employeeNum}"></span></td>
-        <td>" . $row["姓名"] . "</td>
-        <td>" . $row["性别"]. "</td>
-        <td>" . $row["民族"]. "</td>
-        <td>" . $row["政治面貌"]. "</td>
-        <td>" . $row["文化程度"]. "</td>
-        <td>" . $row["手机号码"]. "</td>
-        <td>" . $row["邮箱"]. "</td>
-        <td>" . $row["入职时间"]. "</td>
-        <td>" . $row["员工基本工资"]. "</td>
-        <td>" . $row["部门编号"]. "</td>
-        <td>" . $row["状态"] . "</td>
+      <tr th:each="employee : ${employeeinfos}">
+        <td><span th:text="${employee.employeeNum}"></span></td>
+        <td><span th:text="${employee.name}"></span></td>
+        <td><span th:text="${employee.gender}"></span></td>
+        <td><span th:text="${employee.nation}"></span></td>
+        <td><span th:text="${employee.politicalStatus}"></span></td>
+        <td><span th:text="${employee.degree}"></span></td>
+        <td><span th:text="${employee.phone}"></span></td>
+        <td><span th:text="${employee.email}"></span></td>
+        <td><span th:text="${employee.entryTime}"></span></td>
+        <td><span th:text="${employee.salary}"></span></td>
+        <td><span th:text="${employee.sectionNum}"></span></td>
+        <td><span th:text="${employee.status}"></span></td>
       </tr>
     </table>
-<!--      $sql = "SELECT 员工编号,姓名,性别,民族,政治面貌,文化程度,手机号码,邮箱,入职时间,员工基本工资,部门编号,状态 FROM 员工";-->
-
-  <?php
-    if (isset($_POST['search'])) {
-      $name = $_POST['name'];
-
-      $sql = "SELECT 员工编号,姓名,性别,民族,政治面貌,文化程度,手机号码,邮箱,入职时间,员工基本工资,部门编号,状态 FROM 员工 WHERE 姓名=?";
-      $stmt = $conn->prepare($sql);
-      $stmt->bind_param("s", $name);
-      $stmt->execute();
-      $result = $stmt->get_result();
-
-      if ($result->num_rows > 0) {
-
-<!--        echo "<table id='employee-table'>";-->
-        echo "<tr><th>员工编号</th><th>姓名</th><th>性别</th><th>民族</th><th>政治面貌</th><th>文化程度</th><th>手机号码</th><th>邮箱</th><th>入职时间</th><th>员工基本工资</th><th>部门编号</th><th>状态</th></tr>";
-        while ($row = $result->fetch_assoc()) {
-          echo "<tr><td>" . $row["员工编号"] . "</td><td>" . $row["姓名"] . "</td><td>" . $row["性别"]. "</td><td>" . $row["民族"]. "</td><td>" . $row["政治面貌"]. "</td><td>" . $row["文化程度"]. "</td><td>" . $row["手机号码"]. "</td><td>" . $row["邮箱"]. "</td><td>" . $row["入职时间"]. "</td><td>" . $row["员工基本工资"]. "</td><td>" . $row["部门编号"]. "</td><td>" . $row["状态"] . "</td></tr>";
-        }
-        echo "</table>";
-      } else {
-        echo "<p>没有找到相关员工信息。</p>";
-      }
-
-
-      echo "<script>document.getElementById('employee-table').classList.add('hidden')</script>";
-    }
-
-
-    $conn->close();
-  ?>
     <script>
         function goToModify() {
             alert('点击确认进入修改界面');
-            window.location = 'modify.php';
+            window.location.href = '/modify';
         }
-
+        function goToControl2() {
+          window.location.href = "/control";
+        }
+        function goToapplication() {
+          window.location.href = "/application";
+        }
+        function goToproduction() {
+          window.location.href = "/production";
+        }
+        function goTosignIn() {
+          window.location.href = "/showsignin";
+        }
+        function goTojoinAll_allTemp() {
+          window.location.href = "/joinAll_allTemp";
+        }
     </script>
 </body>
 </html>

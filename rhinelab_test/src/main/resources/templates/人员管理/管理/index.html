@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:inline="javascript">
 <link rel="icon" type="image/jpeg" th:href="@{/img/rahinelab_logo.png}" sizes="32x32">
 <head>
   <title>个人界面</title>
@@ -8,7 +8,7 @@
         var x;
         var r=confirm("是否确认退出");
         if (r==true){
-           window.location.href = "../index.php";
+           window.location.href = "/employeeLogin";
         }
         }
     </script>
@@ -90,7 +90,7 @@
       </div>
     </div>
     <table>
-      <tr><td>员工编号: <span th:text="${employee.employeeNum}"></span></td>
+      <tr><td>员工编号: <span id='employeeNum' th:text="${employee.employeeNum}"></span></td>
         <td>姓名: <span th:text="${employee.name}"></span></td>
         <td>性别: <span th:text="${employee.gender}"></span></td>
         <td>民族: <span th:text="${employee.nation}"></span></td>
@@ -104,7 +104,7 @@
         <td>状态: <span th:text="${employee.status}"></span></td><td id='working-hours'></td></tr>
     </table>
   </div>
-  <script>
+  <script th:inline="javascript">
     function signIn() {
       var signInTime = new Date();
       document.getElementById("signInTime").innerHTML = "签到时间：" + signInTime.toLocaleString();
@@ -121,12 +121,38 @@
         var signOutTimestamp = signOutTime.getTime();
         var workingHours = (signOutTimestamp - signInTimestamp) / (1000 * 60 * 60);
         document.getElementById("working-hours").innerHTML = "工时：" + workingHours.toFixed(2) + "小时";
-
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "save_data.php", true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("signInTime=" + signInTime + "&signOutTime=" + signOutTime.toLocaleString() + "&employeeId=<?php echo $bianhao ?>" + "&workingHours=" + workingHours.toFixed(2));
       }
+
+      let employeeNum = [[${employee.employeeNum}]];
+      // 假设你有一些数据需要保存
+      var data = {
+        signInTime: signOutTime.toLocaleString(),
+        signOutTime: signOutTime.toLocaleString(),
+        employeeNum: employeeNum,
+        workingHours:workingHours.toFixed(2)
+      };
+
+      // 将数据序列化为JSON字符串
+      var jsonData = JSON.stringify(data);
+
+      // 发送POST请求到Controller
+      fetch('/saveData', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: jsonData
+      })
+        .then(response =>{
+          if (response.ok) {
+            alert('打卡成功！');
+          } else {
+            alert('数据发送失败:', response.status);
+          }
+        })
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
+
     }
 
     function apply() {
@@ -141,6 +167,7 @@
         alert("密码错误，无法进入管理界面。");
       }
     }
+
 
   </script>
 </body>
