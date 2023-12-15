@@ -17,7 +17,8 @@ public class employeeServiceImpl implements EmployeeService {
 	@Override
 	public List<Student> getAllStudents() {
 		// TODO Auto-generated method stub
-		return rhineLabMapper.findAll();
+//		return rhineLabMapper.findAll();
+		return null;
 	}
 
 }

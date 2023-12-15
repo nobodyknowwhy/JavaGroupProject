@@ -1,5 +1,6 @@
 package org.gdufs.mapper;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.ibatis.annotations.*;
 import org.gdufs.entity.*;
@@ -7,11 +8,33 @@ import org.gdufs.entity.*;
 
 @Mapper
 public interface RhineLabMapper {
-    @Select("select * from employee")
-    List<Student> findAll();
 
-//    @Select("SELECT COUNT(*) FROM employee")
-//    public int getNumCount();
+    @Select("select * from product")
+    List<Product> findAllProduct();
+    @Select("select * from apply")
+    List<Apply> findAllapply();
+
+    @Insert("insert into signin (signinTime, checkoutTime, employeeNum, workHour) values (#{signinTime}, #{checkoutTime}, #{employeeNum}, #{workHour})")
+    public void Tosignin(Signin signin);
+
+    @Select("select signin.employeeNum,employee.name,signinTime,checkoutTime,workHour from signin JOIN employee ON signin.employeeNum=employee.employeeNum")
+    List<employeeSignin> findAllSignin();
+
+    @Select("select signin.employeeNum,employee.name,signinTime,checkoutTime,workHour from signin JOIN employee ON signin.employeeNum=employee.employeeNum where name=#{name}")
+    List<employeeSignin> findAllSigninByName(String name);
+
+    @Update("UPDATE employee SET degree=#{degree}, phone=#{phone}, email=#{email}, salary=#{salary}, sectionNum=#{sectionNum}, status=#{status} WHERE employeeNum=#{employeeNum}")
+    void updateEmployee(Employee employee);
+
+    @Update("UPDATE product SET quantity=#{quantity}, unitPrice=#{unitPrice}, introduction=#{introduction}, userComment=#{userComment}, investment=#{investment} WHERE productNum=#{productNum}")
+    void updateProduct(Product product);
+
+    //查询姓名
+    @Select("select * from employee where name=#{name}")
+    List<Employee> findEmployeeByName(String name);
+    //查询产品
+    @Select("select * from product where name=#{name}")
+    List<Product> findproductByName(String name);
 
     @Select("select * from employee")
     List<Employee> findAllMember();
@@ -50,6 +73,15 @@ public interface RhineLabMapper {
 
     @Select("select * from employee where employeeNum=#{id} and password=#{password}")
     Employee checkEmployeeByEmployee(@Param("id") long id, @Param("password") String password);
+
+    @Update("UPDATE apply SET status='已同意' WHERE applyNum=#{applyNum}")
+    public void applyUpdateAgree(int applyNum);
+
+    @Update("UPDATE apply SET status='已拒绝' WHERE applyNum=#{applyNum}")
+    public void applyUpdateDisgust(int applyNum);
+
+    @Update("UPDATE employee SET sectionNum=#{sectionNum}, salary=#{salary} WHERE employeeNum=#{employeeNum}")
+    public void employeeUpdateByApply(Employee employee);
 
     //更新申请表的数据
     @Insert("insert into apply (employeeNum, name, origionSection, newSection, origionSalary, newSalary, applyReason) " +
