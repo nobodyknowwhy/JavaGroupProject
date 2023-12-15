@@ -1,5 +1,8 @@
 package org.gdufs.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.attoparser.dom.Document;
 import org.gdufs.entity.*;
 import org.gdufs.general.FileUploadUtil;
 import org.gdufs.general.PurchaseInfo;
@@ -15,6 +18,7 @@ import org.gdufs.service.EmployeeService;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -578,8 +582,9 @@ public class RhineLabController {
             @RequestParam(name = "type", required = false) String type,
             @RequestParam(name = "phone", required = false) String phone,
             @RequestParam(name = "projectNum", required = false) String projectNum,
+            @RequestParam(name = "deleteNum", required = false) String deleteNum,
             Model model) {
-        if (projectNum == null){
+        if (projectNum == null && deleteNum == null){
             QueryResult queryResult = new QueryResult();
             if (type.equals("order")) {
                 List<Purchase> resultList = rhineLabMapper.getPurchase(phone);
@@ -593,6 +598,25 @@ public class RhineLabController {
             model.addAttribute("queryResult", queryResult);
 
             return "query_result";
+        }
+        if (deleteNum != null) {
+            String url = "jdbc:mysql://localhost:3306/rhinelab?serverTimezone=Asia/Shanghai";
+            String username = "root";
+            String password = "12345678";
+            try {
+                Connection connection = DriverManager.getConnection(url, username, password);
+                Statement statement = connection.createStatement();
+                String sql = "DELETE FROM project WHERE projectNum = " + deleteNum + ";";
+                System.out.println(sql);
+                statement.executeUpdate(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                model.addAttribute("value", "链接数据库失败");
+                System.out.println("连接失败");
+            } finally {
+                return "redirect:query_management";
+            }
+
         }
         return "rhinelabmain";
     }
