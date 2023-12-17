@@ -664,7 +664,7 @@ public class RhineLabController {
     }
     @RequestMapping("/showProValue")
     public String showValue(Model model) {
-        String url = "jdbc:mysql://localhost:3306/rhinelabtest?serverTimezone=Asia/Shanghai";
+        String url = "jdbc:mysql://localhost:3306/rhinelab?serverTimezone=Asia/Shanghai";
         String username = "root";
         String password = "12345678";
 
@@ -696,7 +696,7 @@ public class RhineLabController {
     }
     @RequestMapping("/accept_con")
     public String accept_con(Model model,@RequestParam(value = "projectNum", required = false) String PNum,@RequestParam("department") List<String> SelDepart) {
-        String url = "jdbc:mysql://localhost:3306/rhinelabtest?serverTimezone=Asia/Shanghai";
+        String url = "jdbc:mysql://localhost:3306/rhinelab?serverTimezone=Asia/Shanghai";
         String username = "root";
         String password = "12345678";
         System.out.println(PNum);
@@ -744,7 +744,7 @@ public class RhineLabController {
                         String userEmail = cookie.getValue();
                         System.out.println(userEmail);
                         if (Objects.equals(checkEmail(userEmail), "1")||Objects.equals(checkEmail(userEmail), "2")) {
-                            String url = "jdbc:mysql://localhost:3306/rhinelabtest?serverTimezone=Asia/Shanghai";
+                            String url = "jdbc:mysql://localhost:3306/rhinelab?serverTimezone=Asia/Shanghai";
                             String username = "root";
                             String password = "12345678";
                             try {
@@ -914,7 +914,7 @@ public class RhineLabController {
                 if (cookie.getName().equals("userEmailCookie")) {
                     String userEmail = cookie.getValue();
                     if (Objects.equals(checkEmail(userEmail), "1")||Objects.equals(checkEmail(userEmail), "2")){
-                        String url = "jdbc:mysql://localhost:3306/rhinelabtest?serverTimezone=Asia/Shanghai";
+                        String url = "jdbc:mysql://localhost:3306/rhinelab?serverTimezone=Asia/Shanghai";
                         String username = "root";
                         String password = "12345678";
                         try{
@@ -934,7 +934,7 @@ public class RhineLabController {
                         }
                     }
                     else{
-                        String url = "jdbc:mysql://localhost:3306/rhinelabtest?serverTimezone=Asia/Shanghai";
+                        String url = "jdbc:mysql://localhost:3306/rhinelab?serverTimezone=Asia/Shanghai";
                         String username = "root";
                         String password = "12345678";
                         try{
@@ -969,7 +969,7 @@ public class RhineLabController {
                 if (cookie.getName().equals("userEmailCookie")) {
                     String userEmail = cookie.getValue();
                     String password2=user.getPassword();
-                    String url = "jdbc:mysql://localhost:3306/rhinelabtest?serverTimezone=Asia/Shanghai";
+                    String url = "jdbc:mysql://localhost:3306/rhinelab?serverTimezone=Asia/Shanghai";
                     String username = "root";
                     String password = "12345678";
                     System.out.println(password2);
