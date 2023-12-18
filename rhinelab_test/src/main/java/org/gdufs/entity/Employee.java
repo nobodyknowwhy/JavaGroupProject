@@ -12,6 +12,8 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Employee {
+    // 方便插入员工
+    private long applicationNum;
 
     private long employeeNum;
     private String name;
@@ -23,7 +25,7 @@ public class Employee {
     private String degree;
     private String marriage;
     private String birthplace;
-    private String idNum;
+    private String IDNum;
     private String phone;
     private String email;
     private Date entryTime;
@@ -33,6 +35,5 @@ public class Employee {
     private String status;
     private String password;
     private String identity;
-
 
 }

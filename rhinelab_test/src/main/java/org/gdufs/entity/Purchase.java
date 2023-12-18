@@ -16,6 +16,7 @@ import java.sql.Date;
 public class Purchase {
     private long purchaseNum;
     private long productNum;
+    private long projectNum;
     private String phone;
     private long quantity;
     private double totalPrices;

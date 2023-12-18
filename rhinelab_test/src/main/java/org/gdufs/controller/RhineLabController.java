@@ -1,8 +1,5 @@
 package org.gdufs.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import org.attoparser.dom.Document;
 import org.gdufs.entity.*;
 import org.gdufs.general.FileUploadUtil;
 import org.gdufs.general.PurchaseInfo;
@@ -18,17 +15,11 @@ import org.gdufs.service.EmployeeService;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayOutputStream;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
 
 @Controller
 @CrossOrigin
@@ -568,29 +559,22 @@ public class RhineLabController {
     }
 
     @RequestMapping("/agreementStatusAction")
-    public String toAgreementStatusAction(@RequestParam(value = "agree", required = false) String buttonAgreeValue,
-                                        @RequestParam(value = "disagree", required = false) String buttonDisagreeValue,
-                                        Model model) {
-        if (buttonDisagreeValue != null && buttonAgreeValue.isEmpty()) {
-
-            rhineLabMapper.deleteApplication(Integer.parseInt(buttonAgreeValue));
-
-
-            return "redirect:toJoinAll";
-        } else if (buttonAgreeValue != null && buttonDisagreeValue.isEmpty()) {
-
-            Application application = rhineLabMapper.fromApplicationFindEmail(Integer.parseInt(buttonAgreeValue));
-            String email = application.getEmail();
-
-
-
-
-            rhineLabMapper.deleteApplication(Integer.parseInt(buttonAgreeValue));
-
-            return "redirect:toJoinAll";
-        } else {
-            return "error";
+    public String toAgreementStatusAction(@RequestParam("decision") String decision,
+                                          @RequestParam("applicationNum") Long applicationNum) {
+        if (decision.equals("agree")) {
+            Employee employee = rhineLabMapper.getApplicationByApplicationNum(applicationNum);
+            employee.setEntryTime(Date.valueOf(LocalDate.now()));
+            employee.setLevel("1");
+            employee.setSalary(0);
+            employee.setSectionNum(0);
+            employee.setStatus("在职");
+            employee.setPassword(String.valueOf(employee.getApplicationNum()));
+            employee.setIdentity("员工");
+            rhineLabMapper.saveEmp(employee);
         }
+        rhineLabMapper.deleteByApplicationNum(applicationNum);
+
+        return "redirect:joinAll_allTemp";
     }
 
     @RequestMapping("/purchaseStatusAction")
