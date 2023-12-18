@@ -129,6 +129,9 @@ public interface RhineLabMapper {
     @Insert("insert into project (phone, name, type, meaning, totalTime, expenditure, status) values (#{phone}, #{name}, #{type}, #{meaning}, #{totalTime}, #{expenditure}, '待审核')")
     public int launch(Project project);
 
+    @Insert("insert into purchase (productNum, phone, quantity, totalPrices, purchaseDate, status, address) values (10, '1111111', #{quantity}, '14000', '2023-12-19', '待发货', #{address})")
+    public int purchase(Purchase purchase);
+
     @Select("select * from application where applicationNum = #{applicationNum}")
     Employee getApplicationByApplicationNum(Long applicationNum);
 

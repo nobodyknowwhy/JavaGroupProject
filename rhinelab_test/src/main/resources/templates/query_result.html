@@ -139,7 +139,8 @@
                 <span th:text="${item[property.name]}"></span>
             </td>
             <td>
-                <button th:value="${item.projectNum}" th:name="projectNum" type="submit">导出 PDF</button>
+                <button th:value="${item.projectNum}" th:name="projectNum" type="submit">PDF(CN)</button>
+                <button th:value="${item.projectNum}" th:name="projectNumEN" type="submit"style="background-color: #AA88DD;">PDF(EN)</button>
                 <button th:value="${item.projectNum}" th:name="deleteNum" type="submit" style="background-color: #FF0000;" onclick="deleteTip()">删除项目</button>
             </td>
         </tr>

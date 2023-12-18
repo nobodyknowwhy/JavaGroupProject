@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Purchase Products</title>
+	<style>
+		body {
+			font-family: 'Times New Roman', Times, serif;
+			background-color: #eee;
+		}
+
+		.container {
+			background-color: rgba(255, 255, 255, 0.9);
+			border-radius: 10px;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 30px;
+			margin-top: 50px;
+		}
+
+		h1 {
+			text-align: center;
+		}
+
+		form {
+			margin-top: 20px;
+		}
+
+		input[type="text"],
+		select,
+		input[type="number"] {
+			padding: 5px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+			width: 100%;
+			margin-bottom: 10px;
+		}
+
+		input[type="submit"] {
+			padding: 10px;
+			background-color: #4CAF50;
+			color: white;
+			border-radius: 5px;
+			border: none;
+			cursor: pointer;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #3e8e41;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+    <h1>Purchase Form</h1>
+	<form method="post" action="/purchase">
+		<label for="customerName">Customer Name:</label>
+		<input type="text" name="customerName" id="customerName" placeholder="Customer name..." value="">
+		<br><br>
+
+		<label for="contact">Phone</label>
+		<input type="text" name="contact" id="contact" placeholder="phone..." value="">
+		<br><br>
+
+		<label for="address">Order Address:</label>
+		<input type="text" name="address" id="address" placeholder="please enter your order address..." value="">
+		<br><br>
+
+		<label for="product">Please Select The Products You Want To Purchase</label>
+		<select name="product" id="product">
+			<option value="">Please choose the Product</option>
+			<option value="water">神之水</option>
+<!--			<?php-->
+<!--				// 连接数据库-->
+<!--				$conn = mysqli_connect("localhost", "root", "Zz15987324860", "rhinelab");-->
+<!--				if (!$conn) {-->
+<!--					die("连接数据库失败：" . mysqli_connect_error());-->
+<!--				}-->
+
+<!--				// 查询产品表中的产品名称和现存数量-->
+<!--				$sql = "SELECT 产品编号, 产品名称, 现存数量, 产品单价 FROM 产品";-->
+<!--				$result = mysqli_query($conn, $sql);-->
+
+<!--				// 将查询结果填充到下拉列表中-->
+<!--				while ($row = mysqli_fetch_assoc($result)) {-->
+<!--					echo '<option value="' . $row["产品编号"] . '" data-price="' . $row["产品单价"] . '" data-quantity="' . $row["现存数量"] . '">' . $row["产品名称"] . '</option>';-->
+<!--				}-->
+
+<!--				// 关闭数据库连接-->
+<!--				mysqli_close($conn);-->
+<!--			?>-->
+		</select>
+		<br><br>
+
+		<label for="quantity">Select Quantity To Purchase:</label>
+		<input type="number" name="quantity" id="quantity" min="1" max="0" value="1" disabled>
+		<br><br>
+
+		<label for="totalPrice">Total Purchase Price:</label>
+		<input type="number" name="totalPrice" id="totalPrice" readonly>
+		<br><br>
+
+		<input type="submit" name="button" value="Submit">
+	</form>
+
+<!--	<?php-->
+<!--		// 处理表单提交-->
+<!--		if (isset($_POST["submit"])) {-->
+<!--			// 获取表单数据-->
+<!--			$customerName = $_POST["customerName"];-->
+<!--			$contact = $_POST["contact"];-->
+<!--			$address = $_POST["address"];-->
+<!--			$product = $_POST["product"];-->
+<!--			$quantity = $_POST["quantity"];-->
+<!--			$totalPrice = $_POST["totalPrice"];-->
+
+<!--			if(empty($customerName) || empty($contact) || empty($address) || empty($quantity) || empty($product)){-->
+<!--				// 如果客户名称、联系方式、订单地址或数量为空，则提示不能提交-->
+<!--				echo "<p style='color: red;'>Customer name, contact information, order address, and either product type or quantity cannot be empty. Please fill them out again!</p>";-->
+<!--			} else{-->
+<!--				// 连接数据库-->
+<!--				$conn = mysqli_connect("localhost", "root", "Zz15987324860", "rhinelab");-->
+<!--				if (!$conn) {-->
+<!--					die("连接数据库失败：" . mysqli_connect_error());-->
+<!--				}-->
+
+<!--				// 检查是否已经存在该联系方式-->
+<!--				$sql = "SELECT * FROM 客户 WHERE 联系方式 = '$contact'";-->
+<!--				$result = mysqli_query($conn, $sql);-->
+<!--				if (mysqli_num_rows($result) == 0) {-->
+<!--					// 如果不存在，则插入一条新的客户记录-->
+<!--					$sql = "INSERT INTO 客户 (联系方式, 客户名称) VALUES ('$contact', '$customerName')";-->
+<!--					mysqli_query($conn, $sql);-->
+<!--				}-->
+
+<!--				// 获取最新的订单编号-->
+<!--                $sql = "SELECT LAST_INSERT_ID() AS orderId";-->
+<!--                $result = mysqli_query($conn, $sql);-->
+<!--                $row = mysqli_fetch_assoc($result);-->
+<!--                $orderId = $row["orderId"];-->
+
+<!--				// 获取产品单价-->
+<!--				$sql = "SELECT 产品单价 FROM 产品 WHERE 产品编号 = '$product'";-->
+<!--				$result = mysqli_query($conn, $sql);-->
+<!--				$row = mysqli_fetch_assoc($result);-->
+<!--				$unitPrice = $row["产品单价"];-->
+
+<!--				// 计算购买总价-->
+<!--				$totalPrice = $unitPrice * $quantity;-->
+
+<!--				// 插入一条新的订购记录-->
+<!--				$sql = "INSERT INTO 购买 (订单编号, 联系方式, 产品编号, 购买数量, 购买总价, 订单地址, 购买日期, 完成状态) VALUES ('$orderId', '$contact', '$product', '$quantity', '$totalPrice', '$address', NOW(), '待发货')";-->
+<!--				if (mysqli_query($conn, $sql)) {-->
+<!--					// 提交成功，显示成功信息-->
+<!--					echo "<p style='color: green;'>Order submitted successfully. The total purchase price is $totalPrice yuan.</p>";-->
+<!--				} else {-->
+<!--					// 提交失败，显示错误信息-->
+<!--					echo "<p style='color: red;'>Order submission failed:" . mysqli_error($conn) . "</p>";-->
+<!--				}-->
+
+<!--				// 关闭数据库连接-->
+<!--				mysqli_close($conn);-->
+<!--			}-->
+<!--		}-->
+<!--	?>-->
+
+	<script>
+		// 监听产品下拉列表的变化事件
+		document.getElementById("product").addEventListener("change", function() {
+			// 获取选中的产品的单价和现存数量
+			var price = this.options[this.selectedIndex].getAttribute("data-price");
+			var quantity = this.options[this.selectedIndex].getAttribute("data-quantity");
+
+			// 更新数量输入框的最大值和默认值，并启用输入框
+			document.getElementById("quantity").setAttribute("max", quantity);
+			document.getElementById("quantity").setAttribute("value", 1);
+			document.getElementById("quantity").removeAttribute("disabled");
+
+			// 更新购买总价输入框的值
+			document.getElementById("totalPrice").setAttribute("value", price);
+		});
+
+		// 监听数量输入框的变化事件
+		document.getElementById("quantity").addEventListener("change", function() {
+			// 获取选中的产品的单价
+			var price = document.getElementById("product").options[document.getElementById("product").selectedIndex].getAttribute("data-price");
+
+			// 更新购买总价输入框的值
+			document.getElementById("totalPrice").setAttribute("value", price * this.value);
+		});
+	</script>
+	</div>
+</body>
+</html>
