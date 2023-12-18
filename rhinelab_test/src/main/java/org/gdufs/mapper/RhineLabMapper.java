@@ -1,6 +1,5 @@
 package org.gdufs.mapper;
 import java.util.List;
-import java.util.Objects;
 
 import org.apache.ibatis.annotations.*;
 import org.gdufs.entity.*;
@@ -130,6 +129,17 @@ public interface RhineLabMapper {
     @Insert("insert into project (phone, name, type, meaning, totalTime, expenditure, status) values (#{phone}, #{name}, #{type}, #{meaning}, #{totalTime}, #{expenditure}, '待审核')")
     public int launch(Project project);
 
-    @Select("SELECT * FROM application where applicationNum = #{applicationNum}")
-    Application fromApplicationFindEmail(@Param("applicationNum") int applicationNum);
+    @Select("select * from application where applicationNum = #{applicationNum}")
+    Employee getApplicationByApplicationNum(Long applicationNum);
+
+    @Insert("insert into employee (name, gender, photo, nation, birthday, " +
+            "politicalStatus, degree, marriage, birthplace, IDNum, phone, " +
+            "email, entryTime, level, salary, sectionNum, status, password, identity) " +
+            "values (#{name}, #{gender}, #{photo}, #{nation}, #{birthday}, " +
+            "#{politicalStatus}, #{degree}, #{marriage}, #{birthplace}, #{IDNum}, #{phone}, #{email}, " +
+            "#{entryTime}, #{level}, #{salary}, #{sectionNum}, #{status}, #{password}, #{identity})")
+    void saveEmp(Employee employee);
+
+    @Delete("delete from application where applicationNum = #{applicationNum}")
+    void deleteByApplicationNum(Long applicationNum);
 }
