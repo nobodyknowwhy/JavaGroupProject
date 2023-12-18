@@ -2,13 +2,20 @@ package org.gdufs.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.element.Paragraph;
 import org.attoparser.dom.Document;
 import org.gdufs.entity.*;
 import org.gdufs.general.FileUploadUtil;
 import org.gdufs.general.PurchaseInfo;
 import org.gdufs.mapper.RhineLabMapper;
+import org.gdufs.service.PdfService;
 import org.gdufs.service.SaveDataRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +26,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -39,7 +50,8 @@ public class RhineLabController {
 
     @Autowired
     EmployeeService employeeService;
-
+    @Autowired
+    private PdfService pdfService;
     public class AlertMessage {
         private String message;
 
@@ -622,6 +634,9 @@ public class RhineLabController {
             @RequestParam(name = "projectNum", required = false) String projectNum,
             @RequestParam(name = "deleteNum", required = false) String deleteNum,
             Model model) {
+        String url = "jdbc:mysql://localhost:3306/rhinelab?serverTimezone=Asia/Shanghai";
+        String username = "root";
+        String password = "12345678";
         if (projectNum == null && deleteNum == null){
             QueryResult queryResult = new QueryResult();
             if (type.equals("order")) {
@@ -638,9 +653,6 @@ public class RhineLabController {
             return "query_result";
         }
         if (deleteNum != null) {
-            String url = "jdbc:mysql://localhost:3306/rhinelab?serverTimezone=Asia/Shanghai";
-            String username = "root";
-            String password = "12345678";
             try {
                 Connection connection = DriverManager.getConnection(url, username, password);
                 Statement statement = connection.createStatement();
@@ -656,7 +668,54 @@ public class RhineLabController {
             }
 
         }
-        return "rhinelabmain";
+        return "redirect:/exportPdf" + "?projectNum=" + projectNum;
+    }
+    @GetMapping("/exportPdf")
+    public ResponseEntity<byte[]> exportPdf(@RequestParam("projectNum") String projectNum) {
+        try {
+            String url = "jdbc:mysql://localhost:3306/rhinelab?serverTimezone=Asia/Shanghai";
+            String username = "root";
+            String password = "12345678";
+            Connection connection = DriverManager.getConnection(url, username, password);
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM project WHERE projectNum = " + projectNum + ";";
+            ResultSet resultSet = statement.executeQuery(sql);
+            resultSet.next();
+            String phone = resultSet.getString("phone");
+            String projectName = resultSet.getString("name");
+            String type = resultSet.getString("type");
+            String meaning = resultSet.getString("meaning");
+            int totalTime = resultSet.getInt("totalTime");
+            Float expenditure = resultSet.getFloat("expenditure");
+            String status = resultSet.getString("status");
+            String sqlPeople = "SELECT * FROM employee WHERE phone = " + phone + ";";
+            String principal;
+            try {
+                ResultSet resultSetpeople = statement.executeQuery(sqlPeople);
+                resultSetpeople.next();
+                principal = resultSetpeople.getString("name");
+            } catch (Exception e) {
+                principal = "该用户尚未完善信息";
+            }
+
+            byte[] pdfBytes = pdfService.generatePdf(phone, projectName, type, meaning, totalTime, expenditure, status, principal);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            String encodedFileName;
+            try {
+                encodedFileName = URLEncoder.encode(projectName + ".pdf", "UTF-8").replaceAll("\\+", "%20");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                encodedFileName = projectName + ".pdf";
+            }
+
+            headers.setContentDispositionFormData("attachment", encodedFileName);
+            return ResponseEntity.ok().headers(headers).body(pdfBytes);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("数据库链接失败");
+        }
+        return ResponseEntity.noContent().build();
     }
     @RequestMapping("/product")
     public String toproduct() {
@@ -1013,12 +1072,12 @@ public class RhineLabController {
             return false;
         }
     }
-
+    // 进入发布项目界面
     @RequestMapping("/launchProject")
     public String launchProject(Model model){
         return "launchProject";
     }
-
+    // 发布项目
     @PostMapping("/launch")
     public String launch(@ModelAttribute("project") Project project, Model model, HttpServletResponse response) {
         rhineLabMapper.launch(project);

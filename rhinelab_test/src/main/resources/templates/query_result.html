@@ -140,7 +140,7 @@
             </td>
             <td>
                 <button th:value="${item.projectNum}" th:name="projectNum" type="submit">导出 PDF</button>
-                <button th:value="${item.projectNum}" th:name="deleteNum" type="submit" style="background-color: #FF0000;">删除项目</button>
+                <button th:value="${item.projectNum}" th:name="deleteNum" type="submit" style="background-color: #FF0000;" onclick="deleteTip()">删除项目</button>
             </td>
         </tr>
         </tbody>
@@ -148,5 +148,11 @@
     </table>
     </form>
 </div>
+<script>
+    function deleteTip(){
+        alert("成功删除该项目");
+    }
+
+</script>
 </body>
 </html>

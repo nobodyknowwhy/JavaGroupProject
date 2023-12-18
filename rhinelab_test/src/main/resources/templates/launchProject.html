@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title><!DOCTYPE html>
+
     <html>
     <head>
         <title>Project Launch</title>
@@ -91,13 +92,47 @@
             <input type="text" name="expenditure" id="expenditure" placeholder="the project budget is..." required>
             <br><br>
 
-            <input type="submit" name="submit" value="Submit">
+            <input type="submit" name="submit" value="Submit" onclick="validateForm()">
         </form>
     </div>
     </body>
     </html>
 </head>
 <body>
+<script>
+    function validateForm() {
+        // Perform your form validation here
+        var customerName = document.getElementById('customerName').value;
+        var phone = document.getElementById('phone').value;
+        var name = document.getElementById('name').value;
+        var type = document.getElementById('type').value;
+        var meaning = document.getElementById('meaning').value;
+        var totalTime = document.getElementById('totalTime').value;
+        var expenditure = document.getElementById('expenditure').value;
 
+        // Example validation: Check if the phone number is valid (you should add more validation as needed)
+        var phoneRegex = /^[0-9]{10}$/; // Change this regex as per your requirement
+        if (phone) {
+            return false; // Prevent form submission
+        }
+        if (!customerName) {
+            return false;
+        }
+        if (!name) {
+            return false;
+        }
+        if(!totalTime) {
+            return false;
+        }
+        if(!expenditure) {
+            return false;
+        }
+        confirm("项目发布成功")
+        // Add more validation for other fields as needed
+
+        // If all validations pass, show the confirmation dialog
+        return true;
+    }
+</script>
 </body>
 </html>
