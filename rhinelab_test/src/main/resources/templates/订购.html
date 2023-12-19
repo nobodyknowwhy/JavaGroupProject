@@ -68,7 +68,7 @@
 
 		<label for="productNum">Please Select The Products You Want To Purchase</label>
 		<select name="productNum" id="productNum">
-			<option value="">Please choose the Product</option>
+			<option value="1">Please choose the Product</option>
 			<option
 					th:each="item: ${productResult.result}" th:value="${item.productNum}" th:text="${item.name}">
 			</option>
@@ -95,12 +95,12 @@
 		<br><br>
 
 		<label for="quantity">Select Quantity To Purchase:</label>
-		<input type="number" name="quantity" id="quantity" min="1" max="0" value="1" disabled>
+		<input type="number" name="quantity" id="quantity" min="1" max="999" value="1">
 		<br><br>
 
-		<label for="totalPrice">Total Purchase Price:</label>
-		<input type="number" name="totalPrice" id="totalPrice" readonly>
-		<br><br>
+<!--		<label for="totalPrice">Total Purchase Price:</label>-->
+<!--		<input type="number" name="totalPrice" id="totalPrice" readonly>-->
+<!--		<br><br>-->
 
 		<input type="submit" name="button" value="Submit">
 	</form>

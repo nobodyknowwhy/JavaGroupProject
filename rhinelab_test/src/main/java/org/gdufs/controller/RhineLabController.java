@@ -486,7 +486,6 @@ public class RhineLabController {
     }
 
 
-
     @RequestMapping("/project_accTemp")
     public String toProjectAcc(Model model) {
         List<Project> projects = rhineLabMapper.getProjectAll();
@@ -539,6 +538,25 @@ public class RhineLabController {
     }
     @PostMapping("/purchase")
     public String purchase(@ModelAttribute("purchase") Purchase purchase, Model model, HttpServletResponse response) {
+        long productNum = purchase.getProductNum();
+        long quantity = purchase.getQuantity();
+        String url = "jdbc:mysql://localhost:3306/rhinelab?serverTimezone=Asia/Shanghai";
+        String username = "root";
+        String password = "12345678";
+        double totalPrices;
+        try {
+            Connection connection = DriverManager.getConnection(url, username, password);
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM product WHERE productNum = " + productNum + ";";
+            ResultSet resultSet = statement.executeQuery(sql);
+            resultSet.next();
+            int uniPrice = resultSet.getInt("unitPrice");
+            totalPrices = uniPrice * quantity;
+        } catch (Exception e) {
+            e.printStackTrace();
+            totalPrices = 1000;
+        }
+        purchase.setTotalPrices(totalPrices);
         rhineLabMapper.purchase(purchase);
         return "rhinelabmain";
     }
