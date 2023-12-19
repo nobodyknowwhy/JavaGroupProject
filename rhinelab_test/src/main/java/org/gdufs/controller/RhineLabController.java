@@ -3,9 +3,9 @@ package org.gdufs.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-//import com.itextpdf.kernel.pdf.PdfDocument;
-//import com.itextpdf.kernel.pdf.PdfWriter;
-//import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.element.Paragraph;
 import org.attoparser.dom.Document;
 
 import org.gdufs.entity.*;
@@ -14,6 +14,7 @@ import org.gdufs.general.PurchaseInfo;
 import org.gdufs.mapper.RhineLabMapper;
 import org.gdufs.service.PdfService;
 import org.gdufs.service.SaveDataRequest;
+import org.gdufs.service.TranslateDemo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -27,6 +28,7 @@ import org.gdufs.service.EmployeeService;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.html.ObjectView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -52,6 +54,8 @@ public class RhineLabController {
     EmployeeService employeeService;
     @Autowired
     private PdfService pdfService;
+    @Autowired
+    private TranslateDemo translateDemo;
     public class AlertMessage {
         private String message;
 
@@ -500,9 +504,18 @@ public class RhineLabController {
     }
 
     @RequestMapping ("/purchaseChoice")
-    public String handleButtonChoicePurchase(@RequestParam("button") String buttonValue, HttpServletRequest request) {
+    public String handleButtonChoicePurchase(@RequestParam("button") String buttonValue, HttpServletRequest request, Model model) {
         Cookie[] cookies = request.getCookies();
         if (buttonValue.equals("productPurchase")) {
+            QueryResult queryResult = new QueryResult();
+            try {
+                List<Product> productList = rhineLabMapper.getProductAll();
+                queryResult.setQueryType("product");
+                queryResult.setResult(productList);
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+            model.addAttribute("productResult", queryResult);
             return "订购";
         } else if (buttonValue.equals("purchaseDetail")) {
             if (cookies != null) {
@@ -669,102 +682,105 @@ public class RhineLabController {
         if (projectNum != null){
             return "redirect:/exportPdf" + "?projectNum=" + projectNum;
         }
-        return "redirect:/exportPdfEN" + "?projectNum=" + projectNum;
+        return "redirect:/exportPdfEN" + "?projectNum=" + projectNumEN;
     }
-//    @GetMapping("/exportPdf")
-//    public ResponseEntity<byte[]> exportPdf(@RequestParam("projectNum") String projectNum) {
-//        try {
-//            String url = "jdbc:mysql://localhost:3306/rhinelab?serverTimezone=Asia/Shanghai";
-//            String username = "root";
-//            String password = "12345678";
-//            Connection connection = DriverManager.getConnection(url, username, password);
-//            Statement statement = connection.createStatement();
-//            String sql = "SELECT * FROM project WHERE projectNum = " + projectNum + ";";
-//            ResultSet resultSet = statement.executeQuery(sql);
-//            resultSet.next();
-//            String phone = resultSet.getString("phone");
-//            String projectName = resultSet.getString("name");
-//            String type = resultSet.getString("type");
-//            String meaning = resultSet.getString("meaning");
-//            int totalTime = resultSet.getInt("totalTime");
-//            Float expenditure = resultSet.getFloat("expenditure");
-//            String status = resultSet.getString("status");
-//            String sqlPeople = "SELECT * FROM employee WHERE phone = " + phone + ";";
-//            String principal;
-//            try {
-//                ResultSet resultSetpeople = statement.executeQuery(sqlPeople);
-//                resultSetpeople.next();
-//                principal = resultSetpeople.getString("name");
-//            } catch (Exception e) {
-//                principal = "该用户尚未完善信息";
-//            }
-//
-//            byte[] pdfBytes = pdfService.generatePdf(phone, projectName, type, meaning, totalTime, expenditure, status, principal);
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.setContentType(MediaType.APPLICATION_PDF);
-//            String encodedFileName;
-//            try {
-//                encodedFileName = URLEncoder.encode(projectName + ".pdf", "UTF-8").replaceAll("\\+", "%20");
-//            } catch (UnsupportedEncodingException e) {
-//                e.printStackTrace();
-//                encodedFileName = projectName + ".pdf";
-//            }
-//
-//            headers.setContentDispositionFormData("attachment", encodedFileName);
-//            return ResponseEntity.ok().headers(headers).body(pdfBytes);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            System.out.println("数据库链接失败");
-//        }
-//        return ResponseEntity.noContent().build();
-//    }
-//    @GetMapping("/exportPdfEN")
-//    public ResponseEntity<byte[]> exportPdfEN(@RequestParam("projectNum") String projectNum) {
-//        try {
-//            String url = "jdbc:mysql://localhost:3306/rhinelab?serverTimezone=Asia/Shanghai";
-//            String username = "root";
-//            String password = "12345678";
-//            Connection connection = DriverManager.getConnection(url, username, password);
-//            Statement statement = connection.createStatement();
-//            String sql = "SELECT * FROM project WHERE projectNum = " + projectNum + ";";
-//            ResultSet resultSet = statement.executeQuery(sql);
-//            resultSet.next();
-//            String phone = resultSet.getString("phone");
-//            String projectName = resultSet.getString("name");
-//            String type = resultSet.getString("type");
-//            String meaning = resultSet.getString("meaning");
-//            int totalTime = resultSet.getInt("totalTime");
-//            Float expenditure = resultSet.getFloat("expenditure");
-//            String status = resultSet.getString("status");
-//            String sqlPeople = "SELECT * FROM employee WHERE phone = " + phone + ";";
-//            String principal;
-//            try {
-//                ResultSet resultSetpeople = statement.executeQuery(sqlPeople);
-//                resultSetpeople.next();
-//                principal = resultSetpeople.getString("name");
-//            } catch (Exception e) {
-//                principal = "该用户尚未完善信息";
-//            }
-//
-//            byte[] pdfBytes = pdfService.generatePdf(phone, projectName, type, meaning, totalTime, expenditure, status, principal);
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.setContentType(MediaType.APPLICATION_PDF);
-//            String encodedFileName;
-//            try {
-//                encodedFileName = URLEncoder.encode(projectName + ".pdf", "UTF-8").replaceAll("\\+", "%20");
-//            } catch (UnsupportedEncodingException e) {
-//                e.printStackTrace();
-//                encodedFileName = projectName + ".pdf";
-//            }
-//
-//            headers.setContentDispositionFormData("attachment", encodedFileName);
-//            return ResponseEntity.ok().headers(headers).body(pdfBytes);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            System.out.println("数据库链接失败");
-//        }
-//        return ResponseEntity.noContent().build();
-//    }
+    @GetMapping("/exportPdf")
+    public ResponseEntity<byte[]> exportPdf(@RequestParam("projectNum") String projectNum) {
+        try {
+            String url = "jdbc:mysql://localhost:3306/rhinelab?serverTimezone=Asia/Shanghai";
+            String username = "root";
+            String password = "12345678";
+            Connection connection = DriverManager.getConnection(url, username, password);
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM project WHERE projectNum = " + projectNum + ";";
+            ResultSet resultSet = statement.executeQuery(sql);
+            resultSet.next();
+            String phone = resultSet.getString("phone");
+            String projectName = resultSet.getString("name");
+            String type = resultSet.getString("type");
+            String meaning = resultSet.getString("meaning");
+            int totalTime = resultSet.getInt("totalTime");
+            Float expenditure = resultSet.getFloat("expenditure");
+            String status = resultSet.getString("status");
+            String sqlPeople = "SELECT * FROM employee WHERE phone = " + phone + ";";
+            String principal;
+            try {
+                ResultSet resultSetpeople = statement.executeQuery(sqlPeople);
+                resultSetpeople.next();
+                principal = resultSetpeople.getString("name");
+            } catch (Exception e) {
+                principal = "小张同学";
+            }
+            byte[] pdfBytes = pdfService.generatePdf(phone, projectName, type, meaning, totalTime, expenditure, status, principal, "zh");
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            String encodedFileName;
+            try {
+                encodedFileName = URLEncoder.encode(projectName + ".pdf", "UTF-8").replaceAll("\\+", "%20");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                encodedFileName = projectName + ".pdf";
+            }
+
+            headers.setContentDispositionFormData("attachment", encodedFileName);
+            return ResponseEntity.ok().headers(headers).body(pdfBytes);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("数据库链接失败");
+        }
+        return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/exportPdfEN")
+    public ResponseEntity<byte[]> exportPdfEN(@RequestParam("projectNum") String projectNum) {
+        try {
+            String url = "jdbc:mysql://localhost:3306/rhinelab?serverTimezone=Asia/Shanghai";
+            String username = "root";
+            String password = "12345678";
+            Connection connection = DriverManager.getConnection(url, username, password);
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM project WHERE projectNum = " + projectNum + ";";
+            ResultSet resultSet = statement.executeQuery(sql);
+            resultSet.next();
+            String phone = resultSet.getString("phone");
+            String projectName = resultSet.getString("name");
+            String type = resultSet.getString("type");
+            String meaning = resultSet.getString("meaning");
+            int totalTime = resultSet.getInt("totalTime");
+            Float expenditure = resultSet.getFloat("expenditure");
+            String status = resultSet.getString("status");
+            String sqlPeople = "SELECT * FROM employee WHERE phone = " + phone + ";";
+            String principal;
+            try {
+                ResultSet resultSetpeople = statement.executeQuery(sqlPeople);
+                resultSetpeople.next();
+                principal = resultSetpeople.getString("name");
+            } catch (Exception e) {
+                principal = "小张同学";
+            }
+            String en_projectName = translateDemo.translateText(projectName);
+            String en_type = translateDemo.translateText(type);
+            String en_meaning = translateDemo.translateText(meaning);
+            String en_status = translateDemo.translateText(status);
+            String en_principal = translateDemo.translateText(principal);
+            byte[] pdfBytes = pdfService.generatePdf(phone, en_projectName, en_type, en_meaning, totalTime, expenditure, en_status, en_principal, "en");
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            String encodedFileName;
+            try {
+                encodedFileName = URLEncoder.encode(en_projectName + ".pdf", "UTF-8").replaceAll("\\+", "%20");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                encodedFileName = projectName + ".pdf";
+            }
+
+            headers.setContentDispositionFormData("attachment", encodedFileName);
+            return ResponseEntity.ok().headers(headers).body(pdfBytes);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("数据库链接失败");
+        }
+        return ResponseEntity.noContent().build();
+    }
     @RequestMapping("/product")
     public String toproduct() {
         return "product";
@@ -1098,8 +1114,6 @@ public class RhineLabController {
 //        System.out.println("已执行完6");
         return "redirect:personal";
     }
-
-
     @RequestMapping("/checkAdmin")
     public Boolean checkAdmin(String email){
         List<Employee> employees = rhineLabMapper.checkAdmin(email);
@@ -1110,7 +1124,6 @@ public class RhineLabController {
         }
 
     }
-
     @RequestMapping("/checkEmployee")
     public Boolean checkEmployee(String email){
         List<Employee> employees = rhineLabMapper.checkEmployee(email);

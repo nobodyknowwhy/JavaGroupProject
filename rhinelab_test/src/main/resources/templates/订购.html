@@ -58,18 +58,20 @@
 		<input type="text" name="customerName" id="customerName" placeholder="Customer name..." value="">
 		<br><br>
 
-		<label for="contact">Phone</label>
-		<input type="text" name="contact" id="contact" placeholder="phone..." value="">
+		<label for="phone">Phone</label>
+		<input type="tel" name="phone" id="phone" placeholder="phone...">
 		<br><br>
 
 		<label for="address">Order Address:</label>
 		<input type="text" name="address" id="address" placeholder="please enter your order address..." value="">
 		<br><br>
 
-		<label for="product">Please Select The Products You Want To Purchase</label>
-		<select name="product" id="product">
+		<label for="productNum">Please Select The Products You Want To Purchase</label>
+		<select name="productNum" id="productNum">
 			<option value="">Please choose the Product</option>
-			<option value="water">神之水</option>
+			<option
+					th:each="item: ${productResult.result}" th:value="${item.productNum}" th:text="${item.name}">
+			</option>
 <!--			<?php-->
 <!--				// 连接数据库-->
 <!--				$conn = mysqli_connect("localhost", "root", "Zz15987324860", "rhinelab");-->

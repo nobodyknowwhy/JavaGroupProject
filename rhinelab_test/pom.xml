@@ -18,17 +18,40 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180130</version>
+        </dependency>
 
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
             <version>3.14.9</version>
         </dependency>
+
 <!--        <dependency>-->
 <!--            <groupId>com.itextpdf</groupId>-->
-<!--            <artifactId>itext7-core</artifactId>-->
-<!--            <version>7.1.15</version> &lt;!&ndash; 使用最新版本 &ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>itext7-core</artifactId>&ndash;&gt;-->
+<!--            <artifactId>itextpdf</artifactId>-->
+<!--            <version>5.5.13</version> &lt;!&ndash; 使用最新版本 &ndash;&gt;-->
 <!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.itextpdf</groupId>-->
+<!--            <artifactId>itext-asian</artifactId>-->
+<!--            <version>5.2.0</version>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>kernel</artifactId>
+            <version>7.0.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>layout</artifactId>
+            <version>7.0.7</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
