@@ -11,6 +11,7 @@ import com.itextpdf.layout.property.TextAlignment;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -25,7 +26,10 @@ public class PdfService {
             PdfDocument pdfDocument = new PdfDocument(writer);
             Document document = new Document(pdfDocument);
             if (lang == "zh"){
-                String pathToChineseFont = "your/path/to/NotoSansSC-VariableFont_wght.ttf";
+                String currentDirectory = System.getProperty("user.dir");
+
+
+                String pathToChineseFont = currentDirectory + File.separator + "src/main/resources/static/NotoSansSC-VariableFont_wght.ttf";
 //            PdfFont font = PdfFontFactory.createFont("STSongStd-Light", PdfEncodings.IDENTITY_H, true);
                 PdfFont font = PdfFontFactory.createFont(pathToChineseFont, PdfEncodings.IDENTITY_H, true);
                 document.setFont(font);
